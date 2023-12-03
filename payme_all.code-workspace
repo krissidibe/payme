@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../payme_heart"
+		}
+	],
+	"settings": {
+		"WillLuke.nextjs.addTypesOnSave": true,
+		"WillLuke.nextjs.hasPrompted": true,
+		"liveServer.settings.multiRootWorkspaceName": "payme_desktop"
+	}
+}

@@ -1,0 +1,905 @@
+import React, { useEffect, useState } from "react";
+import { HiFolder } from "react-icons/hi";
+import {
+  IoIosClose,
+  IoIosNotifications,
+  IoIosSearch,
+  IoMdClose,
+  IoMdRefresh,
+  IoMdTrash,
+} from "react-icons/io";
+
+import InputComponent from "../../components/UI/InputComponent";
+import FolderComponent from "../../components/UI/FolderComponent";
+import { useNewClientModal } from "../../utils/use-new-client-modal";
+import { useRouter } from "next/router";
+import { fetchAllCustomer } from "../../services/customerModel";
+import { fetchAllProject } from "../../services/projectService";
+import { daysFr } from "../../utils/helpers";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { Menu } from "@headlessui/react";
+import { motion } from "framer-motion";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+  fetchAllWeekPlanningItem,
+  fetchAllWeekPlanningItemDashboard,
+  todayAllPlanningItem,
+  todayDashboardAllPlanningItem,
+} from "../../services/planningItemService";
+import DropdownComponent from "../../components/menu/DropdownComponent";
+import { RiFileEditLine } from "react-icons/ri";
+import DropdownDashboardProject from "../../components/menu/DropdownDashboardProject";
+import { FiEdit } from "react-icons/fi";
+import { CiEdit } from "react-icons/ci";
+import useMenuStore from "../../utils/MenuStore";
+
+function Dashboard(props) {
+  const [showSearchInput, setShowSearchInput] = useState(false);
+  const menuIndex = useMenuStore();
+  const [isLoading, setIsLoading] = useState(true);
+  const [showTodayPlanning, setShowTodayPlanning] = useState(false);
+  const [showWeeksPlanning, setShowWeeksPlanning] = useState(false);
+  const [showNotif, setShowNotif] = useState(false);
+  const modal = useNewClientModal();
+  const [search, setSearch] = useState("");
+  const router = useRouter();
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [customersFiltered, setCustomersFiltered] = useState<any[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  const [todayDatas, setTodayDatas] = useState<any[]>([]);
+  const [weeksDatas, setWeeksDatas] = useState<PlanningItem[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const datasToday = await todayDashboardAllPlanningItem();
+      setTodayDatas((x) => (x = datasToday));
+      const dataProjects = await fetchAllProject();
+      setProjects(dataProjects);
+      setCustomers(await fetchAllCustomer("last"));
+      setIsLoading(false);
+
+      let date_today = new Date();
+
+      let first_day_of_the_week = new Date(
+        date_today.setDate(date_today.getDate() - date_today.getDay() + 1)
+      );
+
+      let last_day_of_the_week = new Date(
+        date_today.setDate(date_today.getDate() - date_today.getDay() + 6 + 1)
+      );
+      const datasWeeks = await fetchAllWeekPlanningItemDashboard(
+        first_day_of_the_week,
+        last_day_of_the_week
+      );
+
+      setWeeksDatas(datasWeeks);
+    })();
+
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    const datasFilter = customers.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setCustomersFiltered(datasFilter);
+  }, [search]);
+
+  const emptyRow = (
+    <>
+      <div className="flex h-[45px]  mb-3 duration-75 p-4  items-center text-white text-opacity-40 text-sm px-7 bg-[#2c2c2cb6] rounded-[20px]">
+        <p className="w-[120px]   duration-100 xl:w-[130px] bg-[#FFFFFF11] p-[10px] rounded-full mr-[69px]">
+          {" "}
+        </p>
+        <p className="w-[200px] mr-[75px] line-clamp-1  bg-[#FFFFFF11] p-[10px] rounded-full ">
+          {" "}
+        </p>
+        <p
+          className={`w-[175px]  ml-1   duration-200  bg-[#FFFFFF11]   mr-10 text-white bg-color-red-400 p-[10px] rounded-full items-center text-center flex justify-center text-opacity-100`}
+        >
+          {" "}
+        </p>
+        <p className="w-[200px] bg-[#FFFFFF11] p-[10px] rounded-full"></p>
+      </div>
+    </>
+  );
+  return (
+    <div className="flex flex-col h-full select-none min-w-max">
+      {SearchElement()}
+      <div className="absolute bottom-12 right-12  w-[315px]">
+        {/* 
+  <ItemNotif2 key={1} title={"Nouvelle mise à jour"} content=""/>
+  <ItemNotif key={1} title={"Nouvelle mise à jour"} content=""/> 
+*/}
+      </div>
+      <div className="flex-1 overflow-scroll no-scrollbar">
+        <div className="flex flex-col flex-1 h-full px-12 pt-6">
+          <h1 className="text-[44px] font-bold ml-10 mb-0">Clients récents </h1>
+
+          <div className="flex lg:flex-row mb-3 ml-6 min-h-[200px]   no-scrollbar overflow-x-auto ">
+            {isLoading ? (
+              <>
+                {" "}
+                <FolderComponent key={1} isShimmer={true} />
+                <FolderComponent key={2} isShimmer={true} />
+                <FolderComponent key={3} isShimmer={true} />
+                <FolderComponent key={4} isShimmer={true} />
+                <FolderComponent key={5} isShimmer={true} />
+              </>
+            ) : (
+              <>
+                {customers.slice(0, 4).map((item) => (
+                  <FolderComponent
+                    key={item.id}
+                    item={item}
+                    handleClick={() => {
+                      router.push({
+                        pathname: "/gestions/client/clientshow",
+                        query: item as any,
+                      });
+                    }}
+                  />
+                ))}
+                {/*   {[1,2,3,4].slice(0,
+                customers.length >= 4 ? 0 : customers.length == 3 ? 1 : customers.length == 2 ? 2 : customers.length == 1 ? 3 :  customers.length == 0 ? 4 : 4
+                ).map(item=>(
+                <FolderComponent key={item}   item={{name:""}}  className="cursor-default opacity-30" />
+
+              ))} */}
+
+                <FolderComponent
+                  key={100}
+                  handleClick={() => {
+                    setShowNotif((x) => (x = false));
+                    setSearch("");
+                    modal.onOpen();
+                  }}
+                  item={{ name: "NOUVEAU" }}
+                  add={true}
+                  className="opacity-30"
+                />
+              </>
+            )}
+          </div>
+          <div className="flex-1 flex flex-col  h-full p-8 pt-7 pb-4 bg-gradient-to-b overflow-scroll no-scrollbar from-[#1f1f1f]   to-[#111111] rounded-xl">
+            <div className="flex flex-col flex-1 h-full overflow-hidden">
+              <div className="flex justify-between mt-0 mb-2">
+                <h3 className="w-auto pb-1 mx-4 text-[22px] font-semibold border-b-2 border-[#9a9768] ">
+                  Projets récents
+                </h3>
+                <div className="flex items-center justify-center gap-4">
+                  {/*  */}
+                 {showSearchInput && <motion.div
+                    initial={{
+                      width: "70px",
+                    }}
+                    transition={{ duration: 0.5 }}
+                    animate={{
+                      width: showSearchInput ? "350px" : "40px",
+                    }}
+                    style={{
+                      
+                    }}
+                  >
+                  <div className="relative w-full mr-6 h-[40px] ">
+                    <svg
+                      className="absolute z-10 top-2 left-3"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M19 19L15.1333 15.1333M17.2222 10.1111C17.2222 14.0385 14.0385 17.2222 10.1111 17.2222C6.18375 17.2222 3 14.0385 3 10.1111C3 6.18375 6.18375 3 10.1111 3C14.0385 3 17.2222 6.18375 17.2222 10.1111Z"
+                        stroke="#595959"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+
+                    <div className="relative ">
+                      <InputComponent
+                       // value={search}
+                     //   onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Rechercher"
+                        className={`rounded-full  pl-[42px]  z-0 h-[40px]   font-light pr-8 border-[1px] border-[#5A5A5A] opacity-50 focus:opacity-100  `}
+                      />
+                    </div>
+                    <IoIosClose  onClick={() => {
+                        setShowSearchInput((x) => (x = !x));
+                    
+                      }} className="absolute z-0 w-8 h-8 opacity-50 cursor-pointer top-1 right-3" />
+                  </div>
+               
+                  </motion.div>}
+                  {/*  */}
+              
+                    { !showSearchInput && <svg
+                      onClick={() => {
+                        setShowSearchInput((x) => (x = !x));
+                    
+                      }}
+                      className="cursor-pointer"
+                      width="44"
+                      height="44"
+                      viewBox="0 0 44 44"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g filter="url(#filter0_d_435_618)">
+                        
+                         
+                        <path
+                          d="M30 29L26.1333 25.1333M28.2222 20.1111C28.2222 24.0385 25.0385 27.2222 21.1111 27.2222C17.1838 27.2222 14 24.0385 14 20.1111C14 16.1838 17.1838 13 21.1111 13C25.0385 13 28.2222 16.1838 28.2222 20.1111Z"
+                          stroke="#595959"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                      <defs>
+                        <filter
+                          id="filter0_d_435_618"
+                          x="0"
+                          y="0"
+                          width="44"
+                          height="44"
+                          filterUnits="userSpaceOnUse"
+                          color-interpolation-filters="sRGB"
+                        >
+                          <feFlood
+                            flood-opacity="0"
+                            result="BackgroundImageFix"
+                          />
+                          <feColorMatrix
+                            in="SourceAlpha"
+                            type="matrix"
+                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                            result="hardAlpha"
+                          />
+                          <feOffset dy="1" />
+                          <feGaussianBlur stdDeviation="1" />
+                          <feComposite in2="hardAlpha" operator="out" />
+                          <feColorMatrix
+                            type="matrix"
+                            values="0 0 0 0 0.0627451 0 0 0 0 0.0941176 0 0 0 0 0.156863 0 0 0 0.05 0"
+                          />
+                          <feBlend
+                            mode="normal"
+                            in2="BackgroundImageFix"
+                            result="effect1_dropShadow_435_618"
+                          />
+                          <feBlend
+                            mode="normal"
+                            in="SourceGraphic"
+                            in2="effect1_dropShadow_435_618"
+                            result="shape"
+                          />
+                        </filter>
+                      </defs>
+                    </svg>}
+                 
+
+                  <svg
+                    onClick={() => {}}
+                    className="cursor-pointer"
+                    width="139"
+                    height="44"
+                    viewBox="0 0 139 44"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect width="139" height="44" rx="22" fill="#212121" />
+                    <path
+                      d="M40 15C39.7348 15 39.4804 15.1054 39.2929 15.2929C39.1054 15.4804 39 15.7348 39 16C39 16.2652 39.1054 16.5196 39.2929 16.7071C39.4804 16.8947 39.7348 17 40 17C40.2652 17 40.5196 16.8947 40.7071 16.7071C40.8946 16.5196 41 16.2652 41 16C41 15.7348 40.8946 15.4804 40.7071 15.2929C40.5196 15.1054 40.2652 15 40 15ZM37.17 15C37.3766 14.4145 37.7597 13.9074 38.2666 13.5488C38.7735 13.1902 39.3791 12.9976 40 12.9976C40.6209 12.9976 41.2265 13.1902 41.7334 13.5488C42.2403 13.9074 42.6234 14.4145 42.83 15H50C50.2652 15 50.5196 15.1054 50.7071 15.2929C50.8946 15.4804 51 15.7348 51 16C51 16.2652 50.8946 16.5196 50.7071 16.7071C50.5196 16.8947 50.2652 17 50 17H42.83C42.6234 17.5855 42.2403 18.0926 41.7334 18.4512C41.2265 18.8099 40.6209 19.0025 40 19.0025C39.3791 19.0025 38.7735 18.8099 38.2666 18.4512C37.7597 18.0926 37.3766 17.5855 37.17 17H36C35.7348 17 35.4804 16.8947 35.2929 16.7071C35.1054 16.5196 35 16.2652 35 16C35 15.7348 35.1054 15.4804 35.2929 15.2929C35.4804 15.1054 35.7348 15 36 15H37.17ZM46 21C45.7348 21 45.4804 21.1054 45.2929 21.2929C45.1054 21.4804 45 21.7348 45 22C45 22.2652 45.1054 22.5196 45.2929 22.7071C45.4804 22.8947 45.7348 23 46 23C46.2652 23 46.5196 22.8947 46.7071 22.7071C46.8946 22.5196 47 22.2652 47 22C47 21.7348 46.8946 21.4804 46.7071 21.2929C46.5196 21.1054 46.2652 21 46 21ZM43.17 21C43.3766 20.4145 43.7597 19.9074 44.2666 19.5488C44.7735 19.1902 45.3791 18.9976 46 18.9976C46.6209 18.9976 47.2265 19.1902 47.7334 19.5488C48.2403 19.9074 48.6234 20.4145 48.83 21H50C50.2652 21 50.5196 21.1054 50.7071 21.2929C50.8946 21.4804 51 21.7348 51 22C51 22.2652 50.8946 22.5196 50.7071 22.7071C50.5196 22.8947 50.2652 23 50 23H48.83C48.6234 23.5855 48.2403 24.0926 47.7334 24.4512C47.2265 24.8099 46.6209 25.0025 46 25.0025C45.3791 25.0025 44.7735 24.8099 44.2666 24.4512C43.7597 24.0926 43.3766 23.5855 43.17 23H36C35.7348 23 35.4804 22.8947 35.2929 22.7071C35.1054 22.5196 35 22.2652 35 22C35 21.7348 35.1054 21.4804 35.2929 21.2929C35.4804 21.1054 35.7348 21 36 21H43.17ZM40 27C39.7348 27 39.4804 27.1054 39.2929 27.2929C39.1054 27.4804 39 27.7348 39 28C39 28.2652 39.1054 28.5196 39.2929 28.7071C39.4804 28.8947 39.7348 29 40 29C40.2652 29 40.5196 28.8947 40.7071 28.7071C40.8946 28.5196 41 28.2652 41 28C41 27.7348 40.8946 27.4804 40.7071 27.2929C40.5196 27.1054 40.2652 27 40 27ZM37.17 27C37.3766 26.4145 37.7597 25.9074 38.2666 25.5488C38.7735 25.1902 39.3791 24.9976 40 24.9976C40.6209 24.9976 41.2265 25.1902 41.7334 25.5488C42.2403 25.9074 42.6234 26.4145 42.83 27H50C50.2652 27 50.5196 27.1054 50.7071 27.2929C50.8946 27.4804 51 27.7348 51 28C51 28.2652 50.8946 28.5196 50.7071 28.7071C50.5196 28.8947 50.2652 29 50 29H42.83C42.6234 29.5855 42.2403 30.0926 41.7334 30.4512C41.2265 30.8099 40.6209 31.0025 40 31.0025C39.3791 31.0025 38.7735 30.8099 38.2666 30.4512C37.7597 30.0926 37.3766 29.5855 37.17 29H36C35.7348 29 35.4804 28.8947 35.2929 28.7071C35.1054 28.5196 35 28.2652 35 28C35 27.7348 35.1054 27.4804 35.2929 27.2929C35.4804 27.1054 35.7348 27 36 27H37.17Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M66.075 27V16.101H73.0572V17.7561H68.0494V20.715H72.5782V22.3701H68.0494V27H66.075ZM74.3212 27V18.8258H76.2477V27H74.3212ZM75.2898 17.6656C74.9846 17.6656 74.7221 17.5645 74.5021 17.3623C74.2822 17.1565 74.1722 16.9099 74.1722 16.6225C74.1722 16.3316 74.2822 16.085 74.5021 15.8828C74.7221 15.677 74.9846 15.5741 75.2898 15.5741C75.5984 15.5741 75.861 15.677 76.0774 15.8828C76.2974 16.085 76.4073 16.3316 76.4073 16.6225C76.4073 16.9099 76.2974 17.1565 76.0774 17.3623C75.861 17.5645 75.5984 17.6656 75.2898 17.6656ZM79.7056 16.101V27H77.7791V16.101H79.7056ZM85.3189 18.8258V20.3158H80.6197V18.8258H85.3189ZM81.7799 16.8673H83.7064V24.5413C83.7064 24.8003 83.7454 24.999 83.8234 25.1374C83.905 25.2722 84.0115 25.3644 84.1428 25.4141C84.274 25.4638 84.4195 25.4886 84.5791 25.4886C84.6998 25.4886 84.8097 25.4797 84.9091 25.462C85.012 25.4443 85.09 25.4283 85.1432 25.4141L85.4679 26.9202C85.365 26.9557 85.2177 26.9947 85.0262 27.0373C84.8381 27.0798 84.6075 27.1047 84.3343 27.1118C83.8518 27.1259 83.4172 27.0532 83.0305 26.8936C82.6438 26.7304 82.3369 26.4785 82.1098 26.1379C81.8863 25.7973 81.7763 25.3715 81.7799 24.8606V16.8673ZM86.4804 27V18.8258H88.3484V20.1881H88.4335C88.5825 19.7163 88.838 19.3526 89.1999 19.0972C89.5653 18.8382 89.9822 18.7087 90.4505 18.7087C90.5569 18.7087 90.6758 18.714 90.8071 18.7246C90.9419 18.7317 91.0536 18.7442 91.1423 18.7619V20.534C91.0607 20.5057 90.9312 20.4808 90.7538 20.4595C90.58 20.4347 90.4115 20.4223 90.2483 20.4223C89.897 20.4223 89.5813 20.4986 89.301 20.6511C89.0243 20.8001 88.8061 21.0077 88.6464 21.2738C88.4868 21.5399 88.4069 21.8467 88.4069 22.1944V27H86.4804ZM95.2548 27.1597C94.4353 27.1597 93.7275 26.9894 93.1314 26.6488C92.539 26.3046 92.0831 25.8186 91.7637 25.1906C91.4444 24.5591 91.2848 23.8158 91.2848 22.9608C91.2848 22.1199 91.4444 21.382 91.7637 20.7469C92.0866 20.1083 92.5372 19.6116 93.1155 19.2568C93.6938 18.8985 94.3732 18.7193 95.1537 18.7193C95.6575 18.7193 96.1329 18.8009 96.58 18.9641C97.0305 19.1238 97.4279 19.3721 97.772 19.7092C98.1197 20.0462 98.3929 20.4755 98.5916 20.997C98.7903 21.515 98.8896 22.1323 98.8896 22.849V23.4397H92.1895V22.1412H97.0429C97.0394 21.7722 96.9596 21.4441 96.8035 21.1567C96.6474 20.8658 96.4292 20.6369 96.1489 20.4702C95.8722 20.3034 95.5493 20.2201 95.1803 20.2201C94.7865 20.2201 94.4406 20.3158 94.1426 20.5074C93.8446 20.6955 93.6122 20.9438 93.4454 21.2525C93.2822 21.5576 93.1989 21.8929 93.1953 22.2583V23.3918C93.1953 23.8672 93.2822 24.2753 93.4561 24.6158C93.6299 24.9529 93.8729 25.2119 94.1852 25.3928C94.4974 25.5702 94.8628 25.6589 95.2814 25.6589C95.5617 25.6589 95.8154 25.6199 96.0425 25.5418C96.2695 25.4602 96.4664 25.3414 96.6332 25.1853C96.7999 25.0292 96.9259 24.8358 97.011 24.6052L98.8098 24.8074C98.6962 25.2828 98.4798 25.6979 98.1605 26.0527C97.8448 26.404 97.4403 26.6771 96.9472 26.8723C96.454 27.0639 95.8899 27.1597 95.2548 27.1597ZM106.53 20.9864L104.774 21.178C104.725 21.0006 104.638 20.8338 104.514 20.6777C104.393 20.5216 104.23 20.3957 104.024 20.2999C103.818 20.2041 103.566 20.1562 103.268 20.1562C102.867 20.1562 102.53 20.2431 102.257 20.417C101.987 20.5908 101.854 20.8161 101.858 21.0928C101.854 21.3305 101.941 21.5239 102.119 21.6729C102.3 21.8219 102.598 21.9443 103.013 22.0401L104.407 22.3381C105.18 22.5049 105.755 22.7692 106.131 23.1311C106.511 23.4929 106.703 23.9666 106.706 24.552C106.703 25.0664 106.552 25.5205 106.254 25.9144C105.959 26.3046 105.549 26.6097 105.024 26.8297C104.499 27.0497 103.896 27.1597 103.215 27.1597C102.214 27.1597 101.409 26.9503 100.799 26.5317C100.189 26.1095 99.825 25.5223 99.7079 24.7702L101.587 24.5892C101.672 24.9582 101.853 25.2367 102.129 25.4248C102.406 25.6128 102.766 25.7068 103.21 25.7068C103.667 25.7068 104.035 25.6128 104.311 25.4248C104.592 25.2367 104.732 25.0043 104.732 24.7276C104.732 24.4934 104.641 24.3001 104.46 24.1475C104.283 23.995 104.006 23.8779 103.63 23.7963L102.236 23.5036C101.452 23.3404 100.872 23.0654 100.496 22.6787C100.119 22.2885 99.9332 21.7953 99.9368 21.1993C99.9332 20.6955 100.07 20.2591 100.347 19.8901C100.627 19.5176 101.015 19.2302 101.512 19.028C102.012 18.8222 102.589 18.7193 103.242 18.7193C104.2 18.7193 104.953 18.9233 105.503 19.3313C106.057 19.7393 106.399 20.291 106.53 20.9864Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+
+                {/*   <IoMdRefresh
+                  
+                  onClick={async ()=>{
+                    setIsLoading(true);
+
+                    setTimeout(async() => {
+                      const dataProjects = await fetchAllProject();
+                      setProjects(dataProjects);
+                      setCustomers(await fetchAllCustomer("last"));
+                      setIsLoading(false);
+                    }, 2000);
+                   
+                  }}
+                  className="min-w-[25px] cursor-pointer h-[25px] opacity-50 font-bold mr-6" /> */}
+              </div>
+              <div className="flex p-2 mt-4 overflow-scroll text-[14px] no-scrollbar px-7">
+                <p className="w-[150px] xl:w-[200px]">Date</p>
+                <p className="w-[280px]">Projet</p>
+                <p className="w-[220px]">Statut</p>
+                <p className="w-[200px]">Client</p>
+              </div>
+
+              <div className="flex flex-col flex-1 overflow-scroll no-scrollbar">
+                {isLoading ? (
+                  <>
+                    <ItemProject key={301} isShimmer={true} />
+                    <ItemProject key={302} isShimmer={true} />
+                    <ItemProject key={303} isShimmer={true} />
+                    <ItemProject key={304} isShimmer={true} />
+                    <ItemProject key={305} isShimmer={true} />
+                    <ItemProject key={306} isShimmer={true} />
+                    <ItemProject key={307} isShimmer={true} />
+                    <ItemProject key={308} isShimmer={true} />
+                    <ItemProject key={309} isShimmer={true} />
+                  </>
+                ) : (
+                  <>
+                    {projects.map((item) => (
+                      <ItemProject
+                        key={item.createdAt.toString()}
+                        item={item}
+                        handleClick={() => {
+                          router.push({
+                            pathname: "/gestions/client/clientshow/projet",
+                            query: item as any,
+                          });
+                        }}
+                      />
+                    ))}
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                      .slice(
+                        0,
+                        projects.length >= 10
+                          ? 0
+                          : projects.length == 7
+                          ? 2
+                          : projects.length == 6
+                          ? 2
+                          : projects.length == 5
+                          ? 3
+                          : projects.length == 4
+                          ? 4
+                          : projects.length == 3
+                          ? 4
+                          : projects.length == 2
+                          ? 6
+                          : projects.length == 1
+                          ? 8
+                          : projects.length == 0
+                          ? 10
+                          : 10
+                      )
+                      .map((item) => emptyRow)}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className=" h-[45px] w-full flex mb-2 justify-center items-center">
+          <svg width="150" height="48" viewBox="0 0 150 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M31.8234 32.0072C31.7153 32.1105 31.5869 32.1926 31.4455 32.2485C31.3041 32.3045 31.1526 32.3333 30.9995 32.3333C30.8464 32.3333 30.6949 32.3045 30.5535 32.2485C30.4121 32.1926 30.2837 32.1105 30.1756 32.0072L22.439 24.6263C22.3527 24.5441 22.2842 24.4465 22.2375 24.3391C22.1908 24.2316 22.1667 24.1164 22.1667 24.0001C22.1667 23.8838 22.1908 23.7686 22.2375 23.6612C22.2842 23.5537 22.3527 23.4561 22.439 23.3739L30.1756 15.9931C30.6318 15.5579 31.3673 15.5579 31.8234 15.9931C32.2796 16.4283 32.2796 17.13 31.8234 17.5652L25.083 24.0046L31.8327 30.4439C32.2796 30.8703 32.2796 31.5808 31.8234 32.0072Z" fill="#878787"/>
+<path d="M76.6829 18.3182V28.5H74.8384V20.1129H74.7788L72.3974 21.6342V19.9439L74.9279 18.3182H76.6829Z" fill="#EEEEEE"/>
+<path d="M118.177 15.9928C118.285 15.8895 118.413 15.8074 118.554 15.7515C118.696 15.6955 118.847 15.6667 119 15.6667C119.154 15.6667 119.305 15.6955 119.447 15.7515C119.588 15.8074 119.716 15.8895 119.824 15.9928L127.561 23.3737C127.647 23.4559 127.716 23.5535 127.762 23.6609C127.809 23.7684 127.833 23.8836 127.833 23.9999C127.833 24.1162 127.809 24.2314 127.762 24.3388C127.716 24.4463 127.647 24.5439 127.561 24.6261L119.824 32.0069C119.368 32.4421 118.633 32.4421 118.177 32.0069C117.72 31.5717 117.72 30.87 118.177 30.4348L124.917 23.9954L118.167 17.5561C117.72 17.1297 117.72 16.4192 118.177 15.9928Z" fill="#878787"/>
+</svg>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  function SearchElement() {
+    return (
+      <div className=" min-h-[100px] cursor-pointer flex items-center   justify-center lg:justify-end   pr-24 border-b-[1px]  border-white border-opacity-20">
+        {search.length >= 3 || showNotif ? (
+          <div
+            onClick={() => {
+              setSearch("");
+              setShowNotif(false);
+            }}
+            className={`absolute inset-0  bg-black ${showNotif ? "opacity-0 z-20" : "opacity-50 z-10"} `}
+          ></div>
+        ) : null}
+        <div className="flex-1"></div>
+        <div className="relative md:w-[360px] mr-6 h-[40px] ">
+          <svg
+            className={`absolute z-20  ${
+              search.length > 2 ? "top-[20px] left-[20px]" : "top-2 left-3"
+            }  `}
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 19L15.1333 15.1333M17.2222 10.1111C17.2222 14.0385 14.0385 17.2222 10.1111 17.2222C6.18375 17.2222 3 14.0385 3 10.1111C3 6.18375 6.18375 3 10.1111 3C14.0385 3 17.2222 6.18375 17.2222 10.1111Z"
+              stroke="#595959"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+
+          {/*
+         LiaFileAltSolid
+         <IoIosSearch className="min-w-[23px] opacity-50 z-20 top-4 left-4 h-[23px] absolute" /> */}
+
+          <div
+           onClick={() => {
+            setSearch("");
+            setShowNotif(false);
+          }}
+          className="relative ">
+            <InputComponent
+            
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Rechercher"
+              className={`${
+                search.length > 2
+                  ? "border-b-[1px] border-t-[0px] border-r-[0px]   border-l-[0px] w-full pl-[55px] z-0 h-[60px]  border-opacity-10 focus:border-opacity-10  font-light pr-8    "
+                  : "rounded-full pb-[2px] "
+              } w-full pl-[42px] z-20 h-[40px]   font-light pr-8 border-[1px] border-[#5A5A5A]  focus:border-opacity-30 `}
+            />
+            {search.length >= 3 ? (
+              <div className="absolute top-0 rounded-full h-[50px]  z-10 w-full bg-[#444444]"></div>
+            ) : null}
+            <div
+              className={`${
+                search.length <= 2 ? "hidden" : ""
+              } absolute w-full h-[495px] pl-8 pt-[70px] z-10 pr-8 rounded-3xl top-0 flex gap-3 flex-col overflow-scroll no-scrollbar   bg-gradient-to-b  from-[#434343] to-[#323232] `}
+            >
+              {customersFiltered.length == 0 && (
+                <div className="flex items-center justify-center flex-1 pb-10 pr-2 font-light opacity-40">
+                  Aucun contenu
+                </div>
+              )}
+              {customersFiltered.map((item) => (
+                <div
+                  onClick={() => {
+                    router.push({
+                      pathname: "/gestions/client/clientshow",
+                      query: item as any,
+                    });
+                  }}
+                  className="flex items-center justify-start cursor-pointer gap-2 border-b-[1px] pb-[6px] border-opacity-10 border-white "
+                >
+                  <HiFolder className={`min-w-[30px] h-[30px]`} />
+                  <p className="text-sm line-clamp-1">
+                    {item.name.toUpperCase()}{" "}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div onClick={async () => {
+              if (isLoading) {
+                return;
+              }
+              setShowNotif((x) => (x = !x));
+            }} className="relative">
+          {!isLoading && (
+            <div className="absolute bg-red-500 rounded-full flex justify-center items-center h-[24px] w-[24px] text-xs -right-[1px] -top-0   text-center">
+              {todayDatas?.length}
+            </div>
+          )}
+          <svg
+            
+            width="42"
+            height="42"
+            viewBox="0 0 42 42"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_89_2267)">
+              <path
+                d="M32.85 34.13L32.51 33.83C31.5455 32.9706 30.7012 31.9851 30 30.9C29.2343 29.4026 28.7753 27.7673 28.65 26.09V21.15C28.6567 18.5156 27.7011 15.9695 25.9628 13.99C24.2245 12.0105 21.8232 10.7339 19.21 10.4V9.11002C19.21 8.75596 19.0694 8.4164 18.819 8.16604C18.5687 7.91568 18.2291 7.77502 17.875 7.77502C17.521 7.77502 17.1814 7.91568 16.9311 8.16604C16.6807 8.4164 16.54 8.75596 16.54 9.11002V10.42C13.9503 10.778 11.578 12.0623 9.86258 14.0351C8.14713 16.008 7.20478 18.5357 7.21005 21.15V26.09C7.0848 27.7673 6.62583 29.4026 5.86005 30.9C5.17093 31.9824 4.34024 32.9678 3.39005 33.83L3.05005 34.13V36.95H32.85V34.13Z"
+                fill="white"
+              />
+              <path
+                d="M15.3199 38C15.4076 38.6339 15.7217 39.2146 16.2042 39.635C16.6867 40.0553 17.305 40.2869 17.9449 40.2869C18.5849 40.2869 19.2032 40.0553 19.6857 39.635C20.1682 39.2146 20.4823 38.6339 20.5699 38H15.3199Z"
+                fill="white"
+              />
+            </g>
+
+            <defs>
+              <clipPath id="clip0_89_2267">
+                <rect
+                  width="36"
+                  height="36"
+                  fill="white"
+                  transform="translate(0 6)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+
+          {/*      <IoIosNotifications onClick={ async()=>{
+          if(isLoading){
+            return
+          }
+          setShowNotif(x=>x = !x )
+         
+         
+          
+        }} className="min-w-[40px] cursor-pointer h-[40px]" /> */}
+        </div>
+
+        <div
+          className={`${
+            !showNotif ? "hidden" : ""
+          } absolute w-[330px] h-[476px]  pt-6 z-20 pb-4  rounded-xl right-12 top-[70px] flex gap-3 flex-col overflow-scroll no-scrollbar   bg-gradient-to-b  from-[#434343] to-[#323232] `}
+        >
+          <div className="flex items-center justify-center pb-4 text-xl border-b border-white/10">
+            Notifications
+          </div>
+
+          <div className="absolute bottom-0 z-20 w-full h-10 bg-[#323232bd] blur-md "></div>
+          <div className="flex flex-col gap-0 px-4 pb-2 overflow-scroll no-scrollbar">
+            {/*  <ItemNotif key={2} title={"Echéance de l'abonnement"} content="Natus corporis quaerat delectus, tenetur animi voluptas adipisci, illo tempora sapiente , joplui uppez illo tempora sapiente"/> */}
+
+            {todayDatas.length > 0 && (
+              <div
+                onClick={() => {
+                  setShowTodayPlanning((x) => (x = !x));
+                }}
+                className="flex justify-between pl-3 opacity-50 cursor-pointer hover:opacity-80 "
+              >
+                {" "}
+                <h3 className="mb-2 ">Tâche du jour</h3>
+                <MdKeyboardArrowDown
+                  className={`w-6 mr-4 h-6 ${
+                    !showTodayPlanning ? "rotate-180" : ""
+                  } `}
+                />
+              </div>
+            )}
+
+            {todayDatas.length > 0 && !showTodayPlanning && (
+              <ItemNotifTodoCollapse
+                handleClick={() => {
+                  setShowTodayPlanning((x) => (x = !x));
+                }}
+                item={todayDatas[todayDatas.length - 1]}
+              />
+            )}
+
+            {showTodayPlanning && (
+              <>
+                {todayDatas.map((item) => (
+                  <ItemNotifTodo key={item.id} mb={true} item={item} />
+                ))}
+              </>
+            )}
+            <div
+              onClick={() => {
+                setShowWeeksPlanning((x) => (x = !x));
+              }}
+              className="flex justify-between pl-3 opacity-50 cursor-pointer hover:opacity-80 "
+            >
+              {" "}
+              <h3 className="mb-2 ">Tâche de la semaine</h3>
+              <MdKeyboardArrowDown
+                className={`w-6 mr-4 h-6 ${
+                  !showWeeksPlanning ? "rotate-180" : ""
+                } `}
+              />
+            </div>
+
+            {!showWeeksPlanning && (
+              <ItemNotifTodoCollapse
+                handleClick={() => {
+                  setShowWeeksPlanning((x) => (x = !x));
+                }}
+                item={weeksDatas[weeksDatas.length - 1]}
+              />
+            )}
+
+            {showWeeksPlanning && (
+              <>
+                {weeksDatas.map((item) => (
+                  <ItemNotifTodo key={item.id} mb={true} item={item} />
+                ))}
+              </>
+            )}
+
+            {/*  <div className="flex justify-between opacity-50 cursor-pointer hover:opacity-80 ">   <h3 className="mb-2 ">Tâche de demain</h3>  
+          
+          <MdKeyboardArrowDown className="w-6 h-6"  />
+          
+          </div>
+       
+             <ItemNotifTodo date={"10-10-2023"} heure={"14:30"} key={5} title={"Reunion avec Bank"} content="Natus corporis quaerat delectus, tenetur animi voluptas adipisci, illo tempora sapiente , joplui uppez illo tempora sapiente"/> */}
+
+            <div className="w-full"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function ItemProject({
+    isShimmer = false,
+    item = null,
+    handleClick = () => {},
+  }) {
+    let type = {
+      border: "",
+      color: "",
+      label: "",
+    };
+    switch (item?.type) {
+      case "INPROGRESS":
+        type = {
+          border: "border-amber-600/50 ",
+          color: "bg-amber-600/50 ",
+          label: "En cours de validation",
+        };
+        break;
+      case "ISVALIDATE":
+        type = {
+          border: "border-green-600/50 ",
+          color: "bg-green-600/50 ",
+          label: "Proforma validée",
+        };
+        break;
+      case "ISFINISH":
+        type = {
+          border: "border-teal-600/50 ",
+          color: "bg-teal-600/50 ",
+          label: "Projet terminer",
+        };
+        break;
+
+      default:
+        break;
+    }
+    return isShimmer ? (
+      <>
+        <div className="flex h-[49px] mb-3 duration-75 p-4    items-center text-white animate-pulse text-opacity-40 text-sm px-7 bg-[#2c2c2ce1] rounded-3xl">
+          <p className="w-[120px] animate-pulse duration-100 xl:w-[170px] bg-[#ffffff1f] p-3 rounded-full mr-8">
+            {" "}
+          </p>
+          <p className="w-[200px] mr-24 line-clamp-1  bg-[#ffffff1f] p-3 rounded-full ">
+            {" "}
+          </p>
+          <p
+            className={`w-[175px] animate-pulse   duration-200  bg-[#ffffff1f]   mr-10 text-white bg-color-red-400 p-3 rounded-full items-center text-center flex justify-center text-opacity-100`}
+          >
+            {" "}
+          </p>
+          <p className="w-[200px] bg-[#ffffff1f] p-3 rounded-full"></p>
+        </div>
+      </>
+    ) : (
+      <>
+        <div
+          onClick={handleClick}
+          className="flex h-[49px] mb-3 relative p-4 items-center cursor-pointer text-white text-opacity-40 text-sm px-7 pr-0 bg-[#2c2c2ce1] rounded-3xl"
+        >
+          <p className="w-[120px] xl:w-[170px] mr-8">
+            {daysFr(`${item.createdAt}`)}{" "}
+          </p>
+          <p className="w-[280px] line-clamp-1  ">{item.name}</p>
+          <p
+            className={`w-[175px] mr-10 h-[29px] text-white ${type.color} p-3 rounded-full items-center text-center flex justify-center text-opacity-100 py-[2px] text-[12px]`}
+          >
+            {type.label}
+          </p>
+          <p className="w-[230px]">{item.customer.name}</p>
+
+          <div
+            className="absolute right-0 cursor-pointer w-[300px] z-10 top-2 "
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <DropdownDashboardProject className="absolute z-0 items-center justify-between w-6 h-6 gap-2 py-2 mb-1 text-sm font-medium cursor-pointer right-10 top-1 bottom-1 group-hover:block hover:block">
+              <Menu.Item>
+                {({ active }) => (
+                  <p
+                    onClick={() => {}}
+                    className={`  px-2  py-1 flex  justify-start pl-3  items-center gap-2   text-[15px] cursor-pointer mx-2 ${
+                      active
+                        ? " bg-gradient-to-r from-[#44444419] via-[#444444] to-[#4444444a]"
+                        : " "
+                    }`}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="14" height="14" rx="7" fill="#DADADA"/>
+<path d="M6.12313 9.33334L4.08325 7.12128L4.59322 6.56827L6.12313 8.22731L9.40662 4.66667L9.91659 5.21969L6.12313 9.33334Z" fill="#414141"/>
+</svg>
+
+                    {item.type == "INPROGRESS" ? "Valider" : "Terminer"}
+                  </p>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <p
+                    onClick={() => {
+                      menuIndex.setMenuIndex(2);
+                      router.push({
+                        pathname:
+                          "/gestions/client/clientshow/factureCalculator",
+                        query: item as any,
+                      });
+                    }}
+                    className={`  px-2  py-1 flex  justify-start pl-3  items-center gap-2   text-[15px] cursor-pointer mx-2 ${
+                      active
+                        ? " bg-gradient-to-r from-[#44444419] via-[#444444] to-[#4444444a]"
+                        : " "
+                    }`}
+                  >
+                   <svg width="20" height="20" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.25 9.37806V12.7572C12.2499 12.9115 12.1888 13.0594 12.0802 13.1684C11.9715 13.2774 11.8243 13.3387 11.6708 13.3387H2.32927C2.25261 13.3382 2.17682 13.3224 2.10621 13.2924C2.0356 13.2625 1.97157 13.2188 1.91777 13.1639C1.86398 13.109 1.82147 13.044 1.79269 12.9727C1.7639 12.9013 1.7494 12.8249 1.75002 12.7478V5.71872H5.25002C5.40473 5.71872 5.5531 5.65697 5.6625 5.54704C5.77189 5.43712 5.83335 5.28803 5.83335 5.13257V1.61566H11.6679C11.9893 1.61566 12.25 1.88236 12.25 2.19712V4.40398L7.0006 9.67935L6.9971 12.1635L9.47393 12.167L12.25 9.37806ZM12.7039 5.60618L13.5287 6.435L8.99152 10.9941L8.16552 10.9929L8.16669 10.1653L12.7039 5.60618ZM1.75002 4.54642L4.66669 1.61742V4.54642H1.75002Z" fill="#DADADA"/>
+</svg>
+
+                    Modifier
+                  </p>
+                )}
+              </Menu.Item>
+            </DropdownDashboardProject>
+            {/*           <svg width="16" height="5" viewBox="0 0 16 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="2" cy="2.5" r="2" fill="#A2A2A2"/>
+  <circle cx="8" cy="2.5" r="2" fill="#A2A2A2"/>
+  <circle cx="14" cy="2.5" r="2" fill="#A2A2A2"/>
+  </svg> */}
+          </div>
+        </div>
+      </>
+    );
+  }
+}
+
+export default Dashboard;
+
+function ItemNotifTodoCollapse({ item, handleClick }) {
+  return (
+    <div onClick={handleClick} className="min-h-[140px]  relative">
+      <div className="absolute left-0 z-50 w-full ">
+        <ItemNotifTodoLast
+          mb={false}
+          date={daysFr(item?.date)}
+          heure={item?.date.toString().substr(11, 5)}
+          key={3}
+          title={item?.name}
+          content={item?.content}
+        />
+      </div>
+
+      <div className="z-40 w-[285px] left-[7px] absolute top-[10px]  bg-gradient-to-b from-[#666666]  to-[#545454]  min-h-[103px] rounded-md"></div>
+      {/*  <div className="z-30 w-[280px] left-[9px] absolute top-[12px] bg-[#424242]  min-h-[103px] rounded-md"></div> */}
+      <div className="z-20 w-[272px]   shadow-md shadow-[#323232]   left-[13px] absolute top-[14px] bg-gradient-to-r from-[#666666]    to-[#666666]   min-h-[103px] rounded-md"></div>
+    </div>
+  );
+}
+function ItemNotifTodoLast({ title, content, date, heure, mb = true }) {
+  return (
+    <div
+      className={`flex flex-col p-4 py-3 ${
+        mb ? "mb-2" : ""
+      }  pt-[10px] h-[108px]  bg-gradient-to-b from-[#5b5b5b] to-[#4a4a4a]   cursor-pointer rounded-md opacity-100 hover:opacity-100 border-white/10`}
+    >
+      <h3
+        className={`${
+          title == "Mise à jour de l'application"
+            ? "text-teal-500"
+            : " text-primary  "
+        } text-[13px]`}
+      >
+        {title}
+      </h3>
+      <div className="flex flex-col flex-1 ">
+        <p className="text-[12px] leading-[15px] flex-1 line-clamp-3  font-light opacity-90">
+          {content}
+        </p>
+        <p className="mt-1 text-[11px] font-light text-teal-400 opacity-90">
+          {date} <span className="ml-1">{heure}</span>
+        </p>
+        <div></div>
+      </div>
+    </div>
+  );
+}
+function ItemNotifTodo({
+  item,
+  mb = true,
+}: {
+  item: PlanningItem;
+  mb: boolean;
+}) {
+  const router = useRouter();
+  return (
+    <div
+      onClick={() => {
+        router.push({
+          pathname: "/gestions/planning",
+          query: item as any,
+        });
+      }}
+      className={`flex flex-col p-4 py-3 ${
+        mb ? "mb-2" : ""
+      }  pt-[10px]  bg-gradient-to-b from-[#5b5b5b]   to-[#444444]   cursor-pointer rounded-md opacity-80 hover:opacity-100 border-white/10`}
+    >
+      <h3 className={`text-primary text-[13px]`}>{item.name}</h3>
+      <div className="flex flex-col">
+        <p className="text-[12px] leading-[15px] font-light opacity-90">
+          {item.content}
+        </p>
+        <p className="mt-1 text-[11px] font-light text-teal-400 opacity-90">
+          {daysFr(item.date)}{" "}
+          <span className="ml-1">{item.date.toString().substr(11, 5)}</span>
+        </p>
+        <div></div>
+      </div>
+    </div>
+  );
+}
+function ItemNotif2({ title, content }) {
+  return (
+    <div className="  flex flex-col p-4 py-3  mb-2  font-bold  pt-[10px]  bg-gradient-to-b from-[#ffffff] text-black   to-[#ffffffc0]   cursor-pointer rounded-md opacity-80 hover:opacity-100 border-white/10">
+      <div className="flex justify-between">
+        <h3 className={` " text-black text-sm`}>Échéance de l'abonnement </h3>
+        <IoMdClose
+          onClick={() => {}}
+          className="w-[20px] h-[20px] opacity-100 mr-0  absolute right-3   cursor-pointer "
+        />
+      </div>
+
+      <div className="flex">
+        <p
+          className="text-xs font-light opacity-100
+    text-[12px] leading-[15px]  
+    
+    "
+        >
+          Votre abonnement pour arrive bientôt à échéance. Renouvelez-le à temps
+          pour ne pas interrompre votre utilisation.
+        </p>
+        <div></div>
+      </div>
+    </div>
+  );
+}
+function ItemNotif({ title, content }) {
+  return (
+    <div className="  flex flex-col p-4 py-3  mb-2  font-bold  pt-[10px]  bg-gradient-to-b from-[#ffffff] text-black   to-[#ffffffc0]   cursor-pointer rounded-md opacity-80 hover:opacity-100 border-white/10">
+      <div className="flex justify-between">
+        <h3 className={` " text-black text-sm`}>{title} </h3>
+        <IoMdClose
+          onClick={() => {}}
+          className="w-[20px] h-[20px] opacity-100 mr-0  absolute right-3   cursor-pointer "
+        />
+      </div>
+
+      <div className="flex">
+        <p
+          className="text-xs font-light opacity-100
+    text-[12px] leading-[15px]  
+    
+    "
+        >
+          Mise à jour 1.1 : Profitez des améliorations <br /> et des nouvelles
+          fonctionnalités en la téléchargeant maintenant.
+        </p>
+        <div></div>
+      </div>
+    </div>
+  );
+}

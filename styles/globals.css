@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+inout[type="number"]::-webkit-inner-spin-button,
+inout[type="number"]::-webkit-outer-spin-button,
+  
+  body {
+    @apply text-white bg-[#060606];
+    @apply no-scrollbar
+  }
+
+  .kris {
+    @apply block rounded border leading-6 text-base text-[#607D8B] w-full mt-2 p-0 border-[none] border-solid border-transparent;
+    font-family: "Roboto", sans-serif;
+  }
+}
+
+@layer components {
+/* 
+  
+  .card:active {
+    background-color: #9a976870;
+    background-size: 100%;
+    transition: background 0s;
+}
+.card:hover {
+  background: #9a976870 radial-gradient(circle, transparent 1%, #9a976870 1%) center/15000%;
+} */
+  .primary{
+    @apply bg-[#9a9768]
+  }
+  .text-primary{
+    @apply text-[#9a9768]
+  }
+  .btn-blue {
+    @apply px-4 py-2 font-bold text-white bg-blue-600 rounded hover:bg-blue-500;
+  }
+
+  
+}
+
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+  }
+}
+
+
+@media print {
+  /* Hide all elements inside #root */
+  .rpv-print__body-printing #root {
+      display: none;
+  }
+
+  /* Show the prepared pages */
+  .rpv-print__zone {
+      display: block;
+  }
+}
