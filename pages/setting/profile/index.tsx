@@ -47,11 +47,13 @@ import {
 } from "../../../components/Modals/canvasUtils";
 import { country } from "../../../utils/country";
 import { useGlobalModal } from "../../../utils/use-global-modal";
+import { useGlobalPayment } from "../../../utils/use-global-payment";
 function Profile(props) {
   const [indexView, setIndexView] = useState(0);
   const modalCropImage = useCropImage();
   const menuIndex = useMenuStore();
   const modal = useGlobalModal()
+  const modalPayment = useGlobalPayment()
   const [imageSignature, setImageSignature] = useState(null);
   const [indexAccountView, setIndexAccountView] = useState(0);
   const [showPannel, setShowPannel] = useState(false);
@@ -536,7 +538,7 @@ onClick={() => {
 
       
 
-        
+        modalPayment.onClose()
          
         
         //check

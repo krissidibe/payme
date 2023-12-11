@@ -79,6 +79,7 @@ const GlobalPayment: React.FC<modalProps> = ({
 <div className="flex flex-col justify-end flex-1">
 <div
 onClick={()=>{
+  modal.onClose()
   menuIndex.setMenuIndex(-1);
   window.localStorage.removeItem("accessToken");
   window.localStorage.removeItem("userId");
