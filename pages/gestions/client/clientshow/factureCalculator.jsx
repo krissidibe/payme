@@ -165,7 +165,7 @@ const totalAmount = totalTTC()
 
               <div className="flex flex-col  flex-1  overflow-scroll  no-scrollbar border-0 border-[#ffffff20]  ">
                 {datas.map((item) => (
-                  <ItemGestion
+                  <ItemInvoice
                 
                     handleDelete={() => {
                       const datasNew = datas.filter((x) => x.id != item.id);
@@ -511,7 +511,7 @@ export default FactureCalculator;
  
 
 
-function ItemGestion({
+function ItemInvoice({
   item,
   designationDefult = "",
 
@@ -524,7 +524,7 @@ function ItemGestion({
   const [amount, setAmount] = useState(quantity * rate);
   const modal = useGlobalModal();
   return (
-    <div className="flex group   relative   pt-[0px]  border-b border-x-2  border-[#ffffff11] ">
+    <div className="flex group  hover:bg-[#ffffff0a]  relative   pt-[0px]  border-b border-x-2  border-[#ffffff11] ">
       {/*  <IoMdInformationCircleOutline
      //   onClick={handleDelete}
         className="absolute hidden w-6 h-6 cursor-pointer group-hover:block hover:block right-1 top-5"

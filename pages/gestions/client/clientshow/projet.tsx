@@ -5,7 +5,7 @@ import InputComponent from "../../../../components/UI/InputComponent";
 import { PiListBulletsFill } from "react-icons/pi";
 import FolderComponent from "../../../../components/UI/FolderComponent";
 import { HiFolder } from "react-icons/hi";
-import { MdInfo,MdEditNote, MdFolderDelete, MdOutlineFileCopy, MdEditDocument, MdCalendarMonth } from "react-icons/md";
+import { MdInfo,MdEditNote, MdFolderDelete, MdOutlineFileCopy, MdEditDocument, MdCalendarMonth, MdMoreHoriz } from "react-icons/md";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useRouter } from "next/router";
 import useMenuStore from "../../../../utils/MenuStore";
@@ -720,7 +720,7 @@ console.log(project.invoiceDate);
      
     }
 
-  }} key={item.id}  className="flex relative w-full opacity-60 hover:opacity-100  cursor-pointer flex-1 ml-4 min-h-[40px] items-center  text-[15px] mt-2    py-2 text-[#ffffff6f]  border-b border-white border-opacity-10 x-40">
+  }} key={item.id}  className="flex relative w-full opacity-60 hover:opacity-100  hover:bg-[#ffffff05] cursor-pointer flex-1 ml-4 min-h-[40px] items-center  text-[15px] mt-2    py-2 text-[#ffffff6f]  border-b border-white border-opacity-10 x-40">
   <IoIosArrowForward className="absolute w-6 h-6 right-5 bottom-5" />
 <div className="lg:w-[352px] w-[150px]  flex-1 ">
  
@@ -815,7 +815,7 @@ className="absolute inset-0 z-10 flex items-center justify-center w-screen">
   }
 
   function TransactionItemBtn({label,index,handleClick}:{label:string,index:string,handleClick?: () => void}) {
-    return <div onClick={handleClick} className={`w-full relative px-6 py-3 ${index == typeTransaction ? "text-white/100  primary " :"text-white/30  bg-white/10 "} rounded-[10px] cursor-pointer  text-md`}>
+    return <div onClick={handleClick} className={`w-full relative px-6 py-3 ${index == typeTransaction ? "text-white/100  primary " :"text-white/30  bg-[#4B4B4B] "} hover:brightness-110 rounded-[10px] cursor-pointer  text-md`}>
     {label} 
      {index == typeTransaction && <BsCheck2Circle className="absolute right-5 top-4 h-[20px] w-[20px]" />}
     </div>;
@@ -875,9 +875,12 @@ className="absolute inset-0 z-10 flex items-center justify-center w-screen">
     {!isLoading &&   <div className="flex ">
         <Menu>
         <Menu.Button className="relative items-center justify-between w-6 h-6 gap-2 py-2 mb-1 text-sm font-medium cursor-pointer bottom-5 group-hover:block hover:block right-1">
- 
-          <MdInfo className="w-8 h-8 " />
- 
+  
+        <div className='bg-[#ffffff10] rounded-full h-8 w-8 flex justify-center items-center '> 
+     <MdMoreHoriz className="w-6 h-6 opacity-60 hover:opacity-100" />
+     </div>
+         
+          
         </Menu.Button>
         <Menu.Items className=" absolute  top-16  py-2  max-w-[255px] rounded-[12px] z-20 right-4  text-white/80 flex flex-col justify-center w-full   bg-[#323232] ">
           {project?.type != "ISFINISH" && <Menu.Item>

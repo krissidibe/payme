@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { AiOutlineFileAdd, AiOutlineInfoCircle } from "react-icons/ai";
 import { IoIosArrowBack, IoIosFolder, IoMdAdd, IoMdAddCircleOutline } from "react-icons/io";
 import { IoMdMap, IoMdAttach } from "react-icons/io";
 import { BiCrop, BiImageAlt, BiSolidDashboard } from "react-icons/bi";
@@ -321,55 +322,52 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
       return null;
     } */
     return (
-      <div   className="absolute inset-0 z-50 flex items-center justify-center pt-10 transition pr-7 bg-black/40 ">
-
-
-        <div className="p-4 bg-[#323232]  z-50  w-[474px] h-[492px] px-8 flex flex-col items-start pt-[42px] text-white rounded-xl">
-         
-         <p className="text-[18px]">Télécharger votre image</p>
-         <p className="text-[14px] text-[#808080] mb-[35px]">Pour un meilleur résultat utilisé un PNG, JPG ou JPEG</p>
-          <div className="flex justify-center w-full ">
+      <div className="absolute inset-0 z-50 flex items-center justify-center pt-10 transition pr-7 bg-black/40 ">
+      <div className="p-4 bg-[#323232]  z-50  w-[474px] h-[415px] px-8 flex flex-col items-start pt-[32px] text-white rounded-xl">
+        <p className="text-[18px]">Télécharger votre image</p>
+        <div className="flex justify-center w-full ">
             <input
-          
               ref={imageRef}
               type="file"
               className="hidden"
               onChange={onFileChange}
             />
-            <div className="bg-[#6e6e6e] relative h-[230px] w-[230px] mb-6 object-cover rounded-[20px]">
+            {/* 
+             */}
+            <div className={` ${!image ? "bg-[#ffffff07]" : "bg-[#ffffff]"} p-1  border-dashed       border-white/50 border relative h-[230px] w-[430px] mt-6 mb-6 object-cover rounded-[20px]`}>
               {image ? (
-               /*  <Cropper
-                
+               <img
+                 src={image + ""}
+                 alt="image"
+                 className="object-contain w-full h-full rounded-lg"
+               />  
+           /*  <Cropper
                   style={{
-                    containerStyle:{
-                      borderRadius:20
-                    }
+                    containerStyle: {
+                      borderRadius: 20,
+                    },
                   }}
                   image={image}
                   crop={crop}
                   zoom={zoom}
-                  aspect={4 / 4}
+                  
+                 
+                  objectFit="horizontal-cover"
                   onCropChange={setCrop}
                   onCropComplete={onCropComplete}
                   onZoomChange={setZoom}
-                /> */
-                <img
-                src={image + ""}
-                alt="image"
-                className="object-contain w-full h-full rounded-lg"
-              />  
+                />   */
               ) : <div
               onClick={() => {
                 imageRef.current.click();
               }}
-              className="flex items-center justify-center w-full h-full cursor-pointer" >
-                <IoMdAdd className="w-8 h-8 opacity-50" /></div>}
-              
+              className="flex flex-col items-center justify-center w-full h-full cursor-pointer" >
+                <AiOutlineFileAdd className="opacity-50 w-14 h-14" />
+                <p className="mt-6 text-[19px]" >Choisissez le fichier à télécharger</p>
+                <p className="text-[13px] opacity-50" >Pour un meilleur résultat, utilisé un PNG</p>
+                </div>}
             </div>
 
-            
-            
-            
             {/* <div className="flex flex-col items-center gap-4">
               <div className="bg-white h-[150px] w-[150px] rounded-xl">
                 <img src={croppedImage} />
@@ -414,8 +412,8 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
 
           </div> */}
 
-          <div className="flex justify-center w-full gap-3   mt-[20px]">
-            <div className="rounded-full bg-[#636363]">
+<div className="flex justify-center w-full gap-3 ">
+            <div className="rounded-full bg-[#636363] hover:brightness-110  ">
             <ButtonComponent
             key={121}
               label={"Annuler"}
@@ -451,9 +449,11 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
             />} */}
             {true  && <ButtonComponent
             key={143}
-              label={"Enregistrer"}
+              label={"Importer"}
               handleClick={  () => {
-         
+                if(!image){
+                  return;
+                }
                 if (logoChoose) {
                   setImageLogo(image);
                  // setImageLogo(croppedImage);
@@ -469,7 +469,7 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
 
                 //  modal.setImage(croppedImage);
               }}
-              className="bg-[#9a9768]  border-none   font-bold "
+              className={`${image ? " opacity-100 cursor-pointer " : "opacity-40 cursor-default hover:brightness-100   "}  bg-[#9a9768]  border-none   font-bold `}
             />}
           </div>
         </div>

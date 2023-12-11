@@ -299,7 +299,7 @@ function ItemGestion({ item, indexType,handleClick=()=>{} }) {
   </div> 
    
   ) : (
-    <div onClick={handleClick} key={item.id}  className="flex relative w-full cursor-pointer flex-1 ml-4 min-h-[40px] items-center  text-[15px] mt-2    py-2 text-[#ffffff6f]  border-b border-white border-opacity-10 x-40">
+    <div onClick={handleClick} key={item.id}  className="flex hover:bg-[#ffffff0a] relative w-full cursor-pointer flex-1 ml-4 min-h-[40px] items-center  text-[15px] mt-2    py-2 text-[#ffffff6f]  border-b border-white border-opacity-10 x-40">
          <IoIosArrowForward className="absolute right-0 w-6 h-6 bottom-5" />
       <div className="lg:w-[352px] w-[150px] ">
         

@@ -808,7 +808,7 @@ function Planning(props) {
               {showIndex == 2 && searchValue.length < 3 && "Semaine"}
             </p>
             <div className="flex">
-              <DropdownPlanningItemOption className="">
+              <DropdownPlanningItemOption addActive={showIndex==0} className="">
                 {showIndex == 0 && <Menu.Item>
                   {({ active }) => (
                     <div
@@ -819,7 +819,7 @@ function Planning(props) {
                         setIsNewListItem(false);
                         setAddNewListModal(true);
                       }}
-                      className={`  px-2  py-2 flex  justify-start pl-4  items-center gap-2   text-[17px] cursor-pointer mx-2 ${
+                      className={`  px-2  py-2 flex  justify-start pl-4  items-center gap-2    text-[17px] cursor-pointer mx-2 ${
                         active
                           ? " bg-gradient-to-r from-[#44444419] via-[#444444] to-[#4444444a]"
                           : " "
@@ -1099,7 +1099,7 @@ function Planning(props) {
             className="w-full bg-transparent rounded-none outline-none placeholder:text-white/70"
           />
         </div>
-        <div className="flex justify-between w-full gap-5">
+        <div className="flex justify-between w-full gap-5 ">
           <div
             onClick={async ()=>{
               setSearchValue((x) => (x = ""));
@@ -1116,7 +1116,7 @@ function Planning(props) {
               }, 100);
           
             }}
-            className="bg-[#1d1d1d] rounded-xl px-4 py-[10px] w-full cursor-pointer "
+            className="bg-[#1d1d1d] hover:brightness-125 rounded-xl px-4 py-[10px] w-full cursor-pointer "
           >
             
             <div className="flex justify-between mb-2">
@@ -1152,7 +1152,7 @@ function Planning(props) {
                 last_day_of_the_week
               );
             }}
-            className="bg-[#1d1d1d] rounded-xl px-4 py-[10px] w-full  cursor-pointer"
+            className="bg-[#1d1d1d] hover:brightness-125 rounded-xl px-4 py-[10px] w-full  cursor-pointer"
           >
             <div className="flex justify-between mb-2">
               <div className="flex items-center justify-center w-[34px] h-[34px] bg-blue-500 rounded-full">
@@ -1451,7 +1451,7 @@ function Planning(props) {
 
   function PlanningItem({ item }) {
     return (
-      <div className="relative flex items-center border-b cursor-pointer border-white/10">
+      <div className="relative hover:bg-[#ffffff0a]  flex items-center border-b cursor-pointer border-white/10">
         <div
           onClick={() => {
             setShowIndex((x) => (x = 0));

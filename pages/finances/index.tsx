@@ -67,6 +67,7 @@ function Finances(props) {
 
   
 useEffect(()=>{
+  
 (async()=>{
   const data = await fetchEnterprise();
   setData(data);
@@ -80,6 +81,7 @@ setShowOPTModal(x=> x =true)
   setIsLoadingFirst(x => x = false)
 },[])
   useEffect(() => {
+    
     (async () => {
       const dataTransaction = await fetchAllTransaction();
       setTransaction(dataTransaction);
@@ -543,14 +545,17 @@ setShowOPTModal(x=> x =true)
    (true && <>
 
 {/* data.id == "" */}
-{ data.id == "" && <div className="flex items-center justify-center h-screen ">
-<svg aria-hidden="true" className="w-[60px] h-[60px]  opacity-30  animate-spin dark:text-gray-600 fill-yellow-100" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-   
-        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill=""/>
-    </svg>
-</div>  }
+{ data.id == "" &&  
 
-  {data.id != "" && <div    className="relative inset-0 z-20 flex flex-col items-center justify-center h-full ">
+<div    className="relative inset-0 z-20 flex flex-col items-center justify-center h-full ">
+
+<FakeInfoSkeleton data={chartDataFake}  />
+          
+    
+    </div>}
+
+  {data.id != "" && 
+  <div    className="relative inset-0 z-20 flex flex-col items-center justify-center h-full ">
 
 <FakeInfo data={chartDataFake}  />
           
@@ -692,6 +697,98 @@ setShowOPTModal(x=> x =true)
   }
 
 
+  function FakeInfoSkeleton(data) {
+    
+
+const [isLoadingFake, setisLoadingFake] = useState(true)
+useEffect(() => {
+  console.log("render");
+  
+  setisLoadingFake(x => x = false)
+
+   
+}, [])
+
+    return <div className="absolute z-10 flex flex-col items-center justify-center w-full h-full ">
+   <div className="flex flex-col flex-1 w-full h-full gap-10 p-10 pt-14 ">
+       
+   
+   
+  
+       <div className="flex self-end ">
+         
+         <div className="max-h-[140px]   relative flex-col flex rounded-xl  items-center justify-center min-w-[300px] px-10 pl-[70px]  bg-gradient-to-b  from-[#1f1f1f]   to-[#141414]">
+          
+           <div className="flex flex-col mt-1 mr-[20px]  animate-pulse">
+             <p className="h-[34px] bg-[#282828] w-[300px] rounded-full  xl:w-[400px] tracking-wide leading-[59px]  font-bold ">
+                
+             </p>
+             <div className="flex items-center self-end justify-center gap-2">
+              
+             <p className="self-end h-[14px] bg-[#282828] w-[200px] mt-2 rounded-full text-[17px] font-normal text-teal-500/70">
+               
+             </p>
+             </div>
+           </div>
+         </div>
+         <div className="min-h-[140px]    relative flex-col flex rounded-xl items-center justify-center min-w-[300px] ml-8 mr-[14px] ">
+           <div className="flex flex-col mt-4 animate-pulse">
+           
+             <p className="self-end h-[30px] bg-[#282828] w-[200px] mt-2 rounded-full text-[17px] font-normal text-teal-500/70">
+               
+               </p>
+            
+             <p className="self-end h-[14px] bg-[#282828] w-[100px] mt-2 rounded-full text-[17px] font-normal text-teal-500/70">
+               
+               </p>
+           </div>
+         </div>
+       </div>
+  
+       <div className="flex-1 flex flex-col pb-0  h-full px-8 pt-8  bg-gradient-to-b    no-scrollbar from-[#1f1f1f]   to-[#060606] rounded-xl">
+         <div className="flex items-center justify-between w-full pb-4 mb-4 border-b border-white/10">
+           <div className="flex items-center justify-center gap-4">
+           <p className="self-end h-[22px] bg-[#282828] animate-pulse  w-[180px] mt-2 rounded-full text-[17px] font-normal text-teal-500/70">
+               
+               </p>
+            <div className="flex gap-2 ml-10">
+            <p className="self-end h-[22px] bg-[#282828] animate-pulse  w-[70px] mt-2 rounded-full text-[17px] font-normal text-teal-500/70">
+               
+               </p>
+            <p className="self-end h-[22px] bg-[#282828] animate-pulse  w-[70px] mt-2 rounded-full text-[17px] font-normal text-teal-500/70">
+               
+               </p>
+       
+            </div>
+           </div>
+           <p className="self-end h-[22px] bg-[#282828] animate-pulse  w-[170px] mr-10 mt-2 rounded-full text-[17px] font-normal text-teal-500/70">
+               
+               </p>
+         </div>
+  
+         <div className="flex flex-col flex-1 pb-10 justify-evenly ">
+     <p className="self-end h-[100px]  bg-gradient-to-b    no-scrollbar from-[#282828cf]   to-[#28282838] animate-pulse  w-full mt-2 rounded-md text-[17px] font-normal text-teal-500/70">
+               
+               </p>
+     <p className="self-end h-[100px]  bg-gradient-to-b    no-scrollbar from-[#28282896]   to-[#28282820] animate-pulse  w-full mt-2 rounded-md text-[17px] font-normal text-teal-500/70">
+               
+               </p>
+                
+               
+               
+        {/*   {!isLoadingFake && (
+             <ReactApexChart
+               height="100%"
+               className="w-full h-[200px]"
+               options={data.data}
+               series={data.data.series}
+             />
+           )}    */}  
+         </div>  
+       </div>
+     </div>
+    </div>;
+  }
   function FakeInfo(data) {
     
 

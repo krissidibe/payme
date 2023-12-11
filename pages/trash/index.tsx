@@ -342,7 +342,7 @@ const modal = useGlobalModal()
   }
   function ItemTrash({ item }) {
     return (
-      <div className="flex p-2  relative mt-0 mb-2 pb-4  text-[14px] select-none cursor-pointer  mr-20  px-1 2xl:ml-14 ml-10  border-b border-white/10 ">
+      <div className="flex p-2  relative mt-0 mb-2 pb-4   text-[14px] select-none cursor-pointer  mr-20  px-1 2xl:ml-14 ml-10  border-b border-white/10 ">
         <div className="absolute -right-[140px] z-20 flex w-[200px]  opacity-100  items-center">
           <DropdownTrashItem className="">
             <Menu.Item>
@@ -370,13 +370,13 @@ const modal = useGlobalModal()
 
                    
                   }}
-                  className={`  px-2  py-2 flex  justify-start pl-4  items-center gap-2   text-[17px] cursor-pointer mx-2 ${
+                  className={`  px-2  py-2 flex  justify-start pl-3 pr-0  items-center gap-2   text-[17px] cursor-pointer mx-2 ${
                     active
                       ? " bg-gradient-to-r from-[#44444419] via-[#444444] to-[#4444444a]"
                       : " "
                   }`}
                 >
-                  <MdRestore className="min-w-10 min-h-10 " />
+                  <MdRestore className="w-5 h-5 " />
                   Restaurer
                 </div>
               )}

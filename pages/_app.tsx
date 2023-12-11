@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
-
+import ReactPlayer from 'react-player'
 import "../styles/globals.css";
 import UserLayout from "../components/Layout/UserLayout";
 import useMenuStore from "../utils/MenuStore";
@@ -21,10 +21,25 @@ function MyApp({ Component, pageProps }) {
   }, []); */
 
   const [firstView, setFirstView] = useState("")
-
+  const [accessToken, setAccessToken] = useState("null")
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(()=>{
-
+    setIsLoading(x=> x = true)
+   
     setFirstView(window.localStorage.getItem("firstView"))
+
+
+
+    if(window.localStorage.getItem("accessToken")){
+    
+      setAccessToken(x=> x =window.localStorage.getItem("accessToken"))
+              
+  
+    }else{
+    setTimeout(()=>{
+      setAccessToken("yes")
+    },2300)
+    }
   }, []) 
  
   const router = useRouter()
@@ -105,8 +120,24 @@ Commencer
        <GoogleOAuthProvider clientId="112591883885-brb0s76c5e2tj09fsj929he940e7q780.apps.googleusercontent.com">
 
     <div className="">
-       
-      <Component {...pageProps} />
+ 
+ 
+    { (  accessToken == "null" ) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen bg-[#2C2B2C] ">
+<div className="flex items-center justify-center ">
+   
+{isLoading && <ReactPlayer 
+
+  
+url='/videos/Animation Payme BR.mp4' playing={true} muted  />}
+    
+       </div>
+</div>  }
+
+
+ 
+ 
+ 
+       <Component {...pageProps} />  
       
      
     </div>

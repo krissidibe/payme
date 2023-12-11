@@ -1,4 +1,5 @@
 import React from "react";
+import OtpInput from "react-otp-input";
 import Head from "next/head";
 import Link from "next/link";
 import ReactCrop, { type Crop } from "react-image-crop";
@@ -10,7 +11,7 @@ import ButtonComponent from "../components/UI/ButtonComponent";
 import { useRouter } from "next/router";
 import useMenuStore from "../utils/MenuStore";
 import PdfBuilder from "../components/PdfDemo";
-
+import ReactPlayer from 'react-player'
 import { jwtDecode } from "jwt-decode";
 import { saveAs } from "file-saver";
 import { useGlobalModal } from "../utils/use-global-modal";
@@ -46,10 +47,35 @@ useEffect(()=>{
 */
 
 const [accessToken, setAccessToken] = useState("")
+const [passwordForgetPop, setPasswordForgetPop] = useState(false)
+const [changePasswordPop, setChangePasswordPop] = useState(false)
+const [otpScreen, setOtpScreen] = useState(false)
+const [otp, setOtp] = useState("");
 useEffect(()=>{
+  setIsLoading(x=> x = true)
   
 
-  setAccessToken(window.localStorage.getItem("accessToken"))
+  setAccessToken(x => x =window.localStorage.getItem("accessToken"))
+
+
+  setTimeout(() => {
+
+
+
+  if(window.localStorage.getItem("accessToken")?.length > 100){
+
+    router.replace("/dashboard")
+    menuIndex.setMenuIndex(0)
+            
+
+  }else{
+    setAccessToken("null")
+  }
+      
+   
+   },menuIndex.index <0 ? 2300 : 100);
+
+
 }, []) 
 
 /* const googleLogin = useGoogleOneTapLogin({
@@ -68,6 +94,7 @@ const login = useGoogleLogin({
 
 const googleSigninRef = useRef(null);
 const [loadingSimulation, setLoadingSimulation] = useState(false);
+const [isLoading, setIsLoading] = useState(false);
 const [showLoginPannel, setShowLoginPannel] = useState(true);
 const [showLoginGoole, setShowLoginGoole] = useState(false);
   const router = useRouter();
@@ -98,6 +125,22 @@ const [showLoginGoole, setShowLoginGoole] = useState(false);
       [name]: value,
     }));
   };
+  
+
+  
+  useEffect(() => {
+    
+   if(modalView){
+   setTimeout(() => {
+     setModalView(x=> x = false)
+   }, 3000);
+   }
+  
+    return () => {
+      
+    }
+  }, [modalView])
+  
 
   const handleSubmitAuth = async (data) => {
    
@@ -178,11 +221,22 @@ setTimeout(() => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     setLoadingSimulation(x => x= true)
     setShowLoginPannel(x => x= false)
     
-    if (data.email.trim().length <= 5 && data.password.trim().length <= 5) {
-      alert("Error ");
+    if (isLogin && (data.email.trim().length <= 5 || data.password.trim().length <= 5)) {
+      setModalView(x=> x=true);
+      setModalViewContent(x=> x = "Complétez tous les champs obligatoires (*)");
+      setLoadingSimulation(x => x= false)
+      setShowLoginPannel(x => x= true)
+      return;
+    }
+    if (!isLogin && (data.email.trim().length <= 5 || data.name.trim().length <= 5 || data.password.trim().length <= 5)) {
+      setLoadingSimulation(x => x= false)
+      setShowLoginPannel(x => x= true)
+      setModalView(x=> x=true);
+      setModalViewContent(x=> x = "Complétez tous les champs obligatoires (*)");
       return;
     }
 
@@ -232,6 +286,8 @@ setTimeout(() => {
      // setLoadingSimulation(x => x= false)
     }
 
+
+    
     /* 
     
     const request = await fetch(`${process.env.BASE_API_URL}/api/userfree`, {
@@ -266,7 +322,7 @@ setTimeout(() => {
       setModalView(x=> x=true);
       setModalViewContent(x=> x = result.message);
 
- 
+ setLoadingSimulation(x=> x = false)
     }
   };
 
@@ -323,29 +379,45 @@ setTimeout(() => {
   
   return (
     <>
+    
     <React.Fragment>
-       { (loadingSimulation && !showLoginPannel) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen bg-[#060606]/30 ">
+       { (loadingSimulation && !showLoginPannel) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen bg-[#06060600]/50 ">
 
  
-<svg aria-hidden="true" className="w-[60px] h-[60px]  opacity-30  animate-spin dark:text-gray-600 fill-yellow-100" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <svg aria-hidden="true" className="w-[60px] h-[60px]  opacity-100  animate-spin dark:text-gray-600 fill-[#9a9768]" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
    
-        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill=""/>
-    </svg>
+   <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill=""/>
+</svg>
 </div>  }
 
+ 
+{/*  */}
+{ ( accessToken?.length > 100 || accessToken =="" ) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen bg-[#2C2B2C] ">
+<div className="flex items-center justify-center">
+  
+{isLoading && <ReactPlayer  
+
+url='/videos/Animation Payme BR.mp4' playing muted /> 
+ }
+    {/*    <img className="h-[70px]  mb-10  " src="/images/logo-payme-complet.png" />
+     */}
+       </div>
+</div>  }
 
        {modalView && InfoView()}
-     {(!loadingSimulation && showLoginPannel  ) && <div className="h-screen bg-gradient-to-b p-10 pt-14 from-[#2e2e2ee3] flex justify-center items-center flex-col   to-[#060606]">
+     {(accessToken?.length < 100 && accessToken !=""  ) && <div className="h-screen bg-gradient-to-b p-10 pt-14 from-[#2e2e2ee3] flex justify-center items-center flex-col   to-[#060606]">
        <div className="flex items-center justify-center">
        <img className="h-[70px]  mb-10  " src="/images/logo-payme-complet.png" />
     
        </div>
         <form
           onSubmit={handleSubmit}
-          className="w-[590px]  transition-all duration-500 flex flex-col p-8 px-16 items-center bg-gradient-to-b from-[#515151] to-[#2a2a2a] rounded-[50px]"
+          className={`w-[590px] ${!isLogin ? "" : "max-h-[365px] h-[365px]"}  transition-all duration-500 flex flex-col p-8 px-16 items-center bg-gradient-to-b from-[#515151] to-[#2a2a2a] rounded-[50px]`}
         >
        
-          <p className="mb-6 text-2xl font-light opacity-40">Identifiez-vous</p>
+         {!passwordForgetPop && !otpScreen && !changePasswordPop && <>
+        
+          <p className="mb-6 text-2xl font-light opacity-40">{isLogin ? "Identifiez-vous" : "Créer un compte"}</p>
           { !isLogin &&    <InputComponent
             name="name"
             value={data.name}
@@ -356,6 +428,8 @@ setTimeout(() => {
           />}
           <InputComponent
             name="email"
+            type="email"
+             
             value={data.email}
             onChange={handleChange}
             className="p-7  pl-[28px] my-0 font-normal mb-4  rounded-xl border-2 border-opacity-30"
@@ -367,15 +441,19 @@ setTimeout(() => {
             name="password"
             value={data.password}
             onChange={handleChange}
-            className="p-7  pl-[28px] mb-4  font-normal  rounded-xl border-2 border-opacity-30"
+            className="p-7  pl-[28px] mb-4  font-normal   rounded-xl border-2 border-opacity-30"
             placeholder="Votre mot de passe *"
             type="password"
           />
           
-
-          <p className="self-end mb-8 mr-4 text-[13px]  font-light opacity-60">
+          { !isLogin && <div className="h-[22px] min-h-[22px]"></div> }
+       { isLogin &&  <p 
+          onClick={()=>{
+            setPasswordForgetPop(x=> x = true)
+          }}
+          className="self-end mb-8 mr-4 text-[13px] cursor-pointer underline  font-light opacity-60">
             Mot de passe perdu ?
-          </p>
+          </p>}
           <div className="flex items-center justify-center w-full space-x-2 ">
             <div className="border rounded-full border-white/40">
             <ButtonComponent
@@ -438,21 +516,169 @@ setTimeout(() => {
               className="bg-[#515151] border-none w-[130px] h-[46px] "
             />
           </div>
+         </> }
+         {passwordForgetPop && <>
+        
+         
+          <p className="self-start mt-2 mb-4 text-2xl font-light opacity-40">Saisissez votre adresse e-mail</p>
+    <p className="mb-10 font-light ">
+    Veuillez indiquer l'adresse e-mail associée à votre compte pour réinitialiser votre mot de passe</p>
+          <InputComponent
+            name="email"
+            value={data.email}
+            onChange={handleChange}
+            className="p-7  pl-[28px] my-0 font-normal mb-12  rounded-xl border-2 border-opacity-30"
+            placeholder={`${isLogin ? "Votre identifiant *" : "Votre email *"} `}
+          />
+
+<div className="flex items-end justify-end w-full gap-6 mb-3 ">
+<ButtonComponent
+                  key={100}
+                  label={"Annuler"}
+                  handleClick={async() => {
+                    setPasswordForgetPop(x=> x = false)
+                  }}
+                  className="bg-[#636363]  border-none"
+                />
+              <ButtonComponent
+                key={200}
+                handleClick={async () => {
+                  setPasswordForgetPop(x=> x = false)
+                  setOtpScreen(x=> x = true)
+                }}
+
+                type="button"
+                
+                label={"Envoyer"}
+                className="bg-[#9a9768]  border-none"
+              />
+            </div>
+          
+         </> }
+
+         {otpScreen && <>
+         
+         <p className="mb-3 text-2xl font-light mt-2-10 opacity-40">Mentionnez le code OTP  </p>
+         <p className="font-light text-center">Entrez le code reçu par e-mail pour valider votre demande <br /> de réinitialisation du mot de passe</p>
+         <div className=" ml-[20px] mt-8">
+         <OtpInput
+      value={otp}
+      onChange={setOtp}
+      numInputs={4}
+      
+      inputStyle={{
+       
+         
+        backgroundColor:"transparent",
+        border:"solid",
+        borderColor:"#FFFFFF4F",
+        borderWidth:"1px",
+        borderRadius:"10px",
+        marginRight :"20px",
+        height:"70px",
+        width:"70px",
+        fontSize:"40px",
+        outline:"none",
+      }}
+      renderSeparator={<span></span>}
+      renderInput={(props) => <input {...props} type="number" className="   [&::-webkit-outer-spin-button]:appearance-none 
+      [&::-webkit-inner-spin-button]:appearance-none " />}
+    />
+         
+         </div>
+      <p className="mt-4 font-light opacity-40">Code non reçu ? <span className="underline cursor-pointer">Renvoyez-le </span> </p>  
+
+<div className="flex items-end justify-center w-full gap-6 mt-6 mb-5 ">
+<ButtonComponent
+                 key={121}
+                 label={"Annuler"}
+                 handleClick={async() => {
+                  setOtpScreen(x=> x = false)  
+                 }}
+                 className="bg-[#636363]  border-none"
+               />
+             <ButtonComponent
+               key={221}
+              
+               handleClick={async () => {
+                 setOtpScreen(x=> x = false)
+                 setChangePasswordPop(x=> x = true)
+               }}
+               type="button"
+               label={"Envoyer"}
+               className="bg-[#9a9768]  border-none"
+             />
+           </div>
+         
+        </> }
+
+
+        {changePasswordPop && <>
+          <p className="self-start mt-[1px] text-2xl font-light mb-9 opacity-40 ">Ajoutez un nouveau mot de passe</p>
+           <InputComponent
+            name="name"
+            value={data.name}
+            onChange={handleChange}
+            className="p-7  pl-[28px] mb-4  mt-0 font-normal  rounded-xl border-2 border-opacity-30"
+            placeholder="Nouveau mot de passe  *"
+            type="text"
+          />
+          <InputComponent
+            name="email"
+            value={data.email}
+            onChange={handleChange}
+            className="p-7  pl-[28px] my-0 font-normal mb-[15px]  rounded-xl border-2 border-opacity-30"
+            placeholder={"Confirmez votre mot de passe *"}
+          />
+
+    
+          
+          
+
+<div className="flex items-end justify-end w-full gap-6 mt-8 mb-4 ">
+<ButtonComponent
+                 key={100}
+                 label={"Annuler"}
+                 handleClick={async() => {
+                  
+                 setChangePasswordPop(x=> x = false)  
+                 }}
+                 className="bg-[#636363]  border-none"
+               />
+             <ButtonComponent
+               key={200}
+               handleClick={async () => {
+                 
+               }}
+               type="button"
+               label={"Enregistrer"}
+               className="bg-[#9a9768]  border-none"
+             />
+           </div>
+         
+          
+         </> }
         </form>
         <div className="flex my-8 text-xl">
-          <p className="font-light opacity-40">Vous êtes nouveau ici ?</p>
-          <span
-            onClick={() => {
-            
-              setIsLogin((x) => (x = !x));
-              /*   const dd =  await  fetchFacture()
-       
-        saveAs(dd, "my super facture.pdf"); */
-            }}
-            className="ml-2 text-white cursor-pointer"
-          >
-            {isLogin ? "Créez un compte" : "Se connecter"}
-          </span>
+        {!passwordForgetPop && !otpScreen && !changePasswordPop && <>
+        
+          <p className="font-light opacity-40">  {isLogin ? "Vous êtes nouveau ici" : "Vous avez déjà un compte"} ?</p>
+<span
+  onClick={() => {
+  
+    setIsLogin((x) => (x = !x));
+    /*   const dd =  await  fetchFacture()
+
+saveAs(dd, "my super facture.pdf"); */
+  }}
+  className="ml-2 text-white cursor-pointer"
+>
+  {isLogin ? "Créez un compte" : "Se connecter"}
+</span>
+        </>
+
+
+          }
         </div>
         <p className="mt-4 text-[12px] font-light opacity-40">
           En cliquant sur les boutons de connexion ci-dessus, vous reconnaissez

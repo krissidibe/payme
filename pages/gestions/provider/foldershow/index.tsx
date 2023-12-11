@@ -268,7 +268,7 @@ function FolderShow(props) {
             }}
             labelClassName="text-[16px]"
             label={"Modifier"}
-            className="border-none h-[58px] font-bold  w-full bg-[#ffffff20]"
+            className="border-none h-[58px] font-bold hover:brightness-110  w-full bg-[#53534A]"
           />
            </div>
           }

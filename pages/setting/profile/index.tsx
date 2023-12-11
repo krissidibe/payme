@@ -25,7 +25,7 @@ import ButtonComponent from "../../../components/UI/ButtonComponent";
 import { RxUpdate } from "react-icons/rx";
 import InputDropdownComponent from "../../../components/UI/InputDropdownComponent";
 import InputDropdownCountryComponent from "../../../components/UI/InputDropdownCountryComponent";
-import { AiOutlineInfoCircle } from "react-icons/ai";
+import { AiOutlineFileAdd, AiOutlineInfoCircle } from "react-icons/ai";
 import InputDropdownActivityComponent from "../../../components/UI/InputDropdownActivityComponent";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -35,7 +35,7 @@ import {
   uploadImageLogo,
   uploadImageSignature,
 } from "../../../services/enterpriseService";
-import { fetchUser, updateUser } from "../../../services/userService";
+import { fetchUser, updateUser, updateUserPassword } from "../../../services/userService";
 import OtpInput from "react-otp-input";
 import useMenuStore from "../../../utils/MenuStore";
 import { useCropImage } from "../../../utils/use-crop-image-modal";
@@ -46,10 +46,12 @@ import {
   getRotatedImage,
 } from "../../../components/Modals/canvasUtils";
 import { country } from "../../../utils/country";
+import { useGlobalModal } from "../../../utils/use-global-modal";
 function Profile(props) {
   const [indexView, setIndexView] = useState(0);
   const modalCropImage = useCropImage();
   const menuIndex = useMenuStore();
+  const modal = useGlobalModal()
   const [imageSignature, setImageSignature] = useState(null);
   const [indexAccountView, setIndexAccountView] = useState(0);
   const [showPannel, setShowPannel] = useState(false);
@@ -62,6 +64,7 @@ function Profile(props) {
   const [openDrop, setOpenDrop] = useState(false);
   const [canEditEnterprise, setCanEditEnterprise] = useState(false);
   const [canEditUser, setCanEditUser] = useState(false);
+  const [canEditPassword, setCanEditPassword] = useState(false);
   const [checkedFinance, setCheckedFinance] = useState(false);
   const [canEditFileUpload, setCanEditFileUpload] = useState(false);
 const router = useRouter();
@@ -110,7 +113,13 @@ const router = useRouter();
     country: "",
     address: "",
     number: "",
+    password: "",
     lockCode: false,
+  });
+  const [dataProfilePassword, setDataProfilePassword] = useState<any>({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: ""
   });
   const [data, setData] = useState<Enterprise>({
     id: "",
@@ -148,7 +157,7 @@ const router = useRouter();
     setCheckedFinance(data.lockFinance ?? false);
     setDataProfile(dataUser);
     const numberClient = dataUser as any;
-    setClientNumber(numberClient.customers.length);
+    setClientNumber(numberClient.customers?.length);
     setDropValueUserCountry(dataUser.country);
 
     // data.nif = JSON.parse(data.nif)
@@ -189,6 +198,14 @@ const router = useRouter();
   const handleChangeUser = (e) => {
     const { name, value } = e.target;
     setDataProfile((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const handleChangeUserPassword = (e) => {
+    const { name, value } = e.target;
+    console.log(name)
+    setDataProfilePassword((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -508,17 +525,41 @@ const router = useRouter();
         <div className="flex-1"></div>
 
         <div
-          onClick={() => {
-            menuIndex.setMenuIndex(-1);
 
-            //check
-            //window.localStorage.removeItem("firstView")
-            window.localStorage.removeItem("accessToken");
-            window.localStorage.removeItem("userId");
-            router.replace({
-              pathname: "/",
-            });
-          }}
+onClick={() => {
+
+
+  modal.onSubmit = (
+    <ButtonComponent
+      handleClick={async () => {
+       
+
+      
+
+        
+         
+        
+        //check
+        //window.localStorage.removeItem("firstView")
+        menuIndex.setMenuIndex(-1);
+          window.localStorage.removeItem("accessToken");
+          window.localStorage.removeItem("userId");
+          router.replace({
+            pathname: "/",
+          });
+         modal.onClose();
+        
+      }}
+      label={"Confirmer"}
+      className="  mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none   "
+    />
+  );
+  modal.onOpen();
+modal.setTitle("Êtes-vous sûr ?");
+modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
+  }}
+
+       
           className="flex w-full p-[17px] mb-10  cursor-pointer  items-center   "
         >
           <TbLogout className="w-6 h-6 mr-3 opacity-40" />
@@ -547,6 +588,7 @@ const router = useRouter();
               setIndexAccountView(0);
               setCanEditEnterprise((x) => (x = false));
               setCanEditUser((x) => (x = false));
+              setCanEditPassword((x) => (x = false));
                setCanEditFileUpload((x) => (x = false));
             }}
             className={`flex cursor-pointer opacity-50 items-center py-2 space-x-2  text-[14px] font-light   ${
@@ -563,6 +605,7 @@ const router = useRouter();
               setIndexAccountView(1);
               setCanEditEnterprise((x) => (x = false));
               setCanEditUser((x) => (x = false));
+              setCanEditPassword((x) => (x = false));
                setCanEditFileUpload((x) => (x = false));
             }}
             className={`flex cursor-pointer items-center opacity-50 py-2 space-x-2 text-[14px] font-light   ${
@@ -579,6 +622,7 @@ const router = useRouter();
               setIndexAccountView(2);
               setCanEditEnterprise((x) => (x = false));
               setCanEditUser((x) => (x = false));
+              setCanEditPassword((x) => (x = false));
               setCanEditFileUpload((x) => (x = false));
 
               setImageSignature("value");
@@ -595,6 +639,28 @@ const router = useRouter();
             {" "}
             <span>Fichiers joints</span>
           </div>
+
+         {dataProfile.password != "passwordByAuth" && dataProfile.password != ""  && <div
+            onClick={() => {
+              setIndexAccountView(3);
+              setCanEditEnterprise((x) => (x = false));
+              setCanEditUser((x) => (x = false));
+              setCanEditFileUpload((x) => (x = false));
+
+              setImageSignature("value");
+                    setImageLogo("value");
+
+                     
+            }}
+            className={`flex cursor-pointer items-center opacity-50 py-2 space-x-2 text-[14px] font-light   ${
+              indexAccountView == 3
+                ? "border-b-2 px-0  border-[#ffffff] border-opacity-40"
+                : "border-b-2 px-0  border-opacity-0 border-white opacity-50 "
+            } `}
+          >
+            {" "}
+            <span>Mot de passe</span>
+          </div>}
         </div>
         {indexAccountView == 0 && (
           <div className="flex-1 h-full px-12 pt-6 overflow-scroll pb-[200px] no-scrollbar">
@@ -680,7 +746,8 @@ const router = useRouter();
               <div className="relative flex gap-4 ">
                 <div className="w-[300px]">
                   <InputDropdownCountryComponent
-                    label="Indicatif *"
+                   
+                    label={index == 0 ? "Indicatif *" : "Indicatif"}
                     placeholderOn={canEditEnterprise || canEditUser }
                     placeholder={item.indicatif ?? "---"}
                     inputDrop={true}
@@ -780,7 +847,7 @@ const router = useRouter();
                   />
                 </div>
 
-                {contactList.length == 1 &&
+                {contactList?.length == 1 &&
                     index == 0 &&
                     canEditEnterprise && (
                      <div>
@@ -812,7 +879,7 @@ const router = useRouter();
                     )}
 
 <>
-                    {contactList.length == 2 &&
+                    {contactList?.length == 2 &&
                       index == 1 &&
                       canEditEnterprise && (
                       <div>
@@ -955,7 +1022,7 @@ const router = useRouter();
                         : "text-white/40 focus:border-white/20"
                     }`}
                   />
-                  {identNumber.length == 1 &&
+                  {identNumber?.length == 1 &&
                     index == 0 &&
                     canEditEnterprise && (
                       <>
@@ -986,7 +1053,7 @@ const router = useRouter();
                     )}
 
                   <>
-                    {identNumber.length == 2 &&
+                    {identNumber?.length == 2 &&
                       index == 1 &&
                       canEditEnterprise && (
                         <svg
@@ -1030,7 +1097,7 @@ const router = useRouter();
                 name="bankNumber"
                 value={data.bankNumber}
                 onChange={handleChange}
-                label="Numére de compte bancaire"
+                label="Numéro de compte bancaire"
                 labelClassName="text-white/40 text-[13px]"
                 readOnly={canEditEnterprise ? false : true}
                 className={`rounded-[14px] mb-0 h-[40px] text-[14px] font-light border-opacity-20  focus:border-opacity-100 ${
@@ -1072,13 +1139,13 @@ const router = useRouter();
               <ButtonComponent
                 key={200}
                 handleClick={async () => {
-                  if (!canEditEnterprise) {
-                    setCanEditEnterprise(true);
-                  } else {
-                    setModalAlertUpdate(true);
-                  }
+                  setCanEditEnterprise(x=> x = !x);
+                  enterpriseHandleSubmit();
+
+                   
+                 
                 }}
-                label={!canEditEnterprise ? "Modifier" : "Enregistré"}
+                label={!canEditEnterprise ? "Modifier" : "Enregistrer"}
                 className="bg-[#9a9768]  border-none"
               />
             </div>
@@ -1119,54 +1186,7 @@ const router = useRouter();
 
              
 
-             {false &&
-             <>
-              <InputComponent
-                key={35}
-                name="address"
-                value={dataProfile.address}
-                onChange={handleChangeUser}
-                label="Ancien mot de passe *"
-                labelClassName="text-white/40 text-[13px]"
-                readOnly={canEditUser ? false : true}
-                className={`rounded-[14px] mb-0 h-[40px] text-[14px] font-light border-opacity-20  focus:border-opacity-100 ${
-                  canEditUser
-                    ? "text-white focus:border-[#ffffff]"
-                    : "text-white/40 focus:border-white/20"
-                }`}
-              />
-
-              <InputComponent
-                key={37}
-                name="address"
-                value={dataProfile.address}
-                onChange={handleChangeUser}
-                label="Nouveau mot de passe *"
-                labelClassName="text-white/40 text-[13px]"
-                readOnly={canEditUser ? false : true}
-                className={`rounded-[14px] mb-0 h-[40px] text-[14px] font-light border-opacity-20  focus:border-opacity-100 ${
-                  canEditUser
-                    ? "text-white focus:border-[#ffffff]"
-                    : "text-white/40 focus:border-white/20"
-                }`}
-              />
-
-              <InputComponent
-                key={38}
-                name="address"
-                value={dataProfile.address}
-                onChange={handleChangeUser}
-                label="Confirmation de mot de passe *"
-                labelClassName="text-white/40 text-[13px]"
-                readOnly={canEditUser ? false : true}
-                className={`rounded-[14px] mb-0 h-[40px] text-[14px] font-light border-opacity-20  focus:border-opacity-100 ${
-                  canEditUser
-                    ? "text-white focus:border-[#ffffff]"
-                    : "text-white/40 focus:border-white/20"
-                }`}
-              />
-             </>
-             }
+         
             </div>
             <div></div>
 
@@ -1184,13 +1204,10 @@ const router = useRouter();
               <ButtonComponent
                 key={200}
                 handleClick={async () => {
-                  if (!canEditUser) {
-                    setCanEditUser(true);
-                  } else {
-                    setModalAlertUpdate(true);
-                  }
+              setCanEditUser(x=> x = !x);
+              userHandleSubmit(); 
                 }}
-                label={!canEditUser ? "Modifier" : "Enregistré"}
+                label={!canEditUser ? "Modifier" : "Enregistrer"}
                 className="bg-[#9a9768]  border-none  "
               />
             </div>
@@ -1384,9 +1401,133 @@ const router = useRouter();
                   
                   
                 }}
-                label={!canEditFileUpload ? "Modifier" : "Enregistré"}
+                label={!canEditFileUpload ? "Modifier" : "Enregistrer"}
                 className="bg-[#9a9768]  border-none  "
               />
+            </div>
+          </div>
+        )}
+
+{indexAccountView == 3 && (
+          <div className="h-full px-12 pt-6 overflow-scroll no-scrollbar">
+            <div className="grid w-full grid-cols-2 gap-x-8 gap-y-5">
+              <InputComponent
+                key={131}
+                name="oldPassword"
+              type="password"
+           //   value={!canEditPassword ? "password" : ""}
+             value={!canEditPassword ? "password" : dataProfilePassword.oldPassword}
+               onChange={handleChangeUserPassword}
+                label="Ancien mot de passe *"
+                placeholder="Ancien mot de passe *"
+                
+                labelClassName="text-white/40 text-[13px]"
+                readOnly={canEditPassword ? false : true}
+                className={`rounded-[14px] mb-0 h-[40px] text-[14px]  ${canEditPassword ? "" : "bg-[#39383834]"}  font-light border-opacity-20  focus:border-opacity-100 ${
+                  canEditPassword
+                    ? "text-white focus:border-[#ffffff]"
+                    : "text-white/40 focus:border-white/20"
+                }`}
+              />
+               <InputComponent
+                key={132}
+                name="newPassword"
+              type="password"
+             //    value={!canEditPassword ? "password" : ""}
+            value={!canEditPassword ? "password" : dataProfilePassword.newPassword}
+               onChange={handleChangeUserPassword}
+                label="Nouveau mot de passe *"
+                placeholder="Nouveau mot de passe *"
+                labelClassName="text-white/40 text-[13px]"
+                readOnly={canEditPassword ? false : true}
+                className={`rounded-[14px] mb-0 h-[40px] text-[14px] ${canEditPassword ? "" : "bg-[#39383834]"}  font-light border-opacity-20  focus:border-opacity-100 ${
+                  canEditPassword
+                    ? "text-white focus:border-[#ffffff]"
+                    : "text-white/40 focus:border-white/20"
+                }`}
+              />
+
+<InputComponent
+                key={133}
+                name="confirmPassword"
+              type="password"
+               value={!canEditPassword ? "password" : dataProfilePassword.confirmPassword}
+               onChange={handleChangeUserPassword}
+            //   value={!canEditPassword ? "password" : ""}
+               
+                label="Confirmation de mot de passe *"
+                placeholder="Confirmation de mot de passe *"
+                labelClassName="text-white/40 text-[13px]"
+                readOnly={canEditPassword ? false : true}
+                className={`rounded-[14px] mb-0 h-[40px] text-[14px] ${canEditPassword ? "" : "bg-[#39383834]"}  font-light border-opacity-20  focus:border-opacity-100 ${
+                  canEditPassword
+                    ? "text-white focus:border-[#ffffff]"
+                    : "text-white/40 focus:border-white/20"
+                }`}
+              />
+              
+
+             
+
+        
+            </div>
+            
+            <div></div>
+
+            <div className="flex items-end justify-start gap-6 mt-12 ">
+              {canEditPassword && (
+                <ButtonComponent
+                  key={100}
+                  label={"Annuler"}
+                  handleClick={() => {
+                    setCanEditPassword(false);
+                  }}
+                  className="bg-[#ffffff09]  border-none  "
+                />
+              )}
+             { <ButtonComponent
+                key={200}
+                handleClick={async () => {
+
+                  if(canEditPassword && (
+                    dataProfilePassword.oldPassword.length < 6 ||
+                    dataProfilePassword.newPassword.length < 6 ||
+                    dataProfilePassword.confirmPassword.length < 6
+                    
+                    )){
+                      alert("petit")
+                    return
+                  }
+
+                  if(canEditPassword && (
+                    dataProfile.password != dataProfilePassword.oldPassword ||
+                    dataProfilePassword.newPassword != dataProfilePassword.confirmPassword
+                     
+                    )){
+                      alert("incorect")
+                    return
+                  }
+
+
+                  if(canEditPassword && ( 
+                    dataProfilePassword.newPassword == dataProfilePassword.confirmPassword
+                     
+                    )){
+                      const data =   await updateUserPassword(dataProfilePassword.newPassword) 
+                  if(data){
+                    await fetch()
+                    setDataProfilePassword(x=> x = { oldPassword: "",
+                    newPassword: "",
+                    confirmPassword: ""}) 
+                  }
+                  }
+                  setCanEditPassword(x=> x = !x);
+             
+                 
+                }}
+                label={!canEditPassword ? "Modifier" : "Enregistrer"}
+                className="bg-[#9a9768]  border-none  "
+              />}
             </div>
           </div>
         )}
@@ -1418,7 +1559,7 @@ const router = useRouter();
             <span className="text-primary">vos finances</span>{" "}
           </p>
           <div className="m-[30px]  h-[100px] mt-[50px] relative">
-            {otp != otpUser && otp.length == 4 && (
+            {otp != otpUser && otp?.length == 4 && (
               <p className="absolute -top-8 text-red-500/60 animate-pulse ">
                 Code d'accès erroné, réessayer
               </p>
@@ -1487,7 +1628,7 @@ const router = useRouter();
     }, []);
 
     const onFileChange = async (e) => {
-      if (e.target.files && e.target.files.length > 0) {
+      if (e.target.files && e.target.files?.length > 0) {
         const file = e.target.files[0];
         let imageDataUrl = await readFile(file);
 
@@ -1524,11 +1665,11 @@ const router = useRouter();
     } */
     return (
       <div className="absolute inset-0 z-50 flex items-center justify-center pt-10 transition pr-7 bg-black/40 ">
-        <div className="p-4 bg-[#323232]  z-50  w-[474px] h-[492px] px-8 flex flex-col items-start pt-[42px] text-white rounded-xl">
+        <div className="p-4 bg-[#323232]  z-50  w-[474px] h-[415px] px-8 flex flex-col items-start pt-[32px] text-white rounded-xl">
           <p className="text-[18px]">Télécharger votre image</p>
-          <p className="text-[14px] text-[#808080] mb-[35px]">
+        {/*   <p className="text-[14px] text-[#808080] mb-[35px]">
             Pour un meilleur résultat utilisé un PNG, JPG ou JPEG
-          </p>
+          </p> */}
           <div className="flex justify-center w-full ">
             <input
               ref={imageRef}
@@ -1538,7 +1679,7 @@ const router = useRouter();
             />
             {/* 
              */}
-            <div className="bg-[#6e6e6e] relative h-[230px] w-[230px] mb-6 object-cover rounded-[20px]">
+            <div className={` ${!image ? "bg-[#ffffff07]" : "bg-[#ffffff]"} p-1  border-dashed       border-white/50 border relative h-[230px] w-[430px] mt-6 mb-6 object-cover rounded-[20px]`}>
               {image ? (
                <img
                  src={image + ""}
@@ -1565,8 +1706,11 @@ const router = useRouter();
               onClick={() => {
                 imageRef.current.click();
               }}
-              className="flex items-center justify-center w-full h-full cursor-pointer" >
-                <IoMdAdd className="w-8 h-8 opacity-50" /></div>}
+              className="flex flex-col items-center justify-center w-full h-full cursor-pointer" >
+                <AiOutlineFileAdd className="opacity-50 w-14 h-14" />
+                <p className="mt-6 text-[19px]" >Choisissez le fichier à télécharger</p>
+                <p className="text-[13px] opacity-50" >Pour un meilleur résultat, utilisé un PNG</p>
+                </div>}
             </div>
 
             {/* <div className="flex flex-col items-center gap-4">
@@ -1589,7 +1733,7 @@ const router = useRouter();
               
             </div> */}
           </div>
-          <div className="flex hidden items-center self-center justify-between w-[190px] mt-[20px]">
+       {/*    <div className="flex hidden items-center self-center justify-between w-[190px] mt-[20px]">
             <svg
               width="13"
               height="11"
@@ -1629,10 +1773,10 @@ const router = useRouter();
                 fill="#D9D9D9"
               />
             </svg>
-          </div>
+          </div> */}
 
-          <div className="flex justify-center w-full gap-3   mt-[20px]">
-            <div className="rounded-full bg-[#636363]">
+          <div className="flex justify-center w-full gap-3 ">
+            <div className="rounded-full bg-[#636363] hover:brightness-110  ">
               <ButtonComponent
                 key={121}
                 label={"Annuler"}
@@ -1668,8 +1812,11 @@ const router = useRouter();
             {true && (
               <ButtonComponent
                 key={143}
-                label={"Enregistrer"}
+                label={"Importer"}
                 handleClick={() => {
+                  if(!image){
+                    return;
+                  }
                   if (logoChoose) {
                     setImageLogo(image);
                    // setImageLogo(croppedImage);
@@ -1685,7 +1832,7 @@ const router = useRouter();
 
                   //  modal.setImage(croppedImage);
                 }}
-                className="bg-[#9a9768]  border-none   font-bold "
+                className={`${image ? " opacity-100 cursor-pointer " : "opacity-40 cursor-default hover:brightness-100   "}  bg-[#9a9768]  border-none   font-bold `}
               />
             )}
           </div>

@@ -452,7 +452,7 @@ function ItemGestion({ item, indexType, handleClick = () => {} }) {
   ) : (
     <div
       onClick={handleClick}
-      className="flex cursor-pointer w-full flex-1 min-h-[40px] items-center  text-[15px] mt-2    pb-[9px]  text-[#ffffff82]  border-b-[1px] border-white border-opacity-10  "
+      className="flex cursor-pointer w-full hover:bg-[#ffffff0a]  flex-1 min-h-[40px] items-center  text-[15px] mt-2    pb-[9px]  text-[#ffffff82]  border-b-[1px] border-white border-opacity-10  "
     >
       <div className="flex-1 pt-2 ">
         <div

@@ -46,24 +46,32 @@ import { useGlobalModal } from "../../utils/use-global-modal";
 import ButtonComponent from "../../components/UI/ButtonComponent";
 import { BsCheck2Circle } from "react-icons/bs";
 import { addNewTransation } from "../../services/transactionService";
+import FolderComponentNew from "../../components/UI/FolderComponentNew";
+import GlobalPayment from "../../components/Modals/global-modal-payment";
+import { fetchUser } from "../../services/userService";
+import { useGlobalPayment } from "../../utils/use-global-payment";
 
 function Dashboard(props) {
+  const [dataUser, setDataUser] = useState(null)
+  const [modalView, setModalView] = useState(false);
+  const [modalViewContent, setModalViewContent] = useState("");
   const [showSearchInput, setShowSearchInput] = useState(false);
   const menuIndex = useMenuStore();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingConfirmBtn, setIsLoadingConfirmBtn] = useState(true);
   const [isLoadingProject, setIsLoadingProject] = useState(true);
-  const [showTodayPlanning, setShowTodayPlanning] = useState(false);
+  const [modalPayment, setModalPayment] = useState(true);
   const [showWeeksPlanning, setShowWeeksPlanning] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
   const modal = useNewClientModal();
   const [search, setSearch] = useState("");
-  const [take, SetTake] = useState(15);
-  const [skip, SetSkip] = useState(0);
+  const [take, setTake] = useState(15);
+  const [skip, setSkip] = useState(0);
   const [pageNumber, SetPageNumber] = useState(1);
-  const [statutSort, setStatutSort] = useState< "" | "INPROGRESS" | "ISVALIDATE" | "ISFINISH">("");
+  const [statutSort, setStatutSort] = useState<"" | "INPROGRESS" | "ISVALIDATE" | "ISFINISH">("");
   const [searchProject, setSearchProject] = useState("");
   const router = useRouter();
+  
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [customersFiltered, setCustomersFiltered] = useState<any[]>([]);
   const [projectsFiltered, setProjectsFiltered] = useState<any>();
@@ -76,6 +84,40 @@ function Dashboard(props) {
   const [typeTransaction, setTypeTransaction] = useState("");
   const [currentNotifId, setCurrentNotifId] = useState("");
   const modalGlobal = useGlobalModal()
+  const globalPayment = useGlobalPayment();
+
+    
+  useEffect(() => {
+    
+    
+    (async ()=>{
+      const dataUser = await fetchUser();
+      setDataUser(x=> x = dataUser)
+      const dateEdit = new Date(Date.now())
+      dateEdit.setHours(24 *7,0,0)
+      const compareDateIsGreat = new Date(dataUser?.subscribe?.endAt) > dateEdit;
+      
+      if(!compareDateIsGreat && !globalPayment.isOpen ){
+  
+  setTimeout(() => {
+    setModalView(true);
+    setModalViewContent("Prolongez votre expérience avec nous en renouvelant votre abonnement")
+  }, 3000);
+  setTimeout(() => {
+    setModalView(x=> x = false)
+  }, 7000);
+}
+
+    
+      
+    
+     })()
+  
+   
+     return () => {
+       
+     }
+   }, [])
   useEffect(() => {
     (async () => {
       const datasToday = await todayDashboardAllPlanningItem();
@@ -122,6 +164,7 @@ function Dashboard(props) {
    })()
   }, [search]);
 
+
   const emptyRow = (
     <>
       <div className="flex h-[45px]  mb-3 duration-75 p-4  items-center text-white text-opacity-40 text-sm px-7 bg-[#2c2c2cb6] rounded-[20px]">
@@ -146,7 +189,9 @@ function Dashboard(props) {
   );
   return (
     <div className="flex flex-col h-full select-none min-w-max">
+        {modalView && InfoView()}
       {SearchElement()}
+      
       {transactionModal && modalTransaction(currentProject)}
       <div className="absolute bottom-12 right-12  w-[315px]">
         {/* 
@@ -189,7 +234,7 @@ function Dashboard(props) {
 
               ))} */}
 
-                <FolderComponent
+                <FolderComponentNew
                   key={100}
                   handleClick={async() => {
                     setShowNotif((x) => (x = false));
@@ -198,7 +243,7 @@ function Dashboard(props) {
                     setShowSearchInput((x) => (x = false));
                     setSearchProject("")
 setStatutSort("");
-                    SetSkip(x=> x = 0)
+                    setSkip(x=> x = 0)
                     SetPageNumber(x=> x = 1)
                     const dataProjects = await fetchAllProject("","",take,skip);
                     setProjects(data => data = dataProjects);
@@ -256,7 +301,7 @@ setStatutSort("");
                               setSearchProject(e.target.value)
                             
                             if (e.target.value.length >=3) {
-                              SetSkip(x=> x = 0)
+                              setSkip(x=> x = 0)
                               SetPageNumber(x=> x = 1)
                               const dataProjects = await fetchAllProject(e.target.value,statutSort,take,skip);
                               setProjects(data => data = dataProjects);
@@ -264,7 +309,7 @@ setStatutSort("");
                                
                                
                             }else{
-                              SetSkip(x=> x = 0)
+                              setSkip(x=> x = 0)
                               SetPageNumber(x=> x = 1)
                               const dataProjects = await fetchAllProject("",statutSort,take,skip);
                               setProjects(data => data = dataProjects);
@@ -283,7 +328,7 @@ setStatutSort("");
                             setShowSearchInput((x) => (x = !x));
                             setSearchProject("")
 setStatutSort("");
-                            SetSkip(x=> x = 0)
+                            setSkip(x=> x = 0)
                             SetPageNumber(x=> x = 1)
                             const dataProjects = await fetchAllProject("","",take,skip);
                             setProjects(data => data = dataProjects);
@@ -390,7 +435,7 @@ setStatutSort("");
                           <div
                             onClick={async () => {
                               setStatutSort("")
-                              SetSkip(x=> x = 0)
+                              setSkip(x=> x = 0)
                               SetPageNumber(x=> x = 1)
                               const dataProjects = await fetchAllProject(searchProject,"",15,0);
                               setProjects(data => data = dataProjects);
@@ -411,7 +456,7 @@ setStatutSort("");
                           <div
                             onClick={async () => {
                               setStatutSort("INPROGRESS")
-                              SetSkip(x=> x = 0)
+                              setSkip(x=> x = 0)
                               SetPageNumber(x=> x = 1)
                               const dataProjects = await fetchAllProject(searchProject,"INPROGRESS",15,0);
                               setProjects(data => data = dataProjects);
@@ -433,7 +478,7 @@ setStatutSort("");
                           <div
                             onClick={async () => {
                               setStatutSort("ISVALIDATE")
-                              SetSkip(x=> x = 0)
+                              setSkip(x=> x = 0)
                               SetPageNumber(x=> x = 1)
                               const dataProjects = await fetchAllProject(searchProject,"ISVALIDATE",15,0);
                               setProjects(data => data = dataProjects);
@@ -456,7 +501,7 @@ setStatutSort("");
                           <div
                             onClick={async () => {
                               setStatutSort("ISFINISH")
-                              SetSkip(x=> x = 0)
+                              setSkip(x=> x = 0)
                               SetPageNumber(x=> x = 1)
                               const dataProjects = await fetchAllProject(searchProject,"ISFINISH",15,0);
                               setProjects(data => data = dataProjects);
@@ -601,7 +646,7 @@ setStatutSort("");
 onClick={async()=>{
 
 if(pageNumber>1){
-  SetSkip(x=> x = (pageNumber-2) * take)
+  setSkip(x=> x = (pageNumber-2) * take)
   SetPageNumber(x=> x = x-1)
   const dataProjects = await fetchAllProject(searchProject,statutSort,take,(pageNumber - 2 ) * take);
   setProjects(data => data = dataProjects);
@@ -624,7 +669,7 @@ className={`${pageNumber>1 ? "cursor-pointer" :"" } `}>
 onClick={async()=>{
 
 if(pageNumber <  (searchProject == "" && statutSort == "" ?  projects?.totalPages+0 :  projects?.totalPages)){
-SetSkip(x=> x = (pageNumber+1) * take)
+setSkip(x=> x = (pageNumber+1) * take)
 SetPageNumber(x=> x = x+1)
 const dataProjects = await fetchAllProject(searchProject,statutSort,take,(pageNumber) * take);
 setProjects(data => data = dataProjects);
@@ -650,6 +695,54 @@ className={`${pageNumber < (searchProject == "" && statutSort == "" ?  projects?
     </div>
   );
 
+
+  function InfoView() {
+    return (
+      <div className="absolute bottom-0 right-0 z-30 flex items-center justify-center w-full pb-0 transition bg-black/0 ">
+       
+       
+        <div
+          onClick={() => {
+            setModalView(false);
+          
+          }}
+          className="absolute inset-0 z-50 flex items-center justify-center transition "
+        ></div>
+        <div className="p-4  bg-[#1E1E1E] bottom-10 right-10 absolute z-50 font-light  text-base pr-14 h-[70px] justify-center  flex flex-col  text-white rounded-xl">
+        <IoMdClose
+            onClick={() => {
+              setModalView(false);
+            }}
+            className="w-[20px] absolute top-2 right-3 h-[20px] opacity-60 mr-0   cursor-pointer self-end"
+          />  
+  
+ 
+<div className="flex items-start justify-start gap-3 ">
+<div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1201_45)">
+<path d="M21.8887 12.2222C21.8887 17.7462 17.4111 22.2222 11.8887 22.2222C6.36621 22.2222 1.88867 17.7462 1.88867 12.2222C1.88867 6.70132 6.36621 2.22217 11.8887 2.22217C17.4111 2.22217 21.8887 6.70132 21.8887 12.2222ZM11.8887 14.2383C10.8643 14.2383 10.0338 15.0687 10.0338 16.0931C10.0338 17.1175 10.8643 17.948 11.8887 17.948C12.9131 17.948 13.7435 17.1175 13.7435 16.0931C13.7435 15.0687 12.9131 14.2383 11.8887 14.2383ZM10.1277 7.57112L10.4268 13.055C10.4408 13.3116 10.6529 13.5125 10.9099 13.5125H12.8674C13.1244 13.5125 13.3366 13.3116 13.3506 13.055L13.6497 7.57112C13.6648 7.29394 13.4441 7.06088 13.1665 7.06088H10.6108C10.3332 7.06088 10.1125 7.29394 10.1277 7.57112Z" fill="#FFA300"/>
+</g>
+<defs>
+<clipPath id="clip0_1201_45">
+<rect width="20" height="20" fill="white" transform="translate(1.88867 2.22217)"/>
+</clipPath>
+</defs>
+</svg>
+      
+
+      </div>
+ 
+    <p className="max-w-[280px]" >{modalViewContent}</p>
+</div>
+ 
+  
+         
+        </div>
+        
+      </div>
+    );
+  }
   function SearchElement() {
     return (
       <div className=" min-h-[100px] cursor-pointer flex items-center   justify-center lg:justify-end   pr-24 border-b-[1px]  border-white border-opacity-20">
@@ -696,7 +789,7 @@ className={`${pageNumber < (searchProject == "" && statutSort == "" ?  projects?
               setShowSearchInput((x) => (x = false));
               setSearchProject("")
 setStatutSort("");
-              SetSkip(x=> x = 0)
+              setSkip(x=> x = 0)
               SetPageNumber(x=> x = 1)
               const dataProjects = await fetchAllProject("","",15,0);
               setProjects(data => data = dataProjects);
@@ -743,7 +836,7 @@ setStatutSort("");
                       query: item as any,
                     });
                   }}
-                  className="flex ml-2  mt-1  items-center justify-start cursor-pointer gap-2 border-b-[1px] pb-[6px] border-opacity-10 border-white "
+                  className="flex ml-2  mt-1 hover:bg-[#ffffff05] items-center justify-start cursor-pointer gap-2 border-b-[1px] pb-[6px] border-opacity-10 border-white "
                 >
                   <HiFolder className={`min-w-[27px] h-[27px]`} />
                   <p className="text-[13px] mt-1 line-clamp-1">
@@ -771,7 +864,7 @@ setStatutSort("");
                       query: item as any,
                     });
                   }}
-                  className="flex ml-2 mt-1  items-center justify-start cursor-pointer gap-2 border-b-[1px] pb-[6px] border-opacity-10 border-white "
+                  className="flex ml-2 mt-1 hover:bg-[#ffffff05]  items-center justify-start cursor-pointer gap-2 border-b-[1px] pb-[6px] border-opacity-10 border-white "
                 >
                   <LiaFileAltSolid
                     className={`min-w-[25px] h-[25px] opacity-80`}
@@ -798,7 +891,7 @@ setStatutSort("");
             setShowSearchInput((x) => (x = false));
             setSearchProject("")
 setStatutSort("");
-            SetSkip(x=> x = 0)
+            setSkip(x=> x = 0)
             SetPageNumber(x=> x = 1)
             const dataProjects = await fetchAllProject("","",take,skip);
             setProjects(data => data = dataProjects);
@@ -957,7 +1050,7 @@ setStatutSort("");
       <>
         <div
           onClick={handleClick}
-          className="flex h-[49px] mb-3 relative p-4 items-center cursor-pointer text-white text-opacity-40 text-sm px-7 pr-0 bg-[#2c2c2ce1] rounded-3xl"
+          className="flex h-[49px] mb-3 relative  hover:bg-[#373737ab]  p-4 items-center cursor-pointer text-white text-opacity-40 text-sm px-7 pr-0 bg-[#2c2c2ce1] rounded-3xl"
         >
           <p className="w-[120px] xl:w-[170px] mr-8">
             {daysFr(`${item.createdAt}`)}{" "}
@@ -1313,7 +1406,7 @@ onClick={async()=>{
   }
 
   function TransactionItemBtn({label,index,handleClick}:{label:string,index:string,handleClick?: () => void}) {
-    return <div onClick={handleClick} className={`w-full relative px-6 py-3 ${index == typeTransaction ? "text-white/100  primary " :"text-white/30  bg-white/10 "} rounded-[10px] cursor-pointer  text-md`}>
+    return <div onClick={handleClick} className={`w-full relative px-6 py-3 ${index == typeTransaction ? "text-white/100  primary " :"text-white/30  bg-[#4B4B4B] "} hover:brightness-110 rounded-[10px] cursor-pointer   text-md`}>
     {label} 
      {index == typeTransaction && <BsCheck2Circle className="absolute right-5 top-4 h-[20px] w-[20px]" />}
     </div>;

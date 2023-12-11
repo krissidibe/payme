@@ -22,6 +22,32 @@ type User = {
     deletedAt?: Date,
     emailVerified?: boolean;
     image?: string,
+    subscribe?: any,
+  };
+  
+
+  type Payment = {
+     id?: string,
+    reference?  :string
+    type  :string
+    month  :number
+    amount  :number
+    currency  :string
+    subscribe?  :any
+     //Action
+    createdAt? :     Date     
+    updatedAt? :     Date     
+    deletedAt? :     Date       
+  };
+    type Subscribe = {
+       id?: string,
+    paymentId  :string
+    startAt? :     Date     
+    endAt? :     Date      
+     //Action
+    createdAt? :     Date     
+    updatedAt? :     Date     
+    deletedAt? :     Date       
   };
   
   
