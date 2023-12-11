@@ -52,6 +52,9 @@ const GlobalPayment: React.FC<modalProps> = ({
   }, [onSubmit]);
 
 
+  if (router.pathname.includes("/auth/register")) {
+    return;
+  } 
   if (!modal.isOpen) {
     return;
   } 

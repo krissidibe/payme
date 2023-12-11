@@ -38,8 +38,11 @@ function SideBar() {
       menuIndex.setMenuIndex(0);
       router.replace("/dashboard");
     }else{
+      globalPayment.onClose()
+
       menuIndex.setMenuIndex(-1);
       router.replace("/");
+     
       
     }
   
