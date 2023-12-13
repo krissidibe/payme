@@ -50,6 +50,7 @@ const [accessToken, setAccessToken] = useState("")
 const [passwordForgetPop, setPasswordForgetPop] = useState(false)
 const [changePasswordPop, setChangePasswordPop] = useState(false)
 const [otpScreen, setOtpScreen] = useState(false)
+const [slpashScreen, setSlpashScreen] = useState(true)
 const [otp, setOtp] = useState("");
 useEffect(()=>{
   setIsLoading(x=> x = true)

@@ -55,11 +55,13 @@ function PaymentHistorylist(props) {
   const router = useRouter();
   const routerInfo = router.query;
   const [dataNew, setDataNew] = useState<any>(null);
+  const [dataNewArray, setDataNewArray] = useState<any[]>([]);
 useEffect(() => {
 
   (async ()=>{
     const dataUser = await fetchUser();
     setDataNew(x=> x = dataUser)
+    setDataNewArray(x=> x = dataNew?.payments)
   
    })()
  
@@ -167,13 +169,14 @@ useEffect(() => {
               </div>
         <div className="flex flex-col overflow-scroll no-scrollbar">
        
-       
-      {dataNew?.payments.map((item,index)=>(
+       { dataNew?.payments.map((item)=>(
+         /*   */
 
-        ItemRow(item,index)
-            ))  
-            
-            }  
+ {...item,date: new Date(item.subscribe.startAt)}
+    )).sort((a,b)=>  Number(b.date) - Number(a.date) ).map((itemData,index)=>(
+      ItemRow(itemData,index)
+          ))   }
+      
      
     
           </div> 

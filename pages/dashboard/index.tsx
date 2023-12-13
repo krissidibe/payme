@@ -92,7 +92,24 @@ function Dashboard(props) {
     
     (async ()=>{
       const dataUser = await fetchUser();
+
+     
       setDataUser(x=> x = dataUser)
+
+ 
+if(dataUser?.error?.message.includes("authentification")){
+  menuIndex.setMenuIndex(-1);
+  window.localStorage.removeItem("accessToken");
+  window.localStorage.removeItem("userId");
+  router.replace({
+    pathname: "/",
+  });
+ modal.onClose();
+  return;
+}
+ 
+
+
       const dateEdit = new Date(Date.now())
       dateEdit.setHours(24 *7,0,0)
       const compareDateIsGreat = new Date(dataUser?.subscribe?.endAt) > dateEdit;
@@ -966,7 +983,7 @@ setStatutSort("");
 
             {true && (
               <>
-                {todayDatas.map((item) => (
+                {todayDatas?.map((item) => (
                   <ItemNotifTodo key={item.id} mb={true} item={item} />
                 ))}
               </>
