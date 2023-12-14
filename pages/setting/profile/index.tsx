@@ -667,7 +667,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
         </div>
         {indexAccountView == 0 && (
           <div className="flex-1 h-full px-12 pt-6 overflow-scroll pb-[200px] no-scrollbar">
-            <div className="grid w-full grid-cols-2 gap-x-8 gap-y-6">
+            <div className="grid w-full grid-cols-2 gap-x-8 gap-y-5">
               <InputComponent
                 key={1}
                 name="name"
