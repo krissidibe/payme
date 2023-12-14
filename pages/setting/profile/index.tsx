@@ -672,7 +672,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                 key={1}
                 name="name"
                 value={data.name}
-                error={checkValidation && data.name.length < 3 ? "Taille minimum 3 characters" : ""}
+                error={checkValidation && data.name.length < 3 ? "Champs obligatoires (min. 3 caractères)" : ""}
                 onChange={handleChange}
                 label="Nom de l'entreprise *"
                 labelClassName="text-white/40 text-[13px]"
@@ -687,7 +687,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
               <InputDropdownActivityComponent
                 label="Secteur d'activité * "
                 placeholderOn={canEditEnterprise || canEditUser }
-                error={checkValidation && dropValueActivity.length < 3 ? "Taille minimum 3 characters" : ""}
+                error={checkValidation && dropValueActivity.length < 3 ? "Champs obligatoires (min. 3 caractères)" : ""}
                 placeholder={dropValueActivity ?? "---"} 
                 inputDrop={true}
                 readOnly={true}
@@ -722,7 +722,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                 key={2}
                 name="address"
                 value={data.address}
-                error={checkValidation && data.address.length < 3 ? "Taille minimum 3 characters" : ""}
+                error={checkValidation && data.address.length < 3 ? "Champs obligatoires (min. 3 caractères)" : ""}
                 onChange={handleChange}
                 label="Siège social *"
                 labelClassName="text-white/40 text-[13px]"
@@ -737,7 +737,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                 key={3}
                 name="email"
                 value={data.email}
-                error={checkValidation && data.email.length < 3 ? "Taille minimum 3 characters" : ""}
+                error={checkValidation && data.email.length < 3 ? "Champs obligatoires (min. 3 caractères)" : ""}
                 onChange={handleChange}
                 label="Adresse email *"
                 labelClassName="text-white/40 text-[13px]"
@@ -823,7 +823,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                      
                     name="numberPrimary"
                     value={item.number}
-                    error={checkValidation && item.number.length < 3 ? "Taille minimum 3 characters" : ""}
+                    error={checkValidation && item.number.length < 3 ? "Champs obligatoires (min. 3 caractères)" : ""}
                     onChange={
                       (e)=>{
                         console.log(e.target.value);
@@ -1141,6 +1141,9 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                     setCanEditEnterprise(false);
 
                     await fetch()
+
+
+                  setCheckValidation(x=> x = false)
                   }}
                   className="bg-[#212121]  border-none"
                 />
