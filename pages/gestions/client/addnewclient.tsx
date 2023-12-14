@@ -218,6 +218,7 @@ function AddNewClient(props) {
                <div className="ml-[62px] w-full">
                <InputComponent
                   name="externalEmail"
+                  type="email"
                   value={data.externalEmail}
                   error={checkValidation && data.externalEmail.length < 3 ? "Taille minimum 3 characters" : ""}
                   onChange={handleChange}
@@ -267,11 +268,12 @@ function AddNewClient(props) {
                     labelClassName="text-white/40 text-[14px]  "
                     className="rounded-[14px] h-[40px] text-[14px] border-opacity-30 focus:border-[#ffffff]"
                   />
+                  
                   <InputComponent
                     name="externalContact"
                     value={data.externalContact}
                     error={checkValidation && data.externalContact.length < 3 ? "Taille minimum 3 characters" : ""}
-                    type="number"
+                    type="text"
                     onChange={handleChange}
                     label="Contact * "
                     labelClassName="text-white/40 text-[14px]  "

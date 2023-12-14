@@ -123,6 +123,7 @@ const router = useRouter();
     newPassword: "",
     confirmPassword: ""
   });
+  const [checkValidation, setCheckValidation] = useState(false);
   const [data, setData] = useState<Enterprise>({
     id: "",
     email: "",
@@ -666,11 +667,12 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
         </div>
         {indexAccountView == 0 && (
           <div className="flex-1 h-full px-12 pt-6 overflow-scroll pb-[200px] no-scrollbar">
-            <div className="grid w-full grid-cols-2 gap-x-8 gap-y-5">
+            <div className="grid w-full grid-cols-2 gap-x-8 gap-y-6">
               <InputComponent
                 key={1}
                 name="name"
                 value={data.name}
+                error={checkValidation && data.name.length < 3 ? "Taille minimum 3 characters" : ""}
                 onChange={handleChange}
                 label="Nom de l'entreprise *"
                 labelClassName="text-white/40 text-[13px]"
@@ -685,6 +687,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
               <InputDropdownActivityComponent
                 label="Secteur d'activité * "
                 placeholderOn={canEditEnterprise || canEditUser }
+                error={checkValidation && dropValueActivity.length < 3 ? "Taille minimum 3 characters" : ""}
                 placeholder={dropValueActivity ?? "---"} 
                 inputDrop={true}
                 readOnly={true}
@@ -719,6 +722,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                 key={2}
                 name="address"
                 value={data.address}
+                error={checkValidation && data.address.length < 3 ? "Taille minimum 3 characters" : ""}
                 onChange={handleChange}
                 label="Siège social *"
                 labelClassName="text-white/40 text-[13px]"
@@ -733,6 +737,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                 key={3}
                 name="email"
                 value={data.email}
+                error={checkValidation && data.email.length < 3 ? "Taille minimum 3 characters" : ""}
                 onChange={handleChange}
                 label="Adresse email *"
                 labelClassName="text-white/40 text-[13px]"
@@ -751,6 +756,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                    
                     label={index == 0 ? "Indicatif *" : "Indicatif"}
                     placeholderOn={canEditEnterprise || canEditUser }
+                    
                     placeholder={item.indicatif ?? "---"}
                     inputDrop={true}
                     readOnly={true}
@@ -817,6 +823,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                      
                     name="numberPrimary"
                     value={item.number}
+                    error={checkValidation && item.number.length < 3 ? "Taille minimum 3 characters" : ""}
                     onChange={
                       (e)=>{
                         console.log(e.target.value);
@@ -1141,8 +1148,22 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
               <ButtonComponent
                 key={200}
                 handleClick={async () => {
+                  if (
+                    data.name.trim().length < 3 ||
+                   
+                    data.activity.trim() == "---" ||
+                    data.address.trim().length < 3 ||
+                    data.email.trim().length < 3 ||
+                    contactList[0].number.trim().length < 3 
+                  
+                  ) {
+                    setCheckValidation(x=> x = true)
+                    return;
+                  }
                   setCanEditEnterprise(x=> x = !x);
                   enterpriseHandleSubmit();
+
+                  setCheckValidation(x=> x = false)
 
                    
                  

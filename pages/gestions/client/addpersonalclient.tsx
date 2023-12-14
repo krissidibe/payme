@@ -33,6 +33,7 @@ function AddPersonalClient(props) {
     type: "PERSONAL",
   });
 
+  const [checkValidation, setCheckValidation] = useState(false);
   const [openDropCountry, setOpenDropCountry] = useState(false);
   const [dropValueCountry, setDropValueCountry] = useState("");
   const [openDropActivity, setOpenDropActivity] = useState(false);
@@ -156,15 +157,18 @@ function AddPersonalClient(props) {
                 <InputComponent
                   name="name"
                   value={data.name}
+                  error={checkValidation && data.name.length < 3 ? "Taille minimum 3 characters" : ""}
                   onChange={handleChange}
                   label="Nom & prénom *"
                   labelClassName="text-white/40 text-[14px]"
                   className="rounded-[14px]  h-[40px]  text-[14px] border-opacity-30 focus:border-[#ffffff] focus:border-opacity-100  "
                 />
               
-              <InputComponent
+             <div className="w-full ml-[62px]">
+             <InputComponent
                   name="externalEmail"
                   value={data.externalEmail}
+                  error={checkValidation && data.externalEmail.length < 3 ? "Taille minimum 3 characters" : ""}
                   onChange={(e)=>{
                     setData((prevState) => ({
                       ...prevState,
@@ -172,15 +176,18 @@ function AddPersonalClient(props) {
                       email: e.target.value,
                     }));
                   }}
-                  labelClassName="text-white/40 text-[14px] ml-[62px]"
+                  labelClassName="text-white/40 text-[14px]"
                   label="Email * "
-                  className="rounded-[14px]  h-[40px]  text-[14px] border-opacity-30 ml-[62px] focus:border-[#ffffff]"
+                  type="email"
+                  className="rounded-[14px]  h-[40px]  text-[14px] border-opacity-30 focus:border-[#ffffff]"
                 />
+             </div>
 
 
                 <InputDropdownCountryComponent
                   label="Pays *"
                   placeholder={data.country ?? "---"}
+                  error={checkValidation && data.country.length < 3 ? "Taille minimum 3 characters" : ""}
                   placeholderOn={true}
                   inputDrop={true}
                   readOnly={true}
@@ -206,17 +213,20 @@ function AddPersonalClient(props) {
                   className=" rounded-[14px]  h-[40px]  mb-0  text-[14px] font-light border-opacity-30 focus:border-[#ffffff] focus:border-opacity-100  "
                 />
 
-
+<div className="w-full ml-[62px]">
 
 <InputComponent
                     name="externalContact"
-                    type="number"
+                    type="text"
                     value={data.externalContact}
+                    error={checkValidation && data.externalContact.length < 3 ? "Taille minimum 3 characters" : ""}
                     onChange={handleChange}
                     label="Contact * "
-                    labelClassName="text-white/40 text-[14px] ml-[62px]"
-                    className="rounded-[14px]  h-[40px]  border-opacity-30 text-[14px] ml-[62px] focus:border-[#ffffff]"
+                    labelClassName="text-white/40 text-[14px] "
+                    className="rounded-[14px]  h-[40px]  border-opacity-30 text-[14px]  focus:border-[#ffffff]"
                   />
+</div>
+
                 
 
 
@@ -225,6 +235,7 @@ function AddPersonalClient(props) {
 <InputDropdownActivityComponent
                  label="Secteur d'activité * "
                  placeholderOn={true}
+                 error={checkValidation && dropValueActivity.length < 3 ? "Taille minimum 3 characters" : ""}
                  placeholder={dropValueActivity ?? "---"} 
                   inputDrop={true}
                   readOnly={true}
@@ -252,6 +263,7 @@ function AddPersonalClient(props) {
                   label="Adresse de la personne * "
                   name="address"
                   value={data.address}
+                  error={checkValidation && data.address.length < 3 ? "Taille minimum 3 characters" : ""}
                   onChange={handleChange}
                   labelClassName="text-white/40 text-[14px]  "
                   className="rounded-[14px]  h-[40px]  text-[14px] border-opacity-30 focus:border-[#ffffff]"
@@ -296,6 +308,8 @@ function AddPersonalClient(props) {
                     data.externalEmail.trim().length <3 ||
                     data.externalContact.trim().length <3  
                   ){
+                    setCheckValidation(x=> x = true)
+                    return;
                     modal.onSubmit = (
                       <ButtonComponent
                         handleClick={async () => {
