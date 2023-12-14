@@ -7,6 +7,7 @@ function InputDropdownCountryComponent({
   iconClassName = "",
   labelClassName = "",
   className = "",
+  error="",
   label = "",
   value = "---",
   inputDrop = false,
@@ -48,12 +49,17 @@ function InputDropdownCountryComponent({
           {label != "" && (
             <p className={`mb-[5px]   ${labelClassName}`}>{label}</p>
           )}
-{   !openDrop &&       <input
+{   !openDrop &&       
+<div className="relative">
+<input
             data-dropdown-toggle="dropdown"
             value={searchValue ?? value}
-            className={` bg-[#06060600] border-[1px]  placeholder:text-white ${placeholderOn ? "placeholder:opacity-100" : "placeholder:opacity-40"} text-white border-white border-opacity-10  px-4 outline-none w-full h-12 ${className}`}
+            className={` bg-[#06060600] border-[1px]  placeholder:text-white ${error ? "border-[#F2AAA5]" : "border-white"}  ${placeholderOn ? "placeholder:opacity-100" : "placeholder:opacity-40"} text-white border-white border-opacity-10  px-4 outline-none w-full h-12 ${className}`}
             {...props}
-          />}
+          />
+           {error != "" && <span className='absolute left-0 text-xs font-light text-[#F2AAA5]  -bottom-5'>{error} </span>}
+</div>
+}
         </div>
         <div
           className={` ${

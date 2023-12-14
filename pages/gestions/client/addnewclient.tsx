@@ -45,6 +45,7 @@ function AddNewClient(props) {
     type: "ENTERPRISE",
   });
 
+  const [checkValidation, setCheckValidation] = useState(false);
   const [openDropCountry, setOpenDropCountry] = useState(false);
   const [dropValueCountry, setDropValueCountry] = useState("");
   const [openDropActivity, setOpenDropActivity] = useState(false);
@@ -159,27 +160,34 @@ function AddNewClient(props) {
                 <p>Information sur l'entreprise </p>
                 <p className=" ml-[39px]">Contact interne</p>
               </div>
+             
               <div className="grid w-full grid-cols-2 gap-[23px] mt-[25px] gap-x-4">
                 <InputComponent 
                   name="name"
                   value={data.name}
                   onChange={handleChange}
                   label="Nom du client *"
+                  error={checkValidation && data.name.length < 3 ? "Taille minimum 3 characters" : ""}
                   labelClassName="text-white/40 text-[14px]"
                   className="rounded-[14px] h-[40px] text-[14px] text-[14px] border-opacity-30 focus:border-[#ffffff] focus:border-opacity-100  "
                 />
+                <div className="ml-[62px] w-full">
+
                 <InputComponent
                   name="externalName"
                   value={data.externalName}
+                  error={checkValidation && data.externalName.length < 3 ? "Taille minimum 3 characters" : ""}
                   onChange={handleChange}
                   label="Nom & prénom * "
-                  labelClassName="text-white/40 text-[14px] ml-[62px]"
-                  className="rounded-[14px] h-[40px] text-[14px] border-opacity-30 ml-[62px] focus:border-[#ffffff]"
+                  labelClassName="text-white/40 text-[14px]"
+                  className="rounded-[14px] h-[40px] text-[14px] border-opacity-30  focus:border-[#ffffff]"
                 />
+                </div>
 
 
                 <InputDropdownCountryComponent
                   label="Pays *"
+                  error={checkValidation && data.country.length < 3 ? "Taille minimum 3 characters" : ""}
                   placeholder={data.country ?? "---"}
                   placeholderOn={true}
                   inputDrop={true}
@@ -205,20 +213,25 @@ function AddNewClient(props) {
                   labelClassName="text-white/40 text-[14px]"
                   className=" rounded-[14px] h-[40px]  mb-0   text-[14px] font-light border-opacity-30 focus:border-[#ffffff] focus:border-opacity-100  "
                 />
+                
 
-                <InputComponent
+               <div className="ml-[62px] w-full">
+               <InputComponent
                   name="externalEmail"
                   value={data.externalEmail}
+                  error={checkValidation && data.externalEmail.length < 3 ? "Taille minimum 3 characters" : ""}
                   onChange={handleChange}
-                  labelClassName="text-white/40 text-[14px] ml-[62px]"
+                  labelClassName="text-white/40 text-[14px]  "
                   label="Email * "
-                  className="rounded-[14px] h-[40px] text-[14px] border-opacity-30 ml-[62px] focus:border-[#ffffff]"
+                  className="rounded-[14px] h-[40px] text-[14px] border-opacity-30  focus:border-[#ffffff]"
                 />
+               </div>
 
  
                 <InputDropdownActivityComponent
                   label="Secteur d'activité * "
                  placeholderOn={true}
+                 error={checkValidation && dropValueActivity.length < 3 ? "Taille minimum 3 characters" : ""}
                   placeholder={dropValueActivity ?? "---"} 
                   inputDrop={true}
                   readOnly={true}
@@ -248,6 +261,7 @@ function AddNewClient(props) {
                   <InputComponent
                     name="poste"
                     value={data.poste}
+                    error={checkValidation && data.poste.length < 3 ? "Taille minimum 3 characters" : ""}
                     onChange={handleChange}
                     label="Poste * "
                     labelClassName="text-white/40 text-[14px]  "
@@ -256,6 +270,7 @@ function AddNewClient(props) {
                   <InputComponent
                     name="externalContact"
                     value={data.externalContact}
+                    error={checkValidation && data.externalContact.length < 3 ? "Taille minimum 3 characters" : ""}
                     type="number"
                     onChange={handleChange}
                     label="Contact * "
@@ -268,6 +283,7 @@ function AddNewClient(props) {
                   label="Email du client *"
                   name="email"
                   value={data.email}
+                  error={checkValidation && data.email.length < 3 ? "Taille minimum 3 characters" : ""}
                   onChange={handleChange}
                   labelClassName="text-white/40 text-[14px]  "
                   className="rounded-[14px] h-[40px] text-[14px] border-opacity-30 focus:border-[#ffffff]"
@@ -276,6 +292,7 @@ function AddNewClient(props) {
                   label="Adresse du client * "
                   name="address"
                   value={data.address}
+                  error={checkValidation && data.address.length < 3 ? "Taille minimum 3 characters" : ""}
                   onChange={handleChange}
                   labelClassName="text-white/40 text-[14px]  "
                   className="rounded-[14px] h-[40px] text-[14px] border-opacity-30 focus:border-[#ffffff]"
@@ -329,6 +346,8 @@ function AddNewClient(props) {
                     data.externalContact.trim().length < 3 ||
                     data.poste.trim().length < 3
                   ) {
+                    setCheckValidation(x=> x = true)
+                    return;
                     modal.onSubmit = (
                       <ButtonComponent
                         handleClick={async () => {
@@ -351,7 +370,7 @@ function AddNewClient(props) {
                   }
                   await postCustomer();
                 }}
-                label={customerInfo.id ? "Modifier" : "Enregistré"}
+                label={customerInfo.id ? "Modifier" : "Enregistrer"}
                 className="bg-[#9a9768]  border-none   "
               />
             </div>
