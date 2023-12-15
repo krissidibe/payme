@@ -6,6 +6,7 @@ import {
   IoMdBusiness,
   IoMdRefresh,
   IoMdAdd,
+  IoMdClose,
 } from "react-icons/io";
 import { MdBookmarks, MdHandyman, MdOutlineAttachment } from "react-icons/md";
 import { IoBookmarks, IoCalendar, IoCalendarNumber } from "react-icons/io5";
@@ -123,6 +124,9 @@ const router = useRouter();
     newPassword: "",
     confirmPassword: ""
   });
+
+  const [modalView, setModalView] = useState(false);
+  const [modalViewContent, setModalViewContent] = useState("");
   const [checkValidation, setCheckValidation] = useState(false);
   const [data, setData] = useState<Enterprise>({
     id: "",
@@ -176,6 +180,15 @@ const router = useRouter();
 
     // setIsLoading(false);
   };
+  useEffect(() => {
+ if(modalView){
+  setTimeout(() => {
+    setModalView(x=> x = false)
+  }, 4000);
+ }
+
+    return () => {};
+  }, [modalView]);
   useEffect(() => {
     /*  (async () => {
   
@@ -234,6 +247,7 @@ const router = useRouter();
   return (
     <>
       <div className="relative flex flex-col w-full h-screen overflow-hidden ">
+         {modalView && InfoView()}
         {showPannel && CodePannel()}
         {logoChoose && <CropImageModal imageData={imageLogo} />}
         {signatureChoose && <CropImageModal imageData={imageSignature} />}
@@ -672,7 +686,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                 key={1}
                 name="name"
                 value={data.name}
-                error={checkValidation && data.name.length < 3 ? "Champs obligatoires (min. 3 caractères)" : ""}
+                error={checkValidation && data.name.length < 3 ? "Min. 3 caractères" : ""}
                 onChange={handleChange}
                 label="Nom de l'entreprise *"
                 labelClassName="text-white/40 text-[13px]"
@@ -687,7 +701,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
               <InputDropdownActivityComponent
                 label="Secteur d'activité * "
                 placeholderOn={canEditEnterprise || canEditUser }
-                error={checkValidation && dropValueActivity.length < 3 ? "Champs obligatoires (min. 3 caractères)" : ""}
+                error={checkValidation && dropValueActivity.length < 3 ? "Min. 3 caractères" : ""}
                 placeholder={dropValueActivity ?? "---"} 
                 inputDrop={true}
                 readOnly={true}
@@ -722,7 +736,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                 key={2}
                 name="address"
                 value={data.address}
-                error={checkValidation && data.address.length < 3 ? "Champs obligatoires (min. 3 caractères)" : ""}
+                error={checkValidation && data.address.length < 3 ? "Min. 3 caractères" : ""}
                 onChange={handleChange}
                 label="Siège social *"
                 labelClassName="text-white/40 text-[13px]"
@@ -737,7 +751,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                 key={3}
                 name="email"
                 value={data.email}
-                error={checkValidation && data.email.length < 3 ? "Champs obligatoires (min. 3 caractères)" : ""}
+                error={checkValidation && data.email.length < 3 ? "Min. 3 caractères" : ""}
                 onChange={handleChange}
                 label="Adresse email *"
                 labelClassName="text-white/40 text-[13px]"
@@ -823,7 +837,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                      
                     name="numberPrimary"
                     value={item.number}
-                    error={checkValidation && item.number.length < 3 ? "Champs obligatoires (min. 3 caractères)" : ""}
+                    error={checkValidation && item.number.length < 3 ? "Min. 3 caractères" : ""}
                     onChange={
                       (e)=>{
                         console.log(e.target.value);
@@ -1443,6 +1457,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
               type="password"
            //   value={!canEditPassword ? "password" : ""}
              value={!canEditPassword ? "password" : dataProfilePassword.oldPassword}
+             error={checkValidation && dataProfilePassword.oldPassword.length < 6 ? "Champs obligatoires (min. 6 caractères)" : ""}
                onChange={handleChangeUserPassword}
                 label="Ancien mot de passe *"
                 placeholder="Ancien mot de passe *"
@@ -1461,6 +1476,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
               type="password"
              //    value={!canEditPassword ? "password" : ""}
             value={!canEditPassword ? "password" : dataProfilePassword.newPassword}
+            error={checkValidation && dataProfilePassword.newPassword.length < 6 ? "Champs obligatoires (min. 6 caractères)" : ""}
                onChange={handleChangeUserPassword}
                 label="Nouveau mot de passe *"
                 placeholder="Nouveau mot de passe *"
@@ -1478,6 +1494,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                 name="confirmPassword"
               type="password"
                value={!canEditPassword ? "password" : dataProfilePassword.confirmPassword}
+               error={checkValidation && dataProfilePassword.confirmPassword.length < 6 ? "Champs obligatoires (min. 6 caractères)" : ""}
                onChange={handleChangeUserPassword}
             //   value={!canEditPassword ? "password" : ""}
                
@@ -1521,16 +1538,34 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                     dataProfilePassword.confirmPassword.length < 6
                     
                     )){
-                      alert("petit")
+                      setCheckValidation(x=> x =true)
+
+           
+                    return
+                  }
+                  if(canEditPassword && (
+                  
+                    dataProfile.password != dataProfilePassword.oldPassword
+                    )){
+                       
+
+                      setModalView(true);
+                      
+                      setModalViewContent("L'ancien mot de passe saisi est incorrect. Veuillez réessayer")
+                     
+                      
                     return
                   }
 
                   if(canEditPassword && (
-                    dataProfile.password != dataProfilePassword.oldPassword ||
+                    
                     dataProfilePassword.newPassword != dataProfilePassword.confirmPassword
                      
                     )){
-                      alert("incorect")
+                       
+                      setModalView(true);
+    setModalViewContent("La confirmation du mot de passe ne correspond pas. Veuillez réessayer")
+                     
                     return
                   }
 
@@ -1545,6 +1580,7 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
                     setDataProfilePassword(x=> x = { oldPassword: "",
                     newPassword: "",
                     confirmPassword: ""}) 
+                    setCheckValidation(x=> x =false)
                   }
                   }
                   setCanEditPassword(x=> x = !x);
@@ -1561,6 +1597,56 @@ modal.setMessage("Confirmez-vous vraiment votre déconnexion ?");
     );
   }
 
+  function InfoView() {
+    return (
+      <div className="absolute bottom-0 right-0 z-30 flex items-center justify-center w-full pb-0 transition bg-black/0 ">
+       
+       
+        <div
+          onClick={() => {
+            setModalView(false);
+          
+          }}
+          className="absolute inset-0 z-50 flex items-center justify-center transition "
+        ></div>
+        <div className="p-4  bg-[#1E1E1E] bottom-10 right-10 absolute z-50 font-light  text-base pr-14 h-[70px] justify-center  flex flex-col  text-white rounded-xl">
+        <IoMdClose
+            onClick={() => {
+              setModalView(false);
+            }}
+            className="w-[20px] absolute top-2 right-3 h-[20px] opacity-60 mr-0   cursor-pointer self-end"
+          />  
+  
+ 
+<div className="flex items-start justify-start gap-3 ">
+<div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1201_45)">
+<path d="M21.8887 12.2222C21.8887 17.7462 17.4111 22.2222 11.8887 22.2222C6.36621 22.2222 1.88867 17.7462 1.88867 12.2222C1.88867 6.70132 6.36621 2.22217 11.8887 2.22217C17.4111 2.22217 21.8887 6.70132 21.8887 12.2222ZM11.8887 14.2383C10.8643 14.2383 10.0338 15.0687 10.0338 16.0931C10.0338 17.1175 10.8643 17.948 11.8887 17.948C12.9131 17.948 13.7435 17.1175 13.7435 16.0931C13.7435 15.0687 12.9131 14.2383 11.8887 14.2383ZM10.1277 7.57112L10.4268 13.055C10.4408 13.3116 10.6529 13.5125 10.9099 13.5125H12.8674C13.1244 13.5125 13.3366 13.3116 13.3506 13.055L13.6497 7.57112C13.6648 7.29394 13.4441 7.06088 13.1665 7.06088H10.6108C10.3332 7.06088 10.1125 7.29394 10.1277 7.57112Z" fill="#FFA300"/>
+</g>
+<defs>
+<clipPath id="clip0_1201_45">
+<rect width="20" height="20" fill="white" transform="translate(1.88867 2.22217)"/>
+</clipPath>
+</defs>
+</svg>
+      
+
+      </div>
+ 
+    <p className="max-w-[280px]" >{modalViewContent}</p>
+</div>
+ 
+  
+         
+        </div>
+        
+      </div>
+    );
+  }
+
+
+ 
   function CodePannel() {
     return (
       <div
