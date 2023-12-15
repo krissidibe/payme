@@ -162,7 +162,8 @@ router.push({
   
   <div className="flex flex-col items-start leading-none border-b-[1px]  border-white/30 pb-4 mt-1 ">
   
-  <p className={`text-[128px] ${svg ==  12 && active ? "text-transparent" : ""} font-bold leading-[104px] mb-3`} >{svg}</p>
+<p className={`text-[128px] ${svg ==  12  ? "text-transparent" : ""} font-bold leading-[104px] mb-3`} >{svg}</p>
+{svg ==  12 && !active &&  <p className={`text-[128px] absolute left-[35px]   font-bold leading-[104px] mb-3`} >{svg}</p>}
   
   {svg == 12 && active && <p className={`text-[120px] top-[39px] absolute left-[35px]  font-bold leading-[104px] mb-3`} >{svg}</p>}
   <p className="text-[33px] font-light tracking-wider  mt-[0px] mb-[4px]" >MOIS</p>

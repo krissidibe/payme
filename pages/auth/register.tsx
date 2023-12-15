@@ -286,6 +286,11 @@ setTimeout(() => {
     }, []);
 
     const onFileChange = async (e) => {
+      if (!e.target.files[0].type.startsWith("image/")) return;
+      if (e.target.files[0].size > 2000000) {
+        
+        return;
+      };
       if (e.target.files && e.target.files.length > 0) {
         const file = e.target.files[0];
         let imageDataUrl = await readFile(file);
@@ -330,6 +335,7 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
               ref={imageRef}
               type="file"
               className="hidden"
+              accept="image/*"
               onChange={onFileChange}
             />
             {/* 
@@ -362,7 +368,20 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
                 imageRef.current.click();
               }}
               className="flex flex-col items-center justify-center w-full h-full cursor-pointer" >
-                <AiOutlineFileAdd className="opacity-50 w-14 h-14" />
+                <svg width="66" height="66" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M39.5713 5.45752H16.3734C14.9257 5.45752 13.5374 6.03259 12.5137 7.05623C11.4901 8.07986 10.915 9.46821 10.915 10.9159V54.5825C10.915 56.0302 11.4901 57.4185 12.5137 58.4421C13.5374 59.4658 14.9257 60.0408 16.3734 60.0408H49.1234C50.571 60.0408 51.9594 59.4658 52.983 58.4421C54.0066 57.4185 54.5817 56.0302 54.5817 54.5825V20.4679L39.5713 5.45752Z" stroke="#BDBDBD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M38.208 5.45752V21.8325H54.583" stroke="#BDBDBD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="32" y="33" width="28" height="32" fill="#393939"/>
+<g clip-path="url(#clip0_1325_415)">
+<path d="M48 41L48 61" stroke="#C2C3C5" stroke-width="3"/>
+<path d="M38 51L58 51" stroke="#C2C3C5" stroke-width="3"/>
+</g>
+<defs>
+<clipPath id="clip0_1325_415">
+<rect x="33" y="39" width="24" height="24" rx="12" fill="white"/>
+</clipPath>
+</defs>
+</svg>
                 <p className="mt-6 text-[19px]" >Choisissez le fichier à télécharger</p>
                 <p className="text-[13px] opacity-50" >Pour un meilleur résultat, utilisé un PNG</p>
                 </div>}
@@ -972,7 +991,12 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
           type="file"
           className="hidden"
           onChange={(e) => {
+       
             if (!e.target.files[0].type.startsWith("image/")) return;
+            if (e.target.files[0].size > 2000000) {
+        
+              return;
+            };
             setImageLogo(e.target.files[0]);
             setLogoChoose(true);
           }}
@@ -982,7 +1006,13 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
           type="file"
           className="hidden"
           onChange={(e) => {
+         
+ 
             if (!e.target.files[0].type.startsWith("image/")) return;
+            if (e.target.files[0].size > 2000000) {
+        
+              return;
+            };
             setImageSignature(e.target.files[0]);
             setSignatureChoose(true);
           }}
@@ -1022,6 +1052,7 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
             <img
               src={modalCropImage.image + ""}
               alt="image"
+              
               className="object-contain w-full h-full rounded-lg"
             />
           )}
