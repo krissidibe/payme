@@ -36,7 +36,7 @@ import {
   uploadImageLogo,
   uploadImageSignature,
 } from "../../../services/enterpriseService";
-import { fetchUser, updateUser, updateUserPassword } from "../../../services/userService";
+import { deleteUser, fetchUser, updateUser, updateUserPassword } from "../../../services/userService";
 import OtpInput from "react-otp-input";
 import useMenuStore from "../../../utils/MenuStore";
 import { useCropImage } from "../../../utils/use-crop-image-modal";
@@ -423,7 +423,21 @@ const router = useRouter();
                   className=" mt-6  shadow-xl shadow-black/20 bg-[#484848] border-none  "
                 />
               {deleteAsk != null &&  <ButtonComponent
-                  handleClick={() => {
+                  handleClick={ async() => {
+                    if(deleteAskStep == 1){
+                      
+                   const data =  await deleteUser()
+                   if(data){
+                    setShowDeleteAccount(x=> x = false)
+                    menuIndex.setMenuIndex(-1);
+                    window.localStorage.removeItem("accessToken");
+                    window.localStorage.removeItem("userId");
+                    router.replace({
+                      pathname: "/",
+                    });
+                   }
+                   return
+                    }
                     setDeleteAskStep(x=> x = x + 1)
                   }}
                   label={"Supprimer"}

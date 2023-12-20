@@ -84,3 +84,36 @@ export const updateUserPassword = async (newPassword:string ) => {
   return data;
 };
  
+
+
+
+
+
+
+export const deleteUser = async () => {
+  // console.log(window.localStorage.getItem("accessToken"));
+
+ 
+  const request = await fetch(
+    `${
+      process.env.BASE_API_URL
+    }/api/protected/user?userId=${window.localStorage.getItem("userId")}`,
+    {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: window.localStorage.getItem("accessToken"),
+      },
+      method: "DELETE",
+    }
+  );
+
+  const datas: User[] = [];
+
+ 
+  if (!request.ok) {
+    return null;
+  }
+
+  return datas;
+};
+ 

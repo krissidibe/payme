@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = { 
+  output: 'standalone',
   env: {
     BASE_URL: process.env.BASE_URL,
     BASE_API_URL: process.env.BASE_API_URL,

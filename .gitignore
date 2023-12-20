@@ -12,6 +12,7 @@
 # next.js
 /.next/
 /out/
+/standalone/
 /ptest/
 /ptest
 
