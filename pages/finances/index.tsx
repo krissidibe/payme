@@ -12,6 +12,7 @@ import { RiFileChartLine } from "react-icons/ri";
 import { BiSolidLockAlt } from "react-icons/bi";
 import ReactApexChart from "react-apexcharts";
 import { fetchEnterprise } from "../../services/enterpriseService";
+import { sendCodeOTP, sendCodeOTPFinance } from "../../services/emailService";
 
 interface ApexChartProps {}
 interface TravelDetailsViewProps {
@@ -591,7 +592,11 @@ setShowOPTModal(x=> x =true)
       [&::-webkit-inner-spin-button]:appearance-none " />}
     />
      </div>
-     <p className="text-[17px] flex items-center font-light underline mr-4 opacity-20 " >
+     <p
+     onClick={async()=>{
+      const dataNew:any  = await sendCodeOTPFinance(data.email.trim().toLocaleLowerCase())
+     }}
+     className="text-[17px] cursor-pointer flex items-center font-light underline mr-4 opacity-20 " >
       <BiSolidLockAlt className="mr-1"/>
       Code d'accès perdu ?  </p>
      </div>

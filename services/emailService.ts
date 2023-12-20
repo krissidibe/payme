@@ -6,13 +6,41 @@ export const sendCodeOTP = async (
     const request = await fetch(
       `${
         process.env.BASE_API_URL
-      }/api/codeotp?email=${email}`,
+      }/api/codeotp?email=${email}&type=""`,
       {
         headers: {
           "Content-type": "application/json",
          
         },
         body:JSON.stringify({email}),
+        method: "POST",
+       
+      }
+    );
+  
+    const datas: any = await request.json();
+    
+    if (!request.ok) {
+      return null;
+    }
+  
+    return datas;
+  };
+export const sendCodeOTPFinance = async (
+    email:string
+  ) => {
+    
+    
+    const request = await fetch(
+      `${
+        process.env.BASE_API_URL
+      }/api/codeotp?email=${email}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+         
+        },
+        body:JSON.stringify({email:email,type:"finance"}),
         method: "POST",
        
       }

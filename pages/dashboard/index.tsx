@@ -775,7 +775,9 @@ className={`${pageNumber < (searchProject == "" && statutSort == "" ?  projects?
           ></div>
         ) : null}
         <div className="flex-1"></div>
+        
         <div className="relative md:w-[360px] mr-6 h-[40px] ">
+          
           <svg
             className={`absolute z-20  ${
               search.length > 2 ? "top-[20px] left-[20px]" : "top-2 left-3"
@@ -825,9 +827,23 @@ setStatutSort("");
               } w-full pl-[42px] z-20 h-[40px]   font-light pr-8 border-[1px] border-[#5A5A5A]  `}
             />
             {search.length >= 3 ? (
-              <div className="absolute top-0 rounded-full h-[50px]  z-10 w-full bg-[#444444]"></div>
+              <div className="absolute top-0 rounded-full h-[50px]  z-50 w-full  ">
+                 <InputComponent
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Rechercher"
+              className={`${
+                search.length > 0
+                  ? "border-b-[1px] border-t-[0px] border-r-[0px]   border-l-[0px] w-full pl-[55px] z-50 h-[60px]  border-opacity-10 focus:border-opacity-10  font-light pr-8    "
+                  : "rounded-full pb-[2px] "
+              } w-full pl-[42px] z-20 h-[40px]   font-light pr-8 border-[1px] border-[#5A5A5A]  `}
+            />
+              </div>
             ) : null}
             <div
+            onClick={(e)=>{
+              e.stopPropagation()
+            }}
               className={`${
                 search.length <= 2 ? "hidden" : ""
               } absolute w-full h-[495px] pl-8 pb-4   pt-[70px] z-10 pr-8 rounded-3xl top-0 flex gap-[6px] flex-col overflow-scroll no-scrollbar   bg-gradient-to-b  from-[#434343] to-[#323232] `}
