@@ -18,6 +18,8 @@ import { useGlobalModal } from "../utils/use-global-modal";
 import { IoMdClose } from "react-icons/io";
 import { GoogleLogin, useGoogleLogin, googleLogout } from "@react-oauth/google";
 import { BiXCircle } from "react-icons/bi";
+import { checkCodeOTP, sendCodeOTP, updateUserPasswordOut } from "../services/emailService";
+import { updateUserPassword } from "../services/userService";
 
 function Home(props) {
   async function fetchFacture() {
@@ -48,6 +50,7 @@ useEffect(()=>{
 
 const [accessToken, setAccessToken] = useState("")
 const [passwordForgetPop, setPasswordForgetPop] = useState(false)
+const [canNext, setCanNext] = useState(true)
 const [changePasswordPop, setChangePasswordPop] = useState(false)
 const [otpScreen, setOtpScreen] = useState(false)
 const [slpashScreen, setSlpashScreen] = useState(true)
@@ -118,10 +121,23 @@ const [showLoginGoole, setShowLoginGoole] = useState(false);
 
     emailVerified: true,
   });
+  const [dataPassword, setDataPassword] = useState<any>({
+    password: "",
+    confirm: "",
+    
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  
+  const handleChangePassword = (e) => {
+    const { name, value } = e.target;
+    setDataPassword((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -348,7 +364,18 @@ setTimeout(() => {
  
 <div className="flex items-center justify-start gap-3 ">
 <div>
-     {!modalViewContent.includes("passe") && <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+{modalViewContent.includes("succès") ?
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_1339_105)">
+    <path d="M21.7986 12.1112C21.7986 17.4615 17.4614 21.7987 12.1111 21.7987C6.76081 21.7987 2.42358 17.4615 2.42358 12.1112C2.42358 6.76091 6.76081 2.42369 12.1111 2.42369C17.4614 2.42369 21.7986 6.76091 21.7986 12.1112ZM10.9905 17.2406L18.178 10.0531C18.4221 9.80908 18.4221 9.41334 18.178 9.16927L17.2942 8.28541C17.0501 8.0413 16.6544 8.0413 16.4103 8.28541L10.5486 14.147L7.8119 11.4104C7.56784 11.1663 7.1721 11.1663 6.928 11.4104L6.04413 12.2942C5.80007 12.5383 5.80007 12.934 6.04413 13.1781L10.1066 17.2406C10.3507 17.4847 10.7464 17.4847 10.9905 17.2406Z" fill="#55B938"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_1339_105">
+    <rect width="20" height="20" fill="white" transform="translate(2.11108 2.11114)"/>
+    </clipPath>
+    </defs>
+    </svg> : <>
+    {!modalViewContent.includes("passe") && <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_1201_45)">
 <path d="M21.8887 12.2222C21.8887 17.7462 17.4111 22.2222 11.8887 22.2222C6.36621 22.2222 1.88867 17.7462 1.88867 12.2222C1.88867 6.70132 6.36621 2.22217 11.8887 2.22217C17.4111 2.22217 21.8887 6.70132 21.8887 12.2222ZM11.8887 14.2383C10.8643 14.2383 10.0338 15.0687 10.0338 16.0931C10.0338 17.1175 10.8643 17.948 11.8887 17.948C12.9131 17.948 13.7435 17.1175 13.7435 16.0931C13.7435 15.0687 12.9131 14.2383 11.8887 14.2383ZM10.1277 7.57112L10.4268 13.055C10.4408 13.3116 10.6529 13.5125 10.9099 13.5125H12.8674C13.1244 13.5125 13.3366 13.3116 13.3506 13.055L13.6497 7.57112C13.6648 7.29394 13.4441 7.06088 13.1665 7.06088H10.6108C10.3332 7.06088 10.1125 7.29394 10.1277 7.57112Z" fill="#FFA300"/>
 </g>
@@ -364,6 +391,10 @@ setTimeout(() => {
      </svg>
      
      }
+    </>
+    }
+
+
 
       </div>
  
@@ -530,7 +561,7 @@ url='/videos/Animation Payme BR.mp4' playing muted />
             onChange={handleChange}
             className="p-7  pl-[28px] my-0 font-normal mb-12  rounded-xl border-2 border-opacity-30"
             placeholder={`${isLogin ? "Votre identifiant *" : "Votre email *"} `}
-          />
+          /> 
 
 <div className="flex items-end justify-end w-full gap-6 mb-3 ">
 <ButtonComponent
@@ -541,18 +572,40 @@ url='/videos/Animation Payme BR.mp4' playing muted />
                   }}
                   className="bg-[#636363]  border-none"
                 />
-              <ButtonComponent
+               
+              {canNext && <ButtonComponent
                 key={200}
                 handleClick={async () => {
-                  setPasswordForgetPop(x=> x = false)
-                  setOtpScreen(x=> x = true)
+                  setCanNext(x=> x = false)
+                 
+                  if(data.email.trim().length < 5){
+                    setCanNext(x=> x = true)
+                    return;
+                  } 
+                  
+                 
+                 
+                  const dataNew:any  = await sendCodeOTP(data.email.trim().toLocaleLowerCase())
+                 
+                  
+                   if(dataNew != null){
+                    setPasswordForgetPop(x=> x = false)
+                    setOtpScreen(x=> x = true)
+                    setCanNext(x=> x = true)
+
+                  } else{
+                    setCanNext(x=> x = true)
+                    setModalView(true); 
+                        
+                        setModalViewContent("Ce email n'existe pas. Veuillez réessayer")
+                  }
                 }}
 
                 type="button"
                 
                 label={"Envoyer"}
-                className="bg-[#9a9768]  border-none"
-              />
+                className={`bg-[#9a9768]  border-none ${data.email.trim().length < 5 ? "opacity-30 cursor-default" : ""} `}
+              />}
             </div>
           
          </> }
@@ -562,6 +615,7 @@ url='/videos/Animation Payme BR.mp4' playing muted />
          <p className="mb-3 text-2xl font-light mt-2-10 opacity-40">Mentionnez le code OTP  </p>
          <p className="font-light text-center">Entrez le code reçu par e-mail pour valider votre demande <br /> de réinitialisation du mot de passe</p>
          <div className=" ml-[20px] mt-8">
+          
          <OtpInput
       value={otp}
       onChange={setOtp}
@@ -602,12 +656,25 @@ url='/videos/Animation Payme BR.mp4' playing muted />
                key={221}
               
                handleClick={async () => {
-                 setOtpScreen(x=> x = false)
-                 setChangePasswordPop(x=> x = true)
+                if(otp.length < 4){ 
+                return;
+                }
+                const dataNew =  await checkCodeOTP(data.email.trim().toLocaleLowerCase(),otp);
+           
+            
+               
+            if(dataNew?.id != null){
+
+              setOtpScreen(x=> x = false)
+              setChangePasswordPop(x=> x = true)
+            }else{
+              setModalView(x=> x=true);
+              setModalViewContent(x=> x = "Code OTP incorrect");
+            }
                }}
                type="button"
                label={"Envoyer"}
-               className="bg-[#9a9768]  border-none"
+               className={`bg-[#9a9768]  border-none ${otp.length < 4 ? "opacity-30 cursor-default" : ""} `}
              />
            </div>
          
@@ -617,19 +684,20 @@ url='/videos/Animation Payme BR.mp4' playing muted />
         {changePasswordPop && <>
           <p className="self-start mt-[1px] text-2xl font-light mb-9 opacity-40 ">Ajoutez un nouveau mot de passe</p>
            <InputComponent
-            name="name"
-            value={data.name}
-            onChange={handleChange}
+            name="password"
+            value={dataPassword.password}
+            onChange={handleChangePassword}
             className="p-7  pl-[28px] mb-4  mt-0 font-normal  rounded-xl border-2 border-opacity-30"
             placeholder="Nouveau mot de passe  *"
-            type="text"
+            type="password"
           />
           <InputComponent
-            name="email"
-            value={data.email}
-            onChange={handleChange}
+            name="confirm"
+            value={dataPassword.confirm}
+            onChange={handleChangePassword}
             className="p-7  pl-[28px] my-0 font-normal mb-[15px]  rounded-xl border-2 border-opacity-30"
             placeholder={"Confirmez votre mot de passe *"}
+            type="password"
           />
 
     
@@ -649,7 +717,42 @@ url='/videos/Animation Payme BR.mp4' playing muted />
              <ButtonComponent
                key={200}
                handleClick={async () => {
-                 
+              
+                if(
+                  dataPassword.password.length < 6 ||
+                  dataPassword.confirm.length < 6 
+                  
+                  ){
+                    setModalView(true);
+                    
+                    setModalViewContent("L'ancien mot de passe saisi est incorrect. Veuillez réessayer")
+
+         
+                  return
+                }
+                if(
+                
+                  dataPassword.password != dataPassword.confirm
+                  ){
+                     
+
+                    setModalView(true);
+                    
+                    setModalViewContent("La confirmation du mot de passe ne correspond pas. Veuillez réessayer")
+                   
+                    
+                  return
+                }
+
+                const dataNew =   await updateUserPasswordOut(dataPassword.password,data!.email.trim().toLocaleLowerCase())
+                
+                
+                if(dataNew){
+                  setChangePasswordPop(x=> x = false)  
+                  setModalView(true);
+                      
+                  setModalViewContent("Mot de passe réinitialisé avec succès !")
+                }
                }}
                type="button"
                label={"Enregistrer"}
