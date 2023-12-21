@@ -13,6 +13,8 @@ import { BiSolidLockAlt } from "react-icons/bi";
 import ReactApexChart from "react-apexcharts";
 import { fetchEnterprise } from "../../services/enterpriseService";
 import { sendCodeOTP, sendCodeOTPFinance } from "../../services/emailService";
+import { fetchUser, updateUserCodeOTP } from "../../services/userService";
+import { IoMdClose } from "react-icons/io";
 
 interface ApexChartProps {}
 interface TravelDetailsViewProps {
@@ -21,6 +23,20 @@ interface TravelDetailsViewProps {
 }
 
 function Finances(props) {
+
+  const [modalView, setModalView] = useState(false);
+  const [modalViewContent, setModalViewContent] = useState("");
+
+  useEffect(() => {
+    if(modalView){
+      
+     setTimeout(() => {
+       setModalView(x=> x = false)
+     }, 4000);
+    }
+   
+       return () => {};
+     }, [modalView]);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingFirst, setIsLoadingFirst] = useState(true);
 
@@ -66,13 +82,25 @@ function Finances(props) {
     ssr: false,
   });
 
+ 
   
 useEffect(()=>{
   
 (async()=>{
   const data = await fetchEnterprise();
   setData(data);
-  if(data.lockFinance){
+
+  const dataUser = await fetchUser();
+   
+   
+    setOtpUser(dataUser.code);
+    setCheckedFinance(dataUser.lockCode);
+    
+
+
+
+
+  if(dataUser.lockCode){
 setShowOPTModal(x=> x =true)
 }else{
     setShowOPTModal(x=> x =false)
@@ -521,9 +549,11 @@ setShowOPTModal(x=> x =true)
 
   const [showOPTModal, setShowOPTModal] = useState(true)
   const [otp, setOtp] = useState("");
-  const [otpUser,setOtpUser] = useState("1234");
+  const [otpUser,setOtpUser] = useState("");
+  const [checkedFinance, setCheckedFinance] = useState(false);
 
   useEffect(() => {
+    
     
     if(otp == otpUser){
       console.log(otp);
@@ -538,8 +568,69 @@ setShowOPTModal(x=> x =true)
   
 
 
+  function InfoView() {
+    return (
+      <div className="absolute bottom-0 right-0 z-[100] flex items-center justify-center w-full pb-0 transition bg-black/0 ">
+       
+       
+        <div
+          onClick={() => {
+            setModalView(false);
+          
+          }}
+          className="absolute inset-0 z-50 flex items-center justify-center transition "
+        ></div>
+        <div className="p-4  bg-[#1E1E1E] bottom-10 right-10 absolute z-50 font-light  text-base pr-14 h-[70px] justify-center  flex flex-col  text-white rounded-xl">
+        <IoMdClose
+            onClick={() => {
+              setModalView(false);
+            }}
+            className="w-[20px] absolute top-2 right-3 h-[20px] opacity-60 mr-0   cursor-pointer self-end"
+          />  
+  
+ 
+<div className="flex items-start justify-start gap-3 ">
+<div>
+    {modalViewContent.includes("succès") ?
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_1339_105)">
+    <path d="M21.7986 12.1112C21.7986 17.4615 17.4614 21.7987 12.1111 21.7987C6.76081 21.7987 2.42358 17.4615 2.42358 12.1112C2.42358 6.76091 6.76081 2.42369 12.1111 2.42369C17.4614 2.42369 21.7986 6.76091 21.7986 12.1112ZM10.9905 17.2406L18.178 10.0531C18.4221 9.80908 18.4221 9.41334 18.178 9.16927L17.2942 8.28541C17.0501 8.0413 16.6544 8.0413 16.4103 8.28541L10.5486 14.147L7.8119 11.4104C7.56784 11.1663 7.1721 11.1663 6.928 11.4104L6.04413 12.2942C5.80007 12.5383 5.80007 12.934 6.04413 13.1781L10.1066 17.2406C10.3507 17.4847 10.7464 17.4847 10.9905 17.2406Z" fill="#55B938"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_1339_105">
+    <rect width="20" height="20" fill="white" transform="translate(2.11108 2.11114)"/>
+    </clipPath>
+    </defs>
+    </svg>
+    
+    :  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1201_45)">
+<path d="M21.8887 12.2222C21.8887 17.7462 17.4111 22.2222 11.8887 22.2222C6.36621 22.2222 1.88867 17.7462 1.88867 12.2222C1.88867 6.70132 6.36621 2.22217 11.8887 2.22217C17.4111 2.22217 21.8887 6.70132 21.8887 12.2222ZM11.8887 14.2383C10.8643 14.2383 10.0338 15.0687 10.0338 16.0931C10.0338 17.1175 10.8643 17.948 11.8887 17.948C12.9131 17.948 13.7435 17.1175 13.7435 16.0931C13.7435 15.0687 12.9131 14.2383 11.8887 14.2383ZM10.1277 7.57112L10.4268 13.055C10.4408 13.3116 10.6529 13.5125 10.9099 13.5125H12.8674C13.1244 13.5125 13.3366 13.3116 13.3506 13.055L13.6497 7.57112C13.6648 7.29394 13.4441 7.06088 13.1665 7.06088H10.6108C10.3332 7.06088 10.1125 7.29394 10.1277 7.57112Z" fill="#FFA300"/>
+</g>
+<defs>
+<clipPath id="clip0_1201_45">
+<rect width="20" height="20" fill="white" transform="translate(1.88867 2.22217)"/>
+</clipPath>
+</defs>
+</svg>}
+      
+
+      </div>
+ 
+    <p className="max-w-[280px]" >{modalViewContent}</p>
+</div>
+ 
+  
+         
+        </div>
+        
+      </div>
+    );
+  }
+
   return (
     <>
+     {modalView && InfoView()}
    {/* {showOPTModal ? */}
    {showOPTModal ?
    
@@ -565,8 +656,11 @@ setShowOPTModal(x=> x =true)
      <div className="relative flex flex-col items-center bg-gradient-to-b from-[#2e2e2ee3] to-[#191919]   justify-center  p-[80px] py-[60px] mb-[50px] rounded-[60px]">
       <p className="text-[26px] opacity-70 leading-8" >Entrez votre code à 4 chiffres pour</p>
       <p className="text-[26px] " > <span className="opacity-70">  accéder à</span> <span className="text-primary">vos finances</span> </p>
-     <div className="m-[30px]  h-[100px] mt-[50px] relative">
-      {(otp != otpUser && otp.length ==4) &&  <p className="absolute -top-8 text-red-500/60 animate-pulse ">Code d'accès erroné, réessayer</p>}
+     <div className="m-[30px]  h-[100px] mt-[50px]  ">
+      {(otp != otpUser && otp.length ==4) &&  <p className="absolute bottom-[105px] text-xs text-red-500/60 animate-pulse">
+               
+               Code d'accès erroné, réessayer
+             </p>}
      
      <OtpInput
       value={otp}
@@ -594,7 +688,34 @@ setShowOPTModal(x=> x =true)
      </div>
      <p
      onClick={async()=>{
-      const dataNew:any  = await sendCodeOTPFinance(data.email.trim().toLocaleLowerCase())
+     
+      const numbers = '0123456789';
+    
+      let numbersPart = '';
+      
+      for (let i = 0; i < 4; i++) {
+        numbersPart += numbers.charAt(Math.floor(Math.random() * numbers.length));
+      }
+      
+      const data =   await updateUserCodeOTP(numbersPart,true) 
+     
+    
+      if(data){
+        setOtpUser(numbersPart);
+        setOtp("")
+        setModalView(true);
+            
+        setModalViewContent("Votre code est envoyer avec succès !")
+        router.push("/finances")
+       
+        
+
+        
+       
+
+        
+      } 
+     // const dataNew:any  = await sendCodeOTPFinance(data.email.trim().toLocaleLowerCase())
      }}
      className="text-[17px] cursor-pointer flex items-center font-light underline mr-4 opacity-20 " >
       <BiSolidLockAlt className="mr-1"/>

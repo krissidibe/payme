@@ -85,6 +85,61 @@ export const updateUserPassword = async (newPassword:string ) => {
 };
  
 
+export const updateUserLockCode = async (lockCode:boolean) => {
+  // console.log(window.localStorage.getItem("accessToken"));
+ 
+ 
+  const request = await fetch(
+    `${
+      process.env.BASE_API_URL
+    }/api/protected/user?userId=${window.localStorage.getItem("userId")}&lockCode`,
+    {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: window.localStorage.getItem("accessToken"),
+      },
+      method: "PATCH",
+      body:JSON.stringify({lockCode:lockCode,})
+    }
+  );
+
+  const data: any = await request.json();
+
+ 
+  if (!request.ok) {
+    return null;
+  }
+
+  return data;
+};
+export const updateUserCodeOTP = async (codeOTP:string,lockCode:boolean) => {
+  // console.log(window.localStorage.getItem("accessToken"));
+ 
+ 
+  const request = await fetch(
+    `${
+      process.env.BASE_API_URL
+    }/api/protected/user?userId=${window.localStorage.getItem("userId")}&codeOTP`,
+    {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: window.localStorage.getItem("accessToken"),
+      },
+      method: "PATCH",
+      body:JSON.stringify({codeOTP:codeOTP,lockCode:lockCode})
+    }
+  );
+
+  const data: any = await request.json();
+
+ 
+  if (!request.ok) {
+    return null;
+  }
+
+  return data;
+};
+ 
 
 
 

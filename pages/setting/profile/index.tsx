@@ -36,7 +36,7 @@ import {
   uploadImageLogo,
   uploadImageSignature,
 } from "../../../services/enterpriseService";
-import { deleteUser, fetchUser, updateUser, updateUserPassword } from "../../../services/userService";
+import { deleteUser, fetchUser, updateUser, updateUserCodeOTP, updateUserLockCode, updateUserPassword } from "../../../services/userService";
 import OtpInput from "react-otp-input";
 import useMenuStore from "../../../utils/MenuStore";
 import { useCropImage } from "../../../utils/use-crop-image-modal";
@@ -112,8 +112,11 @@ const router = useRouter();
       (async () => {
         setShowPannel((x) => (x = false));
         setCheckedFinance((x) => (x = !x));
-        const dd = await updateEnterpriseLockFinance(!checkedFinance);
-        console.log(dd);
+     const dd = await   updateUserLockCode(!checkedFinance)
+     console.log(dd);
+     
+       // const dd = await updateEnterpriseLockFinance(!checkedFinance);
+        
       })();
     }
 
@@ -172,8 +175,10 @@ const router = useRouter();
   const fetch = async () => {
     const data = await fetchEnterprise();
     const dataUser = await fetchUser();
-    setCheckedFinance(data.lockFinance ?? false);
+    
     setDataProfile(dataUser);
+    setOtpUser(dataUser.code);
+    setCheckedFinance(dataUser.lockCode);
     const numberClient = dataUser as any;
     setClientNumber(numberClient.customers?.length);
     setDropValueUserCountry(dataUser.country);
@@ -1786,9 +1791,10 @@ return;
             <span className="opacity-70"> accéder à</span>{" "}
             <span className="text-primary">vos finances</span>{" "}
           </p>
-          <div className="m-[30px]  h-[100px] mt-[50px] relative">
-            {otp != otpUser && otp?.length == 4 && (
-              <p className="absolute -top-8 text-red-500/60 animate-pulse ">
+          <div className="m-[30px]  h-[100px] mt-[50px]  ">
+            {otp != otpUser && otp?.length == 4  && dataProfile.code != "" && (
+                <p className="absolute bottom-[105px] text-xs text-red-500/60 animate-pulse">
+               
                 Code d'accès erroné, réessayer
               </p>
             )}
@@ -1821,10 +1827,75 @@ return;
               )}
             />
           </div>
-          <p className="text-[17px] flex items-center font-light underline mr-4 opacity-20 ">
+ 
+{dataProfile.code == "" || dataProfile.code == null ?
+          <div className="flex items-end justify-center w-full gap-6 mb-0 ">
+<ButtonComponent
+                  key={100}
+                  label={"Annuler"}
+                  handleClick={async() => {
+                    setShowPannel((x) => (x = false));
+                  }}
+                  className="bg-[#636363]  border-none"
+                />
+               
+               <ButtonComponent
+                key={200}
+                handleClick={async () => {
+                  if(otp.length < 4){
+                    return;
+                  }
+                  setShowPannel((x) => (x = false));
+                 const data =   await updateUserCodeOTP(otp,checkedFinance) 
+                  if(data){
+                    await fetch()
+                    setOtp("")
+                    setShowPannel((x) => (x = false));
+
+                    setModalView(true);
+                      
+                    setModalViewContent("Mot de passe est créer avec succès !")
+                  } 
+                }}
+
+                type="button"
+                
+                label={"Créer"}
+                className={`bg-[#9a9768]  border-none ${data.email.trim().length < 5 ? "opacity-30 cursor-default" : ""} `}
+              />
+            </div> :
+
+       <p
+       onClick={ async ()=>{
+        setShowPannel((x) => (x = false));
+        const numbers = '0123456789';
+      
+        let numbersPart = '';
+        
+        for (let i = 0; i < 4; i++) {
+          numbersPart += numbers.charAt(Math.floor(Math.random() * numbers.length));
+        }
+        
+        const data =   await updateUserCodeOTP(numbersPart,checkedFinance) 
+       
+      
+        if(data){
+          await fetch()
+          setOtp("")
+         
+
+          setModalView(true);
+            
+          setModalViewContent("Votre code est envoyer avec succès !")
+        } 
+        
+
+       }}
+       
+       className="text-[17px] flex items-center font-light cursor-pointer underline mr-4 opacity-20 ">
             <BiSolidLockAlt className="mr-1" />
             Code d'accès perdu ?{" "}
-          </p>
+          </p>  }
         </div>
       </div>
     );

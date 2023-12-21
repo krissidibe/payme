@@ -125,7 +125,7 @@ function Register(props) {
   email: routerData.email.toString(),
   name: routerData.name.toString(),
   number:"",
-  lockCode: true,
+  lockCode: false,
   
  }
 
