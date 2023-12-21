@@ -642,7 +642,18 @@ url='/videos/Animation Payme BR.mp4' playing muted />
     />
          
          </div>
-      <p className="mt-4 font-light opacity-40">Code non reçu ? <span className="underline cursor-pointer">Renvoyez-le </span> </p>  
+      <p className="mt-4 font-light opacity-40">Code non reçu ? <span
+      onClick={ async()=>{
+        const dataNew:any  = await sendCodeOTP(data.email.trim().toLocaleLowerCase())
+        if(dataNew?.id != null){
+         
+          
+          setModalView(true);
+              
+          setModalViewContent("Le code d'accès est envoyer avec succès !")
+        }
+      }}
+      className="underline cursor-pointer">Renvoyez-le </span> </p>  
 
 <div className="flex items-end justify-center w-full gap-6 mt-6 mb-5 ">
 <ButtonComponent
