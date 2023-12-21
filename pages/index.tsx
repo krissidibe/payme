@@ -18,7 +18,7 @@ import { useGlobalModal } from "../utils/use-global-modal";
 import { IoMdClose } from "react-icons/io";
 import { GoogleLogin, useGoogleLogin, googleLogout } from "@react-oauth/google";
 import { BiXCircle } from "react-icons/bi";
-import { checkCodeOTP, sendCodeOTP, updateUserPasswordOut } from "../services/emailService";
+import { checkCodeOTP, sendCodeOTP, sendConfirmPassword, updateUserPasswordOut } from "../services/emailService";
 import { updateUserPassword } from "../services/userService";
 
 function Home(props) {
@@ -586,6 +586,7 @@ url='/videos/Animation Payme BR.mp4' playing muted />
                  
                  
                   const dataNew:any  = await sendCodeOTP(data.email.trim().toLocaleLowerCase())
+                  
                  
                   
                    if(dataNew != null){
@@ -717,6 +718,8 @@ url='/videos/Animation Payme BR.mp4' playing muted />
              <ButtonComponent
                key={200}
                handleClick={async () => {
+               
+              
               
                 if(
                   dataPassword.password.length < 6 ||
@@ -744,10 +747,11 @@ url='/videos/Animation Payme BR.mp4' playing muted />
                   return
                 }
 
+              
                 const dataNew =   await updateUserPasswordOut(dataPassword.password,data!.email.trim().toLocaleLowerCase())
                 
-                
                 if(dataNew){
+                  await sendConfirmPassword(data.email.trim().toLocaleLowerCase())
                   setChangePasswordPop(x=> x = false)  
                   setModalView(true);
                       

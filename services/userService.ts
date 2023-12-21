@@ -112,7 +112,7 @@ export const updateUserLockCode = async (lockCode:boolean) => {
 
   return data;
 };
-export const updateUserCodeOTP = async (codeOTP:string,lockCode:boolean) => {
+export const updateUserCodeOTP = async (codeOTP:string,lockCode:boolean,sendMail:boolean = true) => {
   // console.log(window.localStorage.getItem("accessToken"));
  
  
@@ -126,7 +126,7 @@ export const updateUserCodeOTP = async (codeOTP:string,lockCode:boolean) => {
         Authorization: window.localStorage.getItem("accessToken"),
       },
       method: "PATCH",
-      body:JSON.stringify({codeOTP:codeOTP,lockCode:lockCode})
+      body:JSON.stringify({codeOTP:codeOTP,lockCode:lockCode,sendMail})
     }
   );
 

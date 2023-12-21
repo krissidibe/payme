@@ -637,7 +637,7 @@ setShowOPTModal(x=> x =true)
    (true && <>
 
 {/* data.id == "" */}
-{ data.id == "" &&  
+{ isLoading &&  
 
 <div    className="relative inset-0 z-20 flex flex-col items-center justify-center h-full ">
 
@@ -655,9 +655,10 @@ setShowOPTModal(x=> x =true)
    <img className="h-[60px] mb-10   mt-10 " src="/images/logo-payme-complet.png" />
      <div className="relative flex flex-col items-center bg-gradient-to-b from-[#2e2e2ee3] to-[#191919]   justify-center  p-[80px] py-[60px] mb-[50px] rounded-[60px]">
       <p className="text-[26px] opacity-70 leading-8" >Entrez votre code à 4 chiffres pour</p>
+      
       <p className="text-[26px] " > <span className="opacity-70">  accéder à</span> <span className="text-primary">vos finances</span> </p>
      <div className="m-[30px]  h-[100px] mt-[50px]  ">
-      {(otp != otpUser && otp.length ==4) &&  <p className="absolute bottom-[105px] text-xs text-red-500/60 animate-pulse">
+      {(otp != otpUser && otp.length ==4) &&  <p className="absolute bottom-[79px] text-xs text-red-500/60 animate-pulse">
                
                Code d'accès erroné, réessayer
              </p>}
@@ -686,7 +687,7 @@ setShowOPTModal(x=> x =true)
       [&::-webkit-inner-spin-button]:appearance-none " />}
     />
      </div>
-     <p
+     {/* <p
      onClick={async()=>{
      
       const numbers = '0123456789';
@@ -719,7 +720,7 @@ setShowOPTModal(x=> x =true)
      }}
      className="text-[17px] cursor-pointer flex items-center font-light underline mr-4 opacity-20 " >
       <BiSolidLockAlt className="mr-1"/>
-      Code d'accès perdu ?  </p>
+      Code d'accès perdu ?  </p> */}
      </div>
    </div>
     </div> }

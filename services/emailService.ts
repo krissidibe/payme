@@ -116,3 +116,41 @@ export const sendCodeOTPFinance = async (
     return data;
   };
    
+
+
+
+
+
+
+
+
+
+
+  export const sendConfirmPassword = async (
+    email:string
+  ) => {
+    
+    
+    const request = await fetch(
+      `${
+        process.env.BASE_API_URL
+      }/api/emailsend?email=${email}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+         
+        },
+        body:JSON.stringify({email:email,type:"finance"}),
+        method: "POST",
+       
+      }
+    );
+  
+    const datas: any = await request.json();
+    
+    if (!request.ok) {
+      return null;
+    }
+  
+    return datas;
+  };

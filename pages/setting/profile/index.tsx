@@ -1783,16 +1783,35 @@ return;
           }}
           className="relative z-20 flex flex-col items-center bg-gradient-to-b from-[#2e2e2e] to-[#191919]   justify-center  p-[80px] py-[60px] mb-[50px] rounded-[60px]"
         >
+           {dataProfile.code == "" || dataProfile.code == null  ?
+           
+            
+            <>
+            
           <p className="text-[26px] opacity-70 leading-8">
-            Entrez votre code à 4 chiffres pour
+          Créez un code d'accès pour restreindre 
           </p>
           <p className="text-[26px] ">
-            {" "}
-            <span className="opacity-70"> accéder à</span>{" "}
+            
+            <span className="opacity-70">l'accès à</span>{" "}
             <span className="text-primary">vos finances</span>{" "}
           </p>
+            </> 
+            : <>
+            <p className="text-[26px] opacity-70 leading-8">
+              Entrez votre code à 4 chiffres pour
+            </p>
+            <p className="text-[26px] ">
+              
+              <span className="opacity-70"> accéder à</span>{" "}
+              <span className="text-primary">vos finances</span>{" "}
+            </p>
+              </> 
+            
+            }
+            
           <div className="m-[30px]  h-[100px] mt-[50px]  ">
-            {otp != otpUser && otp?.length == 4  && dataProfile.code != "" && (
+            {otp != otpUser && otp?.length == 4  && (dataProfile.code?.trim() != "" && dataProfile.code != null) && (
                 <p className="absolute bottom-[105px] text-xs text-red-500/60 animate-pulse">
                
                 Code d'accès erroné, réessayer
@@ -1846,55 +1865,75 @@ return;
                     return;
                   }
                   setShowPannel((x) => (x = false));
-                 const data =   await updateUserCodeOTP(otp,checkedFinance) 
+                 const data =   await updateUserCodeOTP(otp,checkedFinance,false) 
                   if(data){
                     await fetch()
                     setOtp("")
                     setShowPannel((x) => (x = false));
 
                     setModalView(true);
+                    
                       
-                    setModalViewContent("Mot de passe est créer avec succès !")
+                    setModalViewContent("Code d'accès créé avec succès.")
                   } 
                 }}
 
                 type="button"
                 
-                label={"Créer"}
+                label={"Créer le code"}
                 className={`bg-[#9a9768]  border-none ${data.email.trim().length < 5 ? "opacity-30 cursor-default" : ""} `}
               />
             </div> :
 
        <p
-       onClick={ async ()=>{
-        setShowPannel((x) => (x = false));
-        const numbers = '0123456789';
+       className="text-[17px] flex items-center font-light  mr-4 opacity-20 ">
+            <BiSolidLockAlt className="mb-1 mr-1" />
+            Code perdu ? <span
+            onClick={()=>{
+              setShowPannel((x) => (x = false));
+              modal.onSubmit = (
+                <ButtonComponent
+                  handleClick={async () => {
+                     
+                    modal.onClose();
+                    
+                    const numbers = '0123456789';
       
-        let numbersPart = '';
-        
-        for (let i = 0; i < 4; i++) {
-          numbersPart += numbers.charAt(Math.floor(Math.random() * numbers.length));
-        }
-        
-        const data =   await updateUserCodeOTP(numbersPart,checkedFinance) 
-       
-      
-        if(data){
-          await fetch()
-          setOtp("")
-         
-
-          setModalView(true);
+                    let numbersPart = '';
+                    
+                    for (let i = 0; i < 4; i++) {
+                      numbersPart += numbers.charAt(Math.floor(Math.random() * numbers.length));
+                    }
+                    
+                    const data =   await updateUserCodeOTP(numbersPart,checkedFinance,true) 
+                   
+                  
+                    if(data){
+                      await fetch()
+                      setOtp("")
+                     
             
-          setModalViewContent("Votre code est envoyer avec succès !")
-        } 
-        
-
-       }}
-       
-       className="text-[17px] flex items-center font-light cursor-pointer underline mr-4 opacity-20 ">
-            <BiSolidLockAlt className="mr-1" />
-            Code d'accès perdu ?{" "}
+                      setModalView(true);
+                        
+                      setModalViewContent("Code d'accès réinitialisé avec succès. Nouveau code envoyé par e-mail.")
+                    } 
+                  
+            
+                     
+                    
+                   
+                   
+                    
+                  }}
+                  label={"Confirmer"}
+                  className="  mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none   "
+                />
+              );
+              modal.onOpen();
+            modal.setTitle("Êtes-vous sûr ?");
+            modal.setMessage("Voulez-vous vraiment réinitialiser votre code d'accès ?");
+            }}
+            className="ml-1 underline cursor-pointer "> Réinitialiser le Code </span> 
           </p>  }
         </div>
       </div>
