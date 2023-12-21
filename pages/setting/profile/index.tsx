@@ -108,7 +108,7 @@ const router = useRouter();
   const imageRef2 = useRef(null);
 
   useEffect(() => {
-    if (otp == otpUser) {
+    if (otp == otpUser && otp.length == 4) {
       (async () => {
         setShowPannel((x) => (x = false));
         setCheckedFinance((x) => (x = !x));
