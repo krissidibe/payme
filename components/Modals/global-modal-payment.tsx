@@ -87,7 +87,7 @@ onClick={()=>{
     pathname: "/",
   });
 }}
-className="flex items-center justify-center gap-2 p-2 text-sm opacity-50 cursor-pointer">
+className="flex items-center justify-center gap-2 p-2 pb-[60px] text-sm  text-[#772824] cursor-pointer">
   Quitter
 <LiaSignOutAltSolid
  

@@ -20,7 +20,7 @@ import { GoogleLogin, useGoogleLogin, googleLogout } from "@react-oauth/google";
 import { BiXCircle } from "react-icons/bi";
 import { checkCodeOTP, sendCodeOTP, sendConfirmPassword, updateUserPasswordOut } from "../services/emailService";
 import { updateUserPassword } from "../services/userService";
-
+import { useTimeout as useTimeoutHook } from 'usehooks-ts'
 function Home(props) {
   async function fetchFacture() {
    
@@ -47,6 +47,11 @@ useEffect(()=>{
 }, []) 
 
 */
+
+const [visible, setVisible] = useState(false)
+
+  const hide = () => setVisible(true)
+
 
 const [accessToken, setAccessToken] = useState("")
 const [passwordForgetPop, setPasswordForgetPop] = useState(false)
@@ -568,6 +573,8 @@ url='/videos/Animation Payme BR.mp4' playing muted />
                   key={100}
                   label={"Annuler"}
                   handleClick={async() => {
+                    setCanNext(x=> x = true)
+                    setVisible(x=> x = false)
                     setPasswordForgetPop(x=> x = false)
                   }}
                   className="bg-[#636363]  border-none"
@@ -576,6 +583,13 @@ url='/videos/Animation Payme BR.mp4' playing muted />
               {canNext && <ButtonComponent
                 key={200}
                 handleClick={async () => {
+                setTimeout(() => {
+                  hide()
+                }, 60000 * 2);
+              /*     setPasswordForgetPop(x=> x = false)
+                  setOtpScreen(x=> x = true)
+                  setCanNext(x=> x = true)
+                  return; */
                   setCanNext(x=> x = false)
                  
                   if(data.email.trim().length < 5){
@@ -642,24 +656,29 @@ url='/videos/Animation Payme BR.mp4' playing muted />
     />
          
          </div>
+     
       <p className="mt-4 font-light opacity-40">Code non reçu ? <span
       onClick={ async()=>{
+        if(!visible){
+return;
+        }
         const dataNew:any  = await sendCodeOTP(data.email.trim().toLocaleLowerCase())
         if(dataNew?.id != null){
          
           
           setModalView(true);
               
-          setModalViewContent("Le code d'accès est envoyer avec succès !")
+          setModalViewContent("Code d'accès renvoyé avec succès")
         }
       }}
-      className="underline cursor-pointer">Renvoyez-le </span> </p>  
+      className={`${visible ? "opacity-100 cursor-pointer" : "opacity-40 cursor-default"} underline `}>Renvoyez-le</span> </p>  
 
 <div className="flex items-end justify-center w-full gap-6 mt-6 mb-5 ">
 <ButtonComponent
                  key={121}
                  label={"Annuler"}
                  handleClick={async() => {
+                  setVisible(x=> x = false)
                   setOtpScreen(x=> x = false)  
                  }}
                  className="bg-[#636363]  border-none"
@@ -721,7 +740,7 @@ url='/videos/Animation Payme BR.mp4' playing muted />
                  key={100}
                  label={"Annuler"}
                  handleClick={async() => {
-                  
+                  setVisible(x=> x = false)
                  setChangePasswordPop(x=> x = false)  
                  }}
                  className="bg-[#636363]  border-none"
@@ -766,7 +785,7 @@ url='/videos/Animation Payme BR.mp4' playing muted />
                   setChangePasswordPop(x=> x = false)  
                   setModalView(true);
                       
-                  setModalViewContent("Mot de passe réinitialisé avec succès !")
+                  setModalViewContent("Mot de passe réinitialisé avec succès")
                 }
                }}
                type="button"

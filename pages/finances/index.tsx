@@ -567,7 +567,18 @@ setShowOPTModal(x=> x =true)
   }, [otp])
   
 
-
+  if(isLoading){
+   return(
+    <div    className="relative inset-0 z-20 flex flex-col items-center justify-center h-full ">
+        
+    <FakeInfoSkeleton data={chartDataFake}  />
+              
+        
+        </div>
+   )
+     }  
+    
+ 
   function InfoView() {
     return (
       <div className="absolute bottom-0 right-0 z-[100] flex items-center justify-center w-full pb-0 transition bg-black/0 ">
@@ -627,6 +638,8 @@ setShowOPTModal(x=> x =true)
       </div>
     );
   }
+
+    
 
   return (
     <>
