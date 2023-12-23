@@ -433,8 +433,9 @@ setTimeout(() => {
 <div className="flex items-center justify-center">
   
 {isLoading && <ReactPlayer  
-
-url='/videos/Animation Payme BR.mp4' playing muted /> 
+height={1000}
+width={1000}
+url='/videos/Animation.webm' playing muted /> 
  }
     {/*    <img className="h-[70px]  mb-10  " src="/images/logo-payme-complet.png" />
      */}

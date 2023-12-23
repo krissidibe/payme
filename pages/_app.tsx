@@ -126,9 +126,10 @@ Commencer
 <div className="flex items-center justify-center ">
    
 {isLoading && <ReactPlayer 
-
+height={1000}
+width={1000}
   
-url='/videos/Animation Payme BR.mp4' playing={true} muted  />}
+url='/videos/Animation.webm' playing={true} muted  />}
     
        </div>
 </div>  }
