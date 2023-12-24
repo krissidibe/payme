@@ -418,7 +418,7 @@ setTimeout(() => {
     <>
     
     <React.Fragment>
-       { (loadingSimulation && !showLoginPannel) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen bg-[#06060600]/50 ">
+       { (loadingSimulation && !showLoginPannel) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen no-scrollbar bg-[#06060600]/50 ">
 
  
        <svg aria-hidden="true" className="w-[60px] h-[60px]  opacity-100  animate-spin dark:text-gray-600 fill-[#9a9768]" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -429,7 +429,7 @@ setTimeout(() => {
 
  
 {/*  */}
-{ ( accessToken?.length > 100 || accessToken =="" ) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen bg-[#2C2B2C] ">
+{ ( accessToken?.length > 100 || accessToken =="" ) && <div className="absolute z-50  flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
 <div className="flex items-center justify-center">
   
 {isLoading && <ReactPlayer  
@@ -443,7 +443,7 @@ url='/videos/Animation.webm' playing muted />
 </div>  }
 
        {modalView && InfoView()}
-     {(accessToken?.length < 100 && accessToken !=""  ) && <div className="h-screen bg-gradient-to-b p-10 pt-14 from-[#2e2e2ee3] flex justify-center items-center flex-col   to-[#060606]">
+     {(accessToken?.length < 100 && accessToken !=""  ) && <div className="h-screen no-scrollbar bg-gradient-to-b p-10 pt-14 from-[#2e2e2ee3] flex justify-center items-center flex-col   to-[#060606]">
        <div className="flex items-center justify-center">
        <img className="h-[70px]  mb-10  " src="/images/logo-payme-complet.png" />
     

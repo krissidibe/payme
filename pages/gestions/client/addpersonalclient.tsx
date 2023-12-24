@@ -300,6 +300,10 @@ function AddPersonalClient(props) {
               <ButtonComponent
                 key={2}
                 handleClick={async () => {
+                  if(isLoading){
+                  
+                    return;
+                  }
                   if(
                     data.name.trim().length <3 ||
                     data.country.trim() == "---" ||
@@ -328,13 +332,15 @@ function AddPersonalClient(props) {
                  
                  
                   if (customerInfo.id) {
+                    setIsLoading(x=> x = true)
                     await updateCustomer();
                     return;
                   }
+                  setIsLoading(x=> x = true)
                   await postCustomer();
                 }}
                 label={customerInfo.id ? "Modifier" : "Enregistré"}
-                className="bg-[#9a9768] "
+                className={`bg-[#9a9768]  border-none  ${isLoading ? "opacity-30 cursor-default hover:brightness-100" : "opacity-100 cursor-pointer "}`}
               />
             </div>
           </div>

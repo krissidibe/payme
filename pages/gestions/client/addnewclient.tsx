@@ -336,9 +336,19 @@ function AddNewClient(props) {
                 }}
                 className="bg-[#212121]  border-none    "
               />
+              
               <ButtonComponent
                 key={2}
                 handleClick={async () => {
+
+                  if(isLoading){
+                  
+                    return;
+                  }
+
+
+              
+
                   if (
                     data.name.trim().length < 3 ||
                     data.country.trim() == "---" ||
@@ -366,14 +376,18 @@ function AddNewClient(props) {
                     );
                     return;
                   }
+                 
+                 
                   if (customerInfo.id) {
+                    setIsLoading(x=> x = true)
                     await updateCustomer();
                     return;
                   }
+                  setIsLoading(x=> x = true)
                   await postCustomer();
                 }}
                 label={customerInfo.id ? "Modifier" : "Enregistrer"}
-                className="bg-[#9a9768]  border-none   "
+                className={`bg-[#9a9768]  border-none  ${isLoading ? "opacity-30 cursor-default hover:brightness-100" : "opacity-100 cursor-pointer "}`}
               />
             </div>
           </div>

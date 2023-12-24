@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
 if( firstView != "false" && menuIndex.index == 0){
 return(
   <>
-  <div className="absolute z-50 flex flex-col items-center justify-center w-full h-screen bg-[#121212]/90 ">
+  <div className="absolute z-50 flex flex-col items-center justify-center w-full h-screen no-scrollbar bg-[#121212]/90 ">
     
     <p className="font-bold text-center lg:leading-[70px] leading-[60px] text-[50px] lg:text-[70px]">Bienvenue sur <br /> 
 Payme.</p>
@@ -74,7 +74,7 @@ Commencer
 
             
    </div>
-   <div className="absolute z-30 flex flex-col items-center justify-center w-full h-screen bg-black/20 blur-md ">
+   <div className="absolute z-30 flex flex-col items-center justify-center w-full h-screen no-scrollbar bg-black/20 blur-md ">
     
  <div className="opacity-100">
  <UserLayout>
@@ -122,7 +122,7 @@ Commencer
     <div className="">
  
  
-    { (  accessToken == "null" ) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen bg-[#2C2B2C] ">
+    { (  accessToken == "null" ) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
 <div className="flex items-center justify-center ">
    
 {isLoading && <ReactPlayer 
