@@ -33,9 +33,9 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
      
     if (windowSize.width < 1440 && windowSize.width > 1370) {
-      setZoomValue(x=> x = 80)     }
+      setZoomValue(x=> x = 84)     }
     else if (windowSize.width < 1370) {
-      setZoomValue(x=> x = 80)     }
+      setZoomValue(x=> x = 84)     }
     else {
       setZoomValue(x=> x = 100) 
     }
