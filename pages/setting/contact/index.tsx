@@ -11,7 +11,7 @@ function Contact(props) {
     <div className="flex flex-col items-center w-auto h-full px-24 min-[1500px]:pt-[170px] pt-[105px]">
       <div className="flex flex-col items-center justify-center gap-1 tracking-wider xl:scale-75 xl:items-center">
         <h1 className="text-[52px]  xl:text-[68px] mt-8 xl:mt-0  leading-[40px] xl:leading-[80px]  font-semibold ">Laissez-nous un message</h1>
-        <h2 className="text-[30px] xl:text-[38px] opacity-50">
+        <h2 className="text-[22px] xl:text-[38px] opacity-50">
         Une question ou une remarque ? Ecrivez-nous simplement un message !
         </h2>
       </div>
