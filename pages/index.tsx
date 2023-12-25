@@ -101,6 +101,27 @@ const login = useGoogleLogin({
   flow: 'auth-code',
 });
 
+
+const windowSize = useWindowSize();
+const [zoomValue, setZoomValue] = useState(100)
+
+
+useEffect(() => {
+   
+  if (windowSize.width < 1440 && windowSize.width > 1370) {
+    setZoomValue(x=> x = 80)     }
+  else if (windowSize.width < 1370) {
+    setZoomValue(x=> x = 70)     }
+  else {
+    setZoomValue(x=> x = 100) 
+  }
+
+  return () => {
+    
+  }
+}, [windowSize.width])
+
+
 const googleSigninRef = useRef(null);
 const [loadingSimulation, setLoadingSimulation] = useState(false);
 const [isLoading, setIsLoading] = useState(false);
@@ -523,10 +544,14 @@ url='/videos/Animation.webm' playing muted />
               labelClassName="text-[16px] "
               className="bg-[#515151] border-none w-[130px] h-[46px]  "
             />
-        {showLoginGoole &&  <div className="absolute flex items-center justify-center gap-2 -left-20 -top-12">
+        {showLoginGoole &&  <div className={`absolute flex items-center justify-center ${zoomValue ==  100 ? "-left-20 -top-12  gap-2" :"-left-[130px] -top-[60px]  gap-4"}`} >
           <GoogleLogin
           shape="pill"
           theme="filled_black"
+          size="large"
+          
+          cancel_on_tap_outside={true}
+          containerProps={{style:{zoom: zoomValue == 100 ? "100%" : "140%"}}}
          // useOneTap={true}
           state_cookie_domain='single_host_origin'
   onSuccess={credentialResponse => {
