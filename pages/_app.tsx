@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }) {
     if (windowSize.width < 1440 && windowSize.width > 1370) {
       setZoomValue(x=> x = 80)     }
     else if (windowSize.width < 1370) {
-      setZoomValue(x=> x = 70)     }
+      setZoomValue(x=> x = 80)     }
     else {
       setZoomValue(x=> x = 100) 
     }
@@ -152,7 +152,7 @@ Commencer
  
    
     { (  accessToken == "null" ) && <div className="absolute inset-0 overflow-hidden z-50 flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
-<div className="flex items-center justify-center " >
+<div className="flex items-center justify-center w-full h-full " >
    
 {isLoading && <ReactPlayer 
 height={1000}

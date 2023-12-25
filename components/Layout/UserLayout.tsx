@@ -18,7 +18,7 @@ function UserLayout({ children }) {
     else  if (windowSize.width < 1440 && windowSize.width > 1370) {
       setZoomValue(x=> x = 80)     }
     else if (windowSize.width < 1370) {
-      setZoomValue(x=> x = 70)     }
+      setZoomValue(x=> x = 80)     }
     
     
   
@@ -32,8 +32,8 @@ function UserLayout({ children }) {
   return (
 
     <>
-      {windowSize.width}
-        - {JSON.stringify(zoomValue)}
+     {/*  {windowSize.width}
+        - {JSON.stringify(zoomValue)} */}
   <ModalProvider style={{"zoom":`${zoomValue}%`}} />
      <div className="flex w-screen h-screen overflow-scroll no-scrollbar " >
       <SideBar  />  

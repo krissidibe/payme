@@ -23,7 +23,7 @@ function SideBar() {
    else  if (windowSize.width < 1440 && windowSize.width > 1370) {
      setZoomValue(x=> x = 80)     }
    else if (windowSize.width < 1370) {
-     setZoomValue(x=> x = 70)     }
+     setZoomValue(x=> x = 80)     }
    
    
  
