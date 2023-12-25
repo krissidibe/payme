@@ -13,13 +13,14 @@ function UserLayout({ children }) {
 
   useEffect(() => {
      
-    if (windowSize.width < 1440 && windowSize.width > 1370) {
+     if (windowSize.width > 1440) {
+      setZoomValue(x=> x = 100)     }
+    else  if (windowSize.width < 1440 && windowSize.width > 1370) {
       setZoomValue(x=> x = 80)     }
     else if (windowSize.width < 1370) {
       setZoomValue(x=> x = 70)     }
-    else {
-      setZoomValue(x=> x = 100) 
-    }
+    
+    
   
     return () => {
       
@@ -31,7 +32,8 @@ function UserLayout({ children }) {
   return (
 
     <>
-      
+      {windowSize.width}
+        - {JSON.stringify(zoomValue)}
   <ModalProvider style={{"zoom":`${zoomValue}%`}} />
      <div className="flex w-screen h-screen overflow-scroll no-scrollbar " >
       <SideBar  />  

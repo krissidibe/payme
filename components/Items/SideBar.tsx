@@ -16,22 +16,22 @@ function SideBar() {
   const windowSize = useWindowSize();
   const [zoomValue, setZoomValue] = useState(100)
  
-
   useEffect(() => {
      
-    if (windowSize.width < 1440 && windowSize.width > 1370) {
-      setZoomValue(x=> x = 80)     }
-    else if (windowSize.width < 1370) {
-      setZoomValue(x=> x = 70)     }
-    else {
-      setZoomValue(x=> x = 100) 
-    }
-  
-    return () => {
-      
-    }
-  }, [windowSize.width])
-  
+    if (windowSize.width > 1440) {
+     setZoomValue(x=> x = 100)     }
+   else  if (windowSize.width < 1440 && windowSize.width > 1370) {
+     setZoomValue(x=> x = 80)     }
+   else if (windowSize.width < 1370) {
+     setZoomValue(x=> x = 70)     }
+   
+   
+ 
+   return () => {
+     
+   }
+ }, [windowSize.width])
+ 
 
 
   const menuIndex = useMenuStore();
