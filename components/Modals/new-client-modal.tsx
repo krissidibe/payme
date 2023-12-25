@@ -7,7 +7,7 @@ import { useNewClientModal } from "../../utils/use-new-client-modal";
 import { useRouter } from "next/router";
 import { MdClose } from "react-icons/md";
 
-function NewClientModal() {
+function NewClientModal({style}) {
   const [index, setIndex] = useState(0);
   const router = useRouter();
   const modal = useNewClientModal()
@@ -38,13 +38,15 @@ function NewClientModal() {
       onClick={(e)=>{
         e.stopPropagation()
       }}
-      className="p-4 bg-[#363636] z-50 w-[464px] min-h-[370px] max-h-[370px] mt-8 flex flex-col items-center justify-center text-white rounded-xl">
+      className="p-4 bg-[#363636] z-50 w-[464px] min-h-[370px] max-h-[370px] mt-8 flex flex-col items-center justify-center text-white rounded-xl"
+      style={style.style}
+      >
       <MdClose onClick={()=>{
             modal.onClose()
         }} className="w-[26px] h-[26px]   text-[#787878] mr-2 mt-1 cursor-pointer self-end" />
         
        
-        <h2 className="font-bold text-[22px] mt-0 leading-7 ">Nouveau client</h2>
+        <h2 className="font-bold text-[22px] mt-0 leading-7 ">Nouveau client   </h2>
         <p className="text-[17px] opacity-50">
           Quel type de client souhaitez-vous ajouter ?
         </p>

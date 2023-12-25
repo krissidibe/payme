@@ -262,7 +262,7 @@ const router = useRouter();
   /*  */
   return (
     <>
-      <div className="relative flex flex-col w-full h-screen overflow-hidden ">
+      <div className="relative flex flex-col w-full h-full min-h-screen overflow-hidden ">
          {modalView && InfoView()}
         {showPannel && CodePannel()}
         {logoChoose && <CropImageModal imageData={imageLogo} />}
@@ -454,10 +454,10 @@ const router = useRouter();
         )}
         <div className="h-[200px] bg-gradient-to-r from-[#c0bc839a] via-[#3636368b] to-[#3636368b]  "></div>
 
-        <div className="absolute flex w-full h-full gap-10 px-10 pt-[100px] pb-4 pr-16 ">
+        <div className="absolute    flex w-full min-h-full gap-10 px-10 pt-[100px] pb-4 pr-16 ">
           {LeftSection()}
 
-          <div className="h-full  rounded-md    w-full bg-gradient-to-b from-[#202020] to-[#0e0e0e]    ">
+          <div className="min-h-full  rounded-md    w-full bg-gradient-to-b from-[#202020] to-[#0e0e0e]    ">
             <div className="flex px-8  w-auto min-h-[60px] ml-0   space-x-2 bg-[#2e2e2e78]  text-[18px]  overflow-x-scroll text-sm   rounded-tl-md rounded-tr-md border-opacity-10  no-scrollbar ">
               <div
                 onClick={() => {
@@ -580,7 +580,7 @@ const router = useRouter();
   function LeftSection() {
     const router = useRouter();
     return (
-      <div className="h-full  rounded-md flex flex-col items-center pt-12    min-w-[300px] max-w-[300px] bg-gradient-to-b from-[#202020] to-[#0e0e0e]    ">
+      <div className="min-h-full   rounded-md flex flex-col items-center pt-12    min-w-[300px] max-w-[300px] bg-gradient-to-b from-[#202020] to-[#0e0e0e]    ">
         <div className="border mb-5 relative rounded-full h-[115px] p-[1px] w-[115px] bg-gray-200 border-black">
         <img
             className="object-contain w-full h-full rounded-full"

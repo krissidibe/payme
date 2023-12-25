@@ -1,30 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../Items/SideBar";
 import { IoIosNotifications, IoIosSearch } from "react-icons/io";
 import InputComponent from "../UI/InputComponent";
 import GlobalModal from "../Modals/global-modal";
 import { ModalProvider } from "../Items/modal-provider";
+import { useWindowSize } from "usehooks-ts";
  
 function UserLayout({ children }) {
+  const windowSize = useWindowSize();
+  const [zoomValue, setZoomValue] = useState(100)
+ 
 
   useEffect(() => {
      
+    if (windowSize.width < 1440 && windowSize.width > 1370) {
+      setZoomValue(x=> x = 80)     }
+    else if (windowSize.width < 1370) {
+      setZoomValue(x=> x = 70)     }
+    else {
+      setZoomValue(x=> x = 100) 
+    }
   
     return () => {
       
     }
-  }, [])
+  }, [windowSize.width])
   
   
 
   return (
 
     <>
-  <ModalProvider />
-     <div className="flex w-screen h-screen overflow-scroll no-scrollbar ">
-      <SideBar />  
+      
+  <ModalProvider style={{"zoom":`${zoomValue}%`}} />
+     <div className="flex w-screen h-screen overflow-scroll no-scrollbar " >
+      <SideBar  />  
 
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full" style={{"zoom":`${zoomValue}%`}}>
 
 {/* 
         <main className="flex-1 overflow-scroll no-scrollbar">  {children}  </main> */}

@@ -20,7 +20,7 @@ import { GoogleLogin, useGoogleLogin, googleLogout } from "@react-oauth/google";
 import { BiXCircle } from "react-icons/bi";
 import { checkCodeOTP, sendCodeOTP, sendConfirmPassword, updateUserPasswordOut } from "../services/emailService";
 import { updateUserPassword } from "../services/userService";
-import { useTimeout as useTimeoutHook } from 'usehooks-ts'
+import { useWindowSize } from 'usehooks-ts'
 function Home(props) {
   async function fetchFacture() {
    
@@ -417,8 +417,9 @@ setTimeout(() => {
   return (
     <>
     
+   {/*  */}
     <React.Fragment>
-       { (loadingSimulation && !showLoginPannel) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen no-scrollbar bg-[#06060600]/50 ">
+       { (loadingSimulation && !showLoginPannel) && <div className="absolute z-50 inset-0 flex items-center justify-center min-w-screen w-full h-full min-h-full no-scrollbar bg-[#06060600]/50 ">
 
  
        <svg aria-hidden="true" className="w-[60px] h-[60px]  opacity-100  animate-spin dark:text-gray-600 fill-[#9a9768]" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -443,7 +444,7 @@ url='/videos/Animation.webm' playing muted />
 </div>  }
 
        {modalView && InfoView()}
-     {(accessToken?.length < 100 && accessToken !=""  ) && <div className="h-screen no-scrollbar bg-gradient-to-b p-10 pt-14 from-[#2e2e2ee3] flex justify-center items-center flex-col   to-[#060606]">
+     {(accessToken?.length < 100 && accessToken !=""  ) && <div className="h-screen no-scrollbar bg-transparent p-10 pt-14  flex justify-center items-center flex-col  from-[#2e2e2ee3] to-[#060606]">
        <div className="flex items-center justify-center">
        <img className="h-[70px]  mb-10  " src="/images/logo-payme-complet.png" />
     
@@ -522,16 +523,21 @@ url='/videos/Animation.webm' playing muted />
               labelClassName="text-[16px] "
               className="bg-[#515151] border-none w-[130px] h-[46px]  "
             />
-        {showLoginGoole &&  <div className="absolute flex items-center justify-center gap-2 -left-20 -top-12">
+        {showLoginGoole &&  <div className="absolute flex items-center justify-center gap-2 scale-75 -left-20 -top-12">
           <GoogleLogin
           shape="pill"
           theme="filled_black"
+          useOneTap={true}
+          state_cookie_domain='single_host_origin'
   onSuccess={credentialResponse => {
+   (async()=>{
+    
     const credent = jwtDecode(credentialResponse.credential);
    
     const data = credent as any;
     console.log(data);
    handleSubmitAuth(data)
+   })()
   }}
   onError={() => {
     console.log('Login Failed');

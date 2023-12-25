@@ -4,14 +4,16 @@ import GlobalPayment from "../Modals/global-modal-payment"
 import NewClientModal from "../Modals/new-client-modal"
 import NewProjectModal from "../Modals/new-project-modal"
 
-export const ModalProvider = ()=>{
+export const ModalProvider = (style)=>{
     return (
         <>
-        <GlobalModal  />
-        <NewClientModal/>
-        <NewProjectModal/>
-        <CropImageModal/>
-        <GlobalPayment/>
+        <GlobalModal    style={style} />
+        <NewClientModal style={style}  />
+        <NewProjectModal style={style}  />
+        <CropImageModal   />
+        <GlobalPayment  style={style} />
         </>
     )
 }
+
+//

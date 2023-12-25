@@ -1217,7 +1217,7 @@ professionnels pour trouver celui qui correspond à vos besoins.</p>
   }
   const router = useRouter();
   return (
-    <div className="flex flex-col px-[10px] xl:py-[140px] lg:py-[130px] h-screen    items-center justify-center  bg-gradient-to-b from-[#212121]">
+    <div className="flex flex-col px-[10px] xl:py-[140px] lg:py-[130px] h-screen    items-center justify-center  bg-transparent from-[#212121]">
 
 {factureChoose &&   <div className="absolute z-50">
 <FacturesFirst

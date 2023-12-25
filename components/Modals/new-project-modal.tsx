@@ -9,7 +9,7 @@ import { useNewProjectModal } from "../../utils/use-new-project-modal";
 import InputComponent from "../UI/InputComponent";
 import { addNewProject } from "../../services/projectService";
  
-function NewProjectModal() {
+function NewProjectModal({style}) {
  
   const modal = useNewProjectModal()
   const [inputValue, setInputValue] = useState("");
@@ -43,7 +43,9 @@ function NewProjectModal() {
     
 
       </div>
-      <div className="p-4 py-0 bg-[#323232] z-50 w-[434px] px-7 flex flex-col items-center justify-center text-white rounded-xl">
+      <div className="p-4 py-0 bg-[#323232] z-50 w-[434px] px-7 flex flex-col items-center justify-center text-white rounded-xl"
+      style={style.style}
+      >
       <IoMdClose onClick={()=>{
             modal.onClose()
         }} className="w-[24px] h-[24px] opacity-60 mr-0 mt-5 cursor-pointer self-end" />

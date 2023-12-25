@@ -13,6 +13,7 @@ interface modalProps {
   onClose?: () => void;
   onSubmit?: () => void;
   title?: string;
+  style?: any;
   message?: string;
 }
 
@@ -21,6 +22,7 @@ const GlobalPayment: React.FC<modalProps> = ({
   onClose,
   onSubmit,
   title,
+  style,
   message,
 }) => {
 
@@ -62,7 +64,7 @@ const GlobalPayment: React.FC<modalProps> = ({
    
     <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50">
       
-    <div className="xl:w-[1000px] leading-none pt-[84px] w-[80%] flex flex-col justify-start items-center h-[680px] bg-gradient-to-b px-10 from-[#212121] rounded-xl to-[#050505] ">
+    <div className="xl:w-[1000px] leading-none pt-[84px] w-[80%] flex flex-col justify-start items-center h-[680px] bg-gradient-to-b px-10 from-[#212121] rounded-xl to-[#050505] " style={style.style}>
 <p className=" text-[50px] xl:text-[60px]" >Des prix simple & transparents</p>
 <p className=" text-[20px] xl:text-[26px] font-light  opacity-50 mt-3" >Il y a forcément un plan pour vous. Commencez maintenant !</p>
 <div className="h-[280px] flex items-center max-[1200px]:scale-95 max-[1200px]:flex-wrap    mt-[70px]    w-auto justify-center gap-5">

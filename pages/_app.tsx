@@ -10,15 +10,41 @@ import ButtonComponent from "../components/UI/ButtonComponent";
 //const { webFrame } = require("electron");
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useRouter } from "next/router";
+import { useWindowSize } from "usehooks-ts";
 
 function MyApp({ Component, pageProps }) {
-/*   useEffect(() => {
+  /*   useEffect(() => {
     if (window.innerWidth < 1440) {
       webFrame.setZoomFactor(0.9);
-    } else {
+    }
+    else if (window.innerWidth < 1370) {
+      webFrame.setZoomFactor(0.8);
+    }
+    else {
       webFrame.setZoomFactor(1);
     }
-  }, []); */
+  }, []);   */
+
+
+  const windowSize = useWindowSize();
+  const [zoomValue, setZoomValue] = useState(100)
+ 
+
+  useEffect(() => {
+     
+    if (windowSize.width < 1440 && windowSize.width > 1370) {
+      setZoomValue(x=> x = 80)     }
+    else if (windowSize.width < 1370) {
+      setZoomValue(x=> x = 70)     }
+    else {
+      setZoomValue(x=> x = 100) 
+    }
+  
+    return () => {
+      
+    }
+  }, [windowSize.width])
+  
 
   const [firstView, setFirstView] = useState("")
   const [accessToken, setAccessToken] = useState("null")
@@ -117,13 +143,16 @@ Commencer
   } else {
     
     return (
+      <>
+     
+    
        <GoogleOAuthProvider clientId="112591883885-brb0s76c5e2tj09fsj929he940e7q780.apps.googleusercontent.com">
 
-    <div className="">
+       <div className="relative overflow-hidden bg-gradient-to-b from-[#2e2e2ee3] to-[#060606]">
  
- 
+{/*  
     { (  accessToken == "null" ) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
-<div className="flex items-center justify-center ">
+<div className="flex items-center justify-center " >
    
 {isLoading && <ReactPlayer 
 height={1000}
@@ -133,16 +162,39 @@ url='/videos/Animation.webm' playing={true} muted  />}
     
        </div>
 </div>  }
+ */}
 
 
+      
+   
+         <div className="flex items-center justify-center w-screen h-screen overflow-scroll no-scrollbar " >
+         
+          <div className="flex flex-col w-full" style={{"zoom":`${zoomValue}%`}}>
+    
+    {/* 
+            <main className="flex-1 overflow-scroll no-scrollbar">  {children}  </main> */}
+             <main className="flex-1 h-full overflow-scroll no-scrollbar ">  
+             
+             <Component {...pageProps}   />  
+             
+              </main>
+          </div>
+        
+        </div>
+        
  
  
+
+
+      
  
-       <Component {...pageProps} />  
+ 
       
      
     </div>
-    </GoogleOAuthProvider>)
+    </GoogleOAuthProvider>
+    </>
+    )
   }
 }
 

@@ -74,7 +74,7 @@ function Factures(props) {
   const [primaryColor, setPrimaryColor] = useState(`#ff60FF`);
   const [secondaryColor, setSecondaryColor] = useState(`#F8FF6A`);
   return (
-    <div className="flex w-full h-screen select-none ">
+    <div className="flex w-full h-full min-h-screen select-none ">
       <div className="flex flex-col w-full h-full ">
         <SearchElement />
         <div className="flex p-10 ml-5 space-x-3 overflow-x-scroll text-sm pb-7 pt-7 no-scrollbar xl:w-full ">
@@ -104,7 +104,7 @@ function Factures(props) {
         </div>
       </div>
 
-      <div className="h-full flex flex-col bg-[#151515] min-w-[340px]">
+      <div className="min-h-full flex flex-col bg-[#151515] min-w-[340px]">
         <div className="h-[130px] border-b-[1px] flex items-end mx-10 pb-6  border-white border-opacity-20">
           <p className="flex items-center justify-center opacity-50"> 
           <LiaFileAltSolid className="mr-2 w-[20px] h-[20px] opacity-50" />

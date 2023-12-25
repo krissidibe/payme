@@ -8,6 +8,7 @@ interface modalProps {
   onClose?: () => void;
   onSubmit?: () => void;
   title?: string;
+  style?: any;
   message?: string;
 }
 
@@ -15,6 +16,7 @@ const GlobalModal: React.FC<modalProps> = ({
   isOpen,
   onClose,
   onSubmit,
+  style,
   title,
   message,
 }) => {
@@ -55,7 +57,9 @@ const GlobalModal: React.FC<modalProps> = ({
       onClick={(e)=>{
         e.stopPropagation();
       }}
-      className="p-4 bg-[#323232] z-[100] w-[370px]  px-8 flex flex-col items-center justify-center text-white rounded-md">
+      className="p-4 bg-[#323232] z-[100] w-[370px]  px-8 flex flex-col items-center justify-center text-white rounded-md"
+      style={style.style}
+      >
         <div className="font-bold text-[16px] mt-2 flex justify-between items-center pb-2 border-b border-white/10 w-full self-start mb-6">
           <div>{modal.title ?? "Êtes-vous sûr ?"}</div>
           <AiOutlineInfoCircle

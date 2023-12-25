@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { RiDashboardFill } from "react-icons/ri";
 import { BsFillCreditCardFill, BsPersonFill } from "react-icons/bs";
 import { PiListBulletsFill } from "react-icons/pi";
@@ -7,9 +7,33 @@ import useMenuStore from "../../utils/MenuStore";
 import { useRouter } from "next/router";
 import { useGlobalPayment } from "../../utils/use-global-payment";
 import { fetchUser } from "../../services/userService";
+import { useWindowSize } from "usehooks-ts";
 
 /* GlobalPayment */
 function SideBar() {
+
+
+  const windowSize = useWindowSize();
+  const [zoomValue, setZoomValue] = useState(100)
+ 
+
+  useEffect(() => {
+     
+    if (windowSize.width < 1440 && windowSize.width > 1370) {
+      setZoomValue(x=> x = 80)     }
+    else if (windowSize.width < 1370) {
+      setZoomValue(x=> x = 70)     }
+    else {
+      setZoomValue(x=> x = 100) 
+    }
+  
+    return () => {
+      
+    }
+  }, [windowSize.width])
+  
+
+
   const menuIndex = useMenuStore();
   const globalPayment = useGlobalPayment();
   const router = useRouter();
@@ -62,12 +86,15 @@ function SideBar() {
   
   return (
     <div
-      className={`h-screen ${
+      className={`min-h-screen ${
         showSmallMenu ? "min-w-[100px]" : "xl:min-w-[285px] min-w-[100px]"
       } select-none flex flex-col bg-[#060606] transition-transform duration-500  border-r-[1px] border-r-[#9a9768]  border-opacity-40 `}
+    
+      style={{ zoom:`${zoomValue}%`}}
     >
-      <div className="min-h-[100px] flex items-center justify-start space-x-4 border-b-[1px]  text-xl font-bold  border-white border-opacity-20">
-        <div className={`${!showSmallMenu ? "hidden" : "block"}`}>
+      
+      <div className="min-h-[100px] flex items-center justify-start space-x-4 border-b-[1px]  text-xl font-bold  border-white border-opacity-20" >
+        <div className={`${!showSmallMenu ? "hidden" : "block"}`}  >
           <img
             className="h-[30px] ml-[37px]  mt-2    "
             src="/images/logo-payme.png"
