@@ -29,21 +29,26 @@ function MyApp({ Component, pageProps }) {
   const windowSize = useWindowSize();
   const [zoomValue, setZoomValue] = useState(100)
  
+  let pourcentage = (windowSize.width/1920) * 100;
+
+
 
   useEffect(() => {
      
-    if (windowSize.width < 1440 && windowSize.width > 1370) {
-      setZoomValue(x=> x = 84)     }
-    else if (windowSize.width < 1370) {
-      setZoomValue(x=> x = 84)     }
-    else {
-      setZoomValue(x=> x = 100) 
-    }
+     if (windowSize.width > 1440) {
+      setZoomValue(x=> x = 100)     }
+    else  if (windowSize.width < 1440 && windowSize.width > 1280) {
+      setZoomValue(x=> x = pourcentage + 10)     }
+    else if (windowSize.width < 1280) {
+      setZoomValue(x=> x = pourcentage + 7)     }
+    
+    
   
     return () => {
       
     }
   }, [windowSize.width])
+  
   
 
   const [firstView, setFirstView] = useState("")
@@ -152,7 +157,7 @@ Commencer
  
    
     { (  accessToken == "null" ) && <div className="absolute inset-0 overflow-hidden z-50 flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
-<div className="flex items-center justify-center w-full h-full " >
+<div className="flex items-center justify-center w-full h-full min-h-screen min-w-screen " >
    
 {isLoading && <ReactPlayer 
 height={1000}

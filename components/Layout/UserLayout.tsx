@@ -10,15 +10,18 @@ function UserLayout({ children }) {
   const windowSize = useWindowSize();
   const [zoomValue, setZoomValue] = useState(100)
  
+  let pourcentage = (windowSize.width/1920) * 100;
+
+
 
   useEffect(() => {
      
      if (windowSize.width > 1440) {
       setZoomValue(x=> x = 100)     }
-    else  if (windowSize.width < 1440 && windowSize.width > 1370) {
-      setZoomValue(x=> x = 84)     }
-    else if (windowSize.width < 1370) {
-      setZoomValue(x=> x = 84)     }
+    else  if (windowSize.width < 1440 && windowSize.width > 1280) {
+      setZoomValue(x=> x = pourcentage + 10)     }
+    else if (windowSize.width < 1280) {
+      setZoomValue(x=> x = pourcentage + 7)     }
     
     
   
@@ -32,8 +35,8 @@ function UserLayout({ children }) {
   return (
 
     <>
-     {/*  {windowSize.width}
-        - {JSON.stringify(zoomValue)} */}
+    {/*   {windowSize.width}
+        - {JSON.stringify(zoomValue)}  -{ pourcentage} */}
   <ModalProvider style={{"zoom":`${zoomValue}%`}} />
      <div className="flex w-screen h-screen overflow-scroll no-scrollbar " >
       <SideBar  />  
