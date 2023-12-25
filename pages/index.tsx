@@ -457,7 +457,7 @@ setTimeout(() => {
 
  
 {/*  */}
-{ ( accessToken?.length > 100 || accessToken =="" ) && <div className="absolute z-50 inset-0 overflow-hidden flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
+{ ( accessToken?.length > 100 || accessToken =="" ) && <div className="absolute inset-0 z-50 flex items-center justify-center min-h-screen overflow-hidden min-w-screen no-scrollbar ">
 <div className="flex items-center justify-center w-full h-full min-h-screen min-w-screen">
   
 {isLoading && <ReactPlayer  

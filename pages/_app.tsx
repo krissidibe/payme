@@ -157,8 +157,8 @@ Commencer
        <div className="relative overflow-hidden bg-gradient-to-b from-[#2e2e2ee3] to-[#060606]">
  
    
-    { (  accessToken == "null" ) && <div className="absolute inset-0 overflow-hidden z-50 flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
-<div className="flex items-center justify-center w-full h-full min-h-screen min-w-screen " >
+    { (  accessToken == "null" ) && <div className="absolute inset-0 z-50 flex items-center justify-center w-screen h-screen overflow-hidden no-scrollbar bg-gradient-to-b   from-[#2e2e2e] to-[#060606]">
+    <div className="flex items-center justify-center w-full h-full min-h-screen min-w-screen">
    
 {isLoading && <ReactPlayer 
 height={1000}
