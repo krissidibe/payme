@@ -430,7 +430,7 @@ setTimeout(() => {
 
  
 {/*  */}
-{ ( accessToken?.length > 100 || accessToken =="" ) && <div className="absolute z-50  flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
+{ ( accessToken?.length > 100 || accessToken =="" ) && <div className="absolute z-50 inset-0 overflow-hidden flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
 <div className="flex items-center justify-center">
   
 {isLoading && <ReactPlayer  
@@ -523,11 +523,11 @@ url='/videos/Animation.webm' playing muted />
               labelClassName="text-[16px] "
               className="bg-[#515151] border-none w-[130px] h-[46px]  "
             />
-        {showLoginGoole &&  <div className="absolute flex items-center justify-center gap-2 scale-75 -left-20 -top-12">
+        {showLoginGoole &&  <div className="absolute flex items-center justify-center gap-2 -left-20 -top-12">
           <GoogleLogin
           shape="pill"
           theme="filled_black"
-          useOneTap={true}
+         // useOneTap={true}
           state_cookie_domain='single_host_origin'
   onSuccess={credentialResponse => {
    (async()=>{
@@ -669,6 +669,7 @@ url='/videos/Animation.webm' playing muted />
         if(!visible){
 return;
         }
+        setVisible(x=> x = false);
         const dataNew:any  = await sendCodeOTP(data.email.trim().toLocaleLowerCase())
         if(dataNew?.id != null){
          
@@ -676,6 +677,11 @@ return;
           setModalView(true);
               
           setModalViewContent("Code d'accès renvoyé avec succès")
+          setTimeout(() => {
+            hide()
+          }, 60000 * 2);
+        }else{
+          setVisible(x=> x = true);
         }
       }}
       className={`${visible ? "opacity-100 cursor-pointer" : "opacity-40 cursor-default"} underline `}>Renvoyez-le</span> </p>  

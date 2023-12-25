@@ -150,8 +150,8 @@ Commencer
 
        <div className="relative overflow-hidden bg-gradient-to-b from-[#2e2e2ee3] to-[#060606]">
  
-{/*  
-    { (  accessToken == "null" ) && <div className="absolute z-50 flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
+   
+    { (  accessToken == "null" ) && <div className="absolute inset-0 overflow-hidden z-50 flex items-center justify-center w-screen h-screen no-scrollbar bg-[#2C2B2C] ">
 <div className="flex items-center justify-center " >
    
 {isLoading && <ReactPlayer 
@@ -162,7 +162,7 @@ url='/videos/Animation.webm' playing={true} muted  />}
     
        </div>
 </div>  }
- */}
+ 
 
 
       
