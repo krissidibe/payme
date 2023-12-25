@@ -1029,7 +1029,7 @@ function Planning(props) {
                   {!doneTodo &&
                     planningItem.filter((i) => i.isCompleted == false).length ==
                       0 && (
-                      <div className="flex items-center justify-center w-full h-screen pb-[297px] text-[30px] text-[#3c3c3c]">
+                      <div className="flex items-center justify-center w-full h-screen pb-[127px] text-[30px] text-[#3c3c3c]">
                         Aucun contenu 
                       </div>
                     )}

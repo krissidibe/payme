@@ -660,7 +660,7 @@ console.log(project.invoiceDate);
         setCopyProject(x => x= false);
         setSearchValue(x => x="")
       }}
-      className="absolute inset-0 z-10 flex items-center justify-center w-screen py-[70px] bg-black/50">
+      className="absolute inset-0 z-10 flex items-center justify-center min-w-screen py-[70px] bg-black/50">
       <div 
       onClick={(e) => {
        e.stopPropagation()
@@ -746,7 +746,7 @@ console.log(project.invoiceDate);
     return  (
       <div
     
-      className="absolute inset-0 z-30 flex items-center justify-center w-screen bg-black/50">
+      className="absolute inset-0 z-30 flex items-center justify-center min-w-screen bg-black/50">
 <div 
   onClick={(e)=>{
   //  e.stopPropagation()
@@ -754,7 +754,7 @@ console.log(project.invoiceDate);
     setTypeTransaction("")
   }}
 
-className="absolute inset-0 z-10 flex items-center justify-center w-screen">
+className="absolute inset-0 z-10 flex items-center justify-center min-w-screen">
   
 </div>
         

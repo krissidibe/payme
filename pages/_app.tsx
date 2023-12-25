@@ -33,23 +33,24 @@ function MyApp({ Component, pageProps }) {
 
 
 
+
   useEffect(() => {
      
-     if (windowSize.width > 1440) {
-      setZoomValue(x=> x = 100)     }
-    else  if (windowSize.width < 1440 && windowSize.width > 1280) {
-      setZoomValue(x=> x = pourcentage + 14)     }
-    else if (windowSize.width < 1280) {
-      setZoomValue(x=> x = pourcentage + 7)     }
-    
-    
-  
-    return () => {
-      
-    }
-  }, [windowSize.width])
-  
-  
+    if (windowSize.width > 1440) {
+     setZoomValue(x=> x = 100)     }
+     else  if (windowSize.width < 1440 && windowSize.width > 1290) {
+      setZoomValue(x=> x = 85)     }
+    else if (windowSize.width < 1290) {
+      setZoomValue(x=> x = 83)     }
+   
+   
+ 
+   return () => {
+     
+   }
+ }, [windowSize.width])
+ 
+ 
 
   const [firstView, setFirstView] = useState("")
   const [accessToken, setAccessToken] = useState("null")

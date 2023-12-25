@@ -259,9 +259,10 @@ const router = useRouter();
       //fetch();
     }
   };
-  /*  */
+  /*h-full min-h-full  */
   return (
     <>
+    
       <div className="relative flex flex-col w-full h-full min-h-screen overflow-hidden ">
          {modalView && InfoView()}
         {showPannel && CodePannel()}
@@ -316,7 +317,7 @@ const router = useRouter();
           </div>
         )}
         {showDeleteAccount && (
-          <div className="absolute z-10 flex items-center justify-center w-screen h-full bg-black/40 ">
+          <div className="absolute inset-0 z-10 flex items-center justify-center h-full min-w-screen bg-black/40 ">
             <div className="p-8 bg-[#323232] w-[600px] relative h-[485px] mr-[180px] rounded-md">
               <div className="flex justify-between pb-2 border-b border-white/10">
               {deleteAskStep == 0 &&  <p className="text-white/60">Votre compte va être supprimé</p>}
@@ -1781,7 +1782,7 @@ return;
           onClick={(e) => {
             e.stopPropagation();
           }}
-          className="relative z-20 flex flex-col items-center bg-gradient-to-b from-[#2e2e2e] to-[#191919]   justify-center  p-[80px] py-[60px] mb-[50px] rounded-[60px]"
+          className="relative z-20 flex flex-col items-center bg-gradient-to-b from-[#2e2e2e] to-[#191919]   justify-center  p-[80px] py-[60px] mb-[0px] rounded-[60px]"
         >
            {dataProfile.code == "" || dataProfile.code == null  ?
            

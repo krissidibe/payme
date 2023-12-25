@@ -97,8 +97,8 @@ router.push({
       <div className="flex flex-col items-center justify-center gap-1 tracking-wider xl:scale-75 xl:items-center">
        
 
-        <h1 className="text-[42px]  xl:text-[68px] mt-8 xl:mt-0  leading-[40px] xl:leading-[80px]  font-semibold ">Des prix simples & transparents</h1>
-        <h2 className="text-[24px] xl:text-[38px] opacity-50">
+        <h1 className="text-[52px]  xl:text-[68px] mt-8 xl:mt-0  leading-[40px] xl:leading-[80px]  font-semibold ">Des prix simples & transparents</h1>
+        <h2 className="text-[30px] xl:text-[38px] opacity-50">
           Il y a forcément un plan pour vous. Commencez maintenant !
         </h2>
       </div>
@@ -114,7 +114,7 @@ router.push({
   setFakeModal(x=> x = true)
  }}
  className="absolute w-5 h-5 opacity-50 bottom-10" />
-      { type ==0 ? <div className="flex items-center max-[1350px]:scale-75  max-[980px]:flex-wrap  h-[332px] min-[1350px]:h-[332px] mt-14  max-[1350px]:mt-1 w-auto justify-center gap-6" >
+      { type ==0 ? <div className="flex items-center max-[1350px]:scale-75  max-[980px]:flex-wrap  h-[382px] min-[1350px]:h-[382px] mt-14  max-[1350px]:mt-1 w-auto justify-center gap-6" >
                {/*   <ItemSubscribeCard key={1} number={1} price={10000}  /> */}
                  <ItemSubscribeCard active={data?.subscribe.payment.month == 3} style={"bg-transparent border-[2px] border-[#9a9768]"} key={1} svg={3}  price={9890} />
                  <ItemSubscribeCard active={data?.subscribe.payment.month == 6} style={"bg-gradient-to-b from-[#8F8F91] to-[#424244]  "} key={2} svg={6}  price={18950} />
@@ -153,7 +153,7 @@ router.push({
       } 
     }}
     
-    className={` ${active ? "scale-[110%]  mx-4  " :"" }        relative h-full min-w-[255px] max-w-[255px]  ${style}  cursor-pointer rounded-[16px]  justify-center       px-[60px]     flex flex-col     `}>
+    className={` ${active ? "scale-[110%]  mx-4  " :"" }        relative h-full min-w-[295px] max-w-[295px]  ${style}  cursor-pointer rounded-[16px]  justify-center       px-[60px]     flex flex-col     `}>
   
   {active && <div className="absolute flex items-center justify-center px-2 py-1 text-xs border rounded-full opacity-60 top-6 right-7">
     <TiStarFullOutline className="w-4 h-4 mb-[2px] mr-[2px]" />
@@ -162,14 +162,14 @@ router.push({
   
   <div className="flex flex-col items-start leading-none border-b-[1px]  border-white/30 pb-4 mt-1 ">
   
-<p className={`text-[128px] ${svg ==  12  ? "text-transparent" : ""} font-bold leading-[104px] mb-3`} >{svg}</p>
-{svg ==  12 && !active &&  <p className={`text-[128px] absolute left-[35px]   font-bold leading-[104px] mb-3`} >{svg}</p>}
+<p className={`text-[158px] ${svg ==  12  ? "text-transparent" : ""} font-bold leading-[104px] mb-3`} >{svg}</p>
+{svg ==  12 && !active &&  <p className={`text-[158px] absolute left-[35px]   font-bold leading-[104px] mb-3`} >{svg}</p>}
   
-  {svg == 12 && active && <p className={`text-[120px] top-[39px] absolute left-[35px]  font-bold leading-[104px] mb-3`} >{svg}</p>}
-  <p className="text-[33px] font-light tracking-wider  mt-[0px] mb-[4px]" >MOIS</p>
-  <p className={`text-[15px] font-light ${svg == 3 ? "text-[#ffffff]/30" : "text-[#ffffff]/30"}`} >Offre spéciale</p>
+  {svg == 12 && active && <p className={`text-[150px] top-[39px] absolute left-[35px]  font-bold leading-[104px] mb-3`} >{svg}</p>}
+  <p className="text-[40px] font-light tracking-wider  mt-[10px] mb-[4px] ml-1" >MOIS</p>
+  <p className={`text-[15px] font-light ${svg == 3 ? "text-[#ffffff]/30" : "text-[#ffffff]/30"} ml-1`} >Offre spéciale</p>
   </div>
-  <p className="text-[24px] mt-[2px] flex font-light items-start">{price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} <span className="pt-1 pl-2 text-[14px] " >FCFA</span> </p>
+  <p className="text-[24px] mt-[2px] flex font-light ml-1 items-start">{price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")} <span className="pt-1 pl-2 text-[14px] " >FCFA</span> </p>
   
   <ButtonComponent
                   key={1}

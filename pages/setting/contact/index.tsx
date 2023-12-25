@@ -9,9 +9,9 @@ function Contact(props) {
     const email = useRef(null)
   return (
     <div className="flex flex-col items-center w-auto h-full px-24 min-[1500px]:pt-[170px] pt-[105px]">
-      <div className="flex max-[1500px]:scale-75 max-[1500px]:items-center flex-col items-center justify-center gap-1 tracking-wider">
-        <h1 className="text-[72px] min-[1500px]:text-[70px]  leading-[60px] max-[1500px]:leading-[80px]  font-semibold ">Laissez-nous un message</h1>
-        <h2 className="text-[31px] min-[1500px]:text-[28px] min-[1500px]:mt-2 min-[1500px]:mb-6   opacity-50">
+      <div className="flex flex-col items-center justify-center gap-1 tracking-wider xl:scale-75 xl:items-center">
+        <h1 className="text-[52px]  xl:text-[68px] mt-8 xl:mt-0  leading-[40px] xl:leading-[80px]  font-semibold ">Laissez-nous un message</h1>
+        <h2 className="text-[30px] xl:text-[38px] opacity-50">
         Une question ou une remarque ? Ecrivez-nous simplement un message !
         </h2>
       </div>
@@ -33,7 +33,7 @@ function Contact(props) {
               }}
                 placeholder="Objet *"
                 labelClassName="text-white/40 text-[14px]"
-                className="rounded-[10px] mb-0 h-[40px] min-[1500px]:h-[64px] text-[14px] font-light border-opacity-10 focus:border-opacity-100 "
+                className="rounded-[10px] mb-0 h-[50px] no-scrollbar overflow-y-scroll  min-[1500px]:h-[64px] text-[14px] font-light border-opacity-10 focus:border-opacity-100 "
               />
      
             

@@ -143,7 +143,7 @@ const totalAmount = totalTTC()
 
   return (
     <>
-      <div className="flex flex-row h-screen ">
+      <div className="flex flex-row h-full min-h-full ">
         <div className="flex-1">
           <div className="flex flex-col w-full h-full ">
             {SearchElement()}
@@ -199,7 +199,7 @@ const totalAmount = totalTTC()
         </div>
 
         {optionShow && (
-          <div className="min-w-[440px] max-w-[440px] p-10 px-8 bg-gradient-to-b pt-[60px] from-[#736f40] to-[#615e38] h-full">
+          <div className="min-w-[440px] max-w-[440px]   p-10 px-8 bg-gradient-to-b pt-[60px] from-[#736f40] to-[#615e38] min-h-screen">
             <IoIosArrowBack
               onClick={() => {
                 setOptionShow(false);
@@ -531,11 +531,11 @@ function ItemInvoice({
       /> */}
 
       <Menu>
-        <Menu.Button className="absolute items-center justify-between hidden w-6 h-6 gap-2 py-2 text-sm font-medium cursor-pointer opacity-40 top-1 group-hover:block hover:block right-2 ">
-          <p className="self-start mr-6 text-sm font-bold">
+        <Menu.Button className="absolute z-50 items-center justify-between hidden w-6 h-6 gap-2 py-2 text-sm font-medium cursor-pointer opacity-40 top-1 group-hover:block hover:block right-2 ">
+          <p className="z-40 self-start mr-6 text-sm font-bold">
             <IoMdInformationCircleOutline
               //   onClick={handleDelete}
-              className="w-6 h-6 cursor-pointer group-hover:block hover:block "
+              className="absolute z-50 w-6 h-6 cursor-pointer group-hover:block hover:block "
             />
           </p>
         </Menu.Button>

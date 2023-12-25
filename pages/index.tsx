@@ -110,20 +110,21 @@ let pourcentage = (windowSize.width/1920) * 100;
 
 
 useEffect(() => {
-   
-   if (windowSize.width > 1440) {
-    setZoomValue(x=> x = 100)     }
-  else  if (windowSize.width < 1440 && windowSize.width > 1280) {
-    setZoomValue(x=> x = pourcentage + 14)     }
-  else if (windowSize.width < 1280) {
-    setZoomValue(x=> x = pourcentage + 7)     }
-  
-  
+     
+  if (windowSize.width > 1440) {
+   setZoomValue(x=> x = 100)     }
+   else  if (windowSize.width < 1440 && windowSize.width > 1290) {
+    setZoomValue(x=> x = 85)     }
+  else if (windowSize.width < 1290) {
+    setZoomValue(x=> x = 83)     }
+ 
+ 
 
-  return () => {
-    
-  }
+ return () => {
+   
+ }
 }, [windowSize.width])
+
 
 
 

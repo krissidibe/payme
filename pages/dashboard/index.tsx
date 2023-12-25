@@ -1450,7 +1450,7 @@ onClick={async()=>{
 
   function modalTransaction(project) {
     return  (
-      <div className="absolute inset-0 z-30 flex items-center justify-center w-screen bg-black/50">
+      <div className="absolute inset-0 z-30 flex items-center justify-center min-w-screen bg-black/50">
     <div 
   onClick={(e)=>{
   //  e.stopPropagation()
