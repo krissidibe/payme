@@ -1,7 +1,7 @@
  export const  country = [
     {
       "Code": "AD",
-      "Name": "Andorre",
+      "Name": "Andorra",
       "Native": "Andorra",
       "Phone": 376,
       "Continent": "Europe",
@@ -11,7 +11,7 @@
     },
     {
       "Code": "AE",
-      "Name": "Émirats Arabes Unis",
+      "Name": "United Arab Emirates",
       "Native": "دولة الإمارات العربية المتحدة",
       "Phone": 971,
       "Continent": "Asia",
@@ -31,7 +31,7 @@
     },
     {
       "Code": "AG",
-      "Name": "Antigua et Barbuda",
+      "Name": "Antigua and Barbuda",
       "Native": "Antigua and Barbuda",
       "Phone": 1268,
       "Continent": "North America",
@@ -51,7 +51,7 @@
     },
     {
       "Code": "AL",
-      "Name": "Albanie",
+      "Name": "Albania",
       "Native": "Shqipëria",
       "Phone": 355,
       "Continent": "Europe",
@@ -61,7 +61,7 @@
     },
     {
       "Code": "AM",
-      "Name": "Arménie",
+      "Name": "Armenia",
       "Native": "Հայաստան",
       "Phone": 374,
       "Continent": "Asia",
@@ -81,7 +81,7 @@
     },
     {
       "Code": "AQ",
-      "Name": "Antarctique",
+      "Name": "Antarctica",
       "Native": "Antarctica",
       "Phone": 672,
       "Continent": "Antarctica",
@@ -91,7 +91,7 @@
     },
     {
       "Code": "AR",
-      "Name": "Argentine",
+      "Name": "Argentina",
       "Native": "Argentina",
       "Phone": 54,
       "Continent": "South America",
@@ -101,7 +101,7 @@
     },
     {
       "Code": "AS",
-      "Name": "Samoa américaines",
+      "Name": "American Samoa",
       "Native": "American Samoa",
       "Phone": 1684,
       "Continent": "Oceania",
@@ -111,7 +111,7 @@
     },
     {
       "Code": "AT",
-      "Name": "Autriche",
+      "Name": "Austria",
       "Native": "Österreich",
       "Phone": 43,
       "Continent": "Europe",
@@ -121,7 +121,7 @@
     },
     {
       "Code": "AU",
-      "Name": "Australie",
+      "Name": "Australia",
       "Native": "Australia",
       "Phone": 61,
       "Continent": "Oceania",
@@ -141,7 +141,7 @@
     },
     {
       "Code": "AX",
-      "Name": "Åland",
+      "Name": "Aland",
       "Native": "Åland",
       "Phone": 358,
       "Continent": "Europe",
@@ -151,7 +151,7 @@
     },
     {
       "Code": "AZ",
-      "Name": "Azerbaïdjan",
+      "Name": "Azerbaijan",
       "Native": "Azərbaycan",
       "Phone": 994,
       "Continent": "Asia",
@@ -161,7 +161,7 @@
     },
     {
       "Code": "BA",
-      "Name": "Bosnie-Herzégovine",
+      "Name": "Bosnia and Herzegovina",
       "Native": "Bosna i Hercegovina",
       "Phone": 387,
       "Continent": "Europe",
@@ -171,7 +171,7 @@
     },
     {
       "Code": "BB",
-      "Name": "Barbade",
+      "Name": "Barbados",
       "Native": "Barbados",
       "Phone": 1246,
       "Continent": "North America",
@@ -191,7 +191,7 @@
     },
     {
       "Code": "BE",
-      "Name": "Belgique",
+      "Name": "Belgium",
       "Native": "België",
       "Phone": 32,
       "Continent": "Europe",
@@ -206,12 +206,12 @@
       "Phone": 226,
       "Continent": "Africa",
       "Capital": "Ouagadougou",
-      "Currency": "FCFA",
+      "Currency": "FRANCS CFA",
       "Languages": "fr,ff"
     },
     {
       "Code": "BG",
-      "Name": "Bulgarie",
+      "Name": "Bulgaria",
       "Native": "България",
       "Phone": 359,
       "Continent": "Europe",
@@ -221,7 +221,7 @@
     },
     {
       "Code": "BH",
-      "Name": "Bahreïn",
+      "Name": "Bahrain",
       "Native": "‏البحرين",
       "Phone": 973,
       "Continent": "Asia",
@@ -246,12 +246,12 @@
       "Phone": 229,
       "Continent": "Africa",
       "Capital": "Porto-Novo",
-      "Currency": "FCFA",
+      "Currency": "FRANCS CFA",
       "Languages": "fr"
     },
     {
       "Code": "BL",
-      "Name": "Saint Barthélemy",
+      "Name": "Saint Barthelemy",
       "Native": "Saint-Barthélemy",
       "Phone": 590,
       "Continent": "North America",
@@ -261,7 +261,7 @@
     },
     {
       "Code": "BM",
-      "Name": "Bermudes",
+      "Name": "Bermuda",
       "Native": "Bermuda",
       "Phone": 1441,
       "Continent": "North America",
@@ -271,7 +271,7 @@
     },
     {
       "Code": "BN",
-      "Name": "Brunei Darussalam",
+      "Name": "Brunei",
       "Native": "Negara Brunei Darussalam",
       "Phone": 673,
       "Continent": "Asia",
@@ -281,7 +281,7 @@
     },
     {
       "Code": "BO",
-      "Name": "Bolivie",
+      "Name": "Bolivia",
       "Native": "Bolivia",
       "Phone": 591,
       "Continent": "South America",
@@ -291,7 +291,7 @@
     },
     {
       "Code": "BQ",
-      "Name": "Bonaire, Saint Eustache et Saba",
+      "Name": "Bonaire",
       "Native": "Bonaire",
       "Phone": 5997,
       "Continent": "North America",
@@ -301,7 +301,7 @@
     },
     {
       "Code": "BR",
-      "Name": "Brésil",
+      "Name": "Brazil",
       "Native": "Brasil",
       "Phone": 55,
       "Continent": "South America",
@@ -321,7 +321,7 @@
     },
     {
       "Code": "BT",
-      "Name": "Bhoutan",
+      "Name": "Bhutan",
       "Native": "ʼbrug-yul",
       "Phone": 975,
       "Continent": "Asia",
@@ -331,7 +331,7 @@
     },
     {
       "Code": "BV",
-      "Name": "Île Bouvet",
+      "Name": "Bouvet Island",
       "Native": "Bouvetøya",
       "Phone": 47,
       "Continent": "Antarctica",
@@ -351,7 +351,7 @@
     },
     {
       "Code": "BY",
-      "Name": "Biélorussie",
+      "Name": "Belarus",
       "Native": "Белару́сь",
       "Phone": 375,
       "Continent": "Europe",
@@ -381,7 +381,7 @@
     },
     {
       "Code": "CC",
-      "Name": "Îles Cocos",
+      "Name": "Cocos (Keeling) Islands",
       "Native": "Cocos (Keeling) Islands",
       "Phone": 61,
       "Continent": "Asia",
@@ -391,7 +391,7 @@
     },
     {
       "Code": "CD",
-      "Name": "République démocratique du Congo",
+      "Name": "Democratic Republic of the Congo",
       "Native": "République démocratique du Congo",
       "Phone": 243,
       "Continent": "Africa",
@@ -401,7 +401,7 @@
     },
     {
       "Code": "CF",
-      "Name": "République Centrafricaine",
+      "Name": "Central African Republic",
       "Native": "Ködörösêse tî Bêafrîka",
       "Phone": 236,
       "Continent": "Africa",
@@ -411,7 +411,7 @@
     },
     {
       "Code": "CG",
-      "Name": "République du Congo",
+      "Name": "Republic of the Congo",
       "Native": "République du Congo",
       "Phone": 242,
       "Continent": "Africa",
@@ -421,7 +421,7 @@
     },
     {
       "Code": "CH",
-      "Name": "Suisse",
+      "Name": "Switzerland",
       "Native": "Schweiz",
       "Phone": 41,
       "Continent": "Europe",
@@ -431,17 +431,17 @@
     },
     {
       "Code": "CI",
-      "Name": "Côte d'Ivoire",
+      "Name": "Ivory Coast",
       "Native": "Côte d'Ivoire",
       "Phone": 225,
       "Continent": "Africa",
       "Capital": "Yamoussoukro",
-      "Currency": "FCFA",
+      "Currency": "FRANCS CFA",
       "Languages": "fr"
     },
     {
       "Code": "CK",
-      "Name": "Îles Cook",
+      "Name": "Cook Islands",
       "Native": "Cook Islands",
       "Phone": 682,
       "Continent": "Oceania",
@@ -451,7 +451,7 @@
     },
     {
       "Code": "CL",
-      "Name": "Chili",
+      "Name": "Chile",
       "Native": "Chile",
       "Phone": 56,
       "Continent": "South America",
@@ -461,7 +461,7 @@
     },
     {
       "Code": "CM",
-      "Name": "Cameroun",
+      "Name": "Cameroon",
       "Native": "Cameroon",
       "Phone": 237,
       "Continent": "Africa",
@@ -471,7 +471,7 @@
     },
     {
       "Code": "CN",
-      "Name": "Chine",
+      "Name": "China",
       "Native": "中国",
       "Phone": 86,
       "Continent": "Asia",
@@ -481,7 +481,7 @@
     },
     {
       "Code": "CO",
-      "Name": "Colombie",
+      "Name": "Colombia",
       "Native": "Colombia",
       "Phone": 57,
       "Continent": "South America",
@@ -511,7 +511,7 @@
     },
     {
       "Code": "CV",
-      "Name": "Cap Vert",
+      "Name": "Cape Verde",
       "Native": "Cabo Verde",
       "Phone": 238,
       "Continent": "Africa",
@@ -521,7 +521,7 @@
     },
     {
       "Code": "CW",
-      "Name": "Curaçao",
+      "Name": "Curacao",
       "Native": "Curaçao",
       "Phone": 5999,
       "Continent": "North America",
@@ -531,7 +531,7 @@
     },
     {
       "Code": "CX",
-      "Name": "Île Christmas",
+      "Name": "Christmas Island",
       "Native": "Christmas Island",
       "Phone": 61,
       "Continent": "Asia",
@@ -541,7 +541,7 @@
     },
     {
       "Code": "CY",
-      "Name": "Chypre",
+      "Name": "Cyprus",
       "Native": "Κύπρος",
       "Phone": 357,
       "Continent": "Europe",
@@ -551,7 +551,7 @@
     },
     {
       "Code": "CZ",
-      "Name": "République Tchèque",
+      "Name": "Czech Republic",
       "Native": "Česká republika",
       "Phone": 420,
       "Continent": "Europe",
@@ -561,7 +561,7 @@
     },
     {
       "Code": "DE",
-      "Name": "Allemagne",
+      "Name": "Germany",
       "Native": "Deutschland",
       "Phone": 49,
       "Continent": "Europe",
@@ -581,7 +581,7 @@
     },
     {
       "Code": "DK",
-      "Name": "Danemark",
+      "Name": "Denmark",
       "Native": "Danmark",
       "Phone": 45,
       "Continent": "Europe",
@@ -591,7 +591,7 @@
     },
     {
       "Code": "DM",
-      "Name": "République Dominicaine",
+      "Name": "Dominica",
       "Native": "Dominica",
       "Phone": 1767,
       "Continent": "North America",
@@ -611,7 +611,7 @@
     },
     {
       "Code": "DZ",
-      "Name": "Algérie",
+      "Name": "Algeria",
       "Native": "الجزائر",
       "Phone": 213,
       "Continent": "Africa",
@@ -621,7 +621,7 @@
     },
     {
       "Code": "EC",
-      "Name": "Équateur",
+      "Name": "Ecuador",
       "Native": "Ecuador",
       "Phone": 593,
       "Continent": "South America",
@@ -631,7 +631,7 @@
     },
     {
       "Code": "EE",
-      "Name": "Estonie",
+      "Name": "Estonia",
       "Native": "Eesti",
       "Phone": 372,
       "Continent": "Europe",
@@ -641,7 +641,7 @@
     },
     {
       "Code": "EG",
-      "Name": "Égypte",
+      "Name": "Egypt",
       "Native": "مصر‎",
       "Phone": 20,
       "Continent": "Africa",
@@ -651,7 +651,7 @@
     },
     {
       "Code": "EH",
-      "Name": "Sahara occidental",
+      "Name": "Western Sahara",
       "Native": "الصحراء الغربية",
       "Phone": 212,
       "Continent": "Africa",
@@ -661,7 +661,7 @@
     },
     {
       "Code": "ER",
-      "Name": "Érythrée",
+      "Name": "Eritrea",
       "Native": "ኤርትራ",
       "Phone": 291,
       "Continent": "Africa",
@@ -671,7 +671,7 @@
     },
     {
       "Code": "ES",
-      "Name": "Espagne",
+      "Name": "Spain",
       "Native": "España",
       "Phone": 34,
       "Continent": "Europe",
@@ -681,7 +681,7 @@
     },
     {
       "Code": "ET",
-      "Name": "Éthiopie",
+      "Name": "Ethiopia",
       "Native": "ኢትዮጵያ",
       "Phone": 251,
       "Continent": "Africa",
@@ -691,7 +691,7 @@
     },
     {
       "Code": "FI",
-      "Name": "Finlande",
+      "Name": "Finland",
       "Native": "Suomi",
       "Phone": 358,
       "Continent": "Europe",
@@ -701,7 +701,7 @@
     },
     {
       "Code": "FJ",
-      "Name": "Fidji",
+      "Name": "Fiji",
       "Native": "Fiji",
       "Phone": 679,
       "Continent": "Oceania",
@@ -711,7 +711,7 @@
     },
     {
       "Code": "FK",
-      "Name": "Îles Malouines",
+      "Name": "Falkland Islands",
       "Native": "Falkland Islands",
       "Phone": 500,
       "Continent": "South America",
@@ -721,7 +721,7 @@
     },
     {
       "Code": "FM",
-      "Name": "Micronésie",
+      "Name": "Micronesia",
       "Native": "Micronesia",
       "Phone": 691,
       "Continent": "Oceania",
@@ -731,7 +731,7 @@
     },
     {
       "Code": "FO",
-      "Name": "Îles Féroé",
+      "Name": "Faroe Islands",
       "Native": "Føroyar",
       "Phone": 298,
       "Continent": "Europe",
@@ -761,7 +761,7 @@
     },
     {
       "Code": "GB",
-      "Name": "Royaume-Uni",
+      "Name": "United Kingdom",
       "Native": "United Kingdom",
       "Phone": 44,
       "Continent": "Europe",
@@ -771,7 +771,7 @@
     },
     {
       "Code": "GD",
-      "Name": "Grenade",
+      "Name": "Grenada",
       "Native": "Grenada",
       "Phone": 1473,
       "Continent": "North America",
@@ -781,7 +781,7 @@
     },
     {
       "Code": "GE",
-      "Name": "Géorgie",
+      "Name": "Georgia",
       "Native": "საქართველო",
       "Phone": 995,
       "Continent": "Asia",
@@ -791,7 +791,7 @@
     },
     {
       "Code": "GF",
-      "Name": "Guyane française",
+      "Name": "French Guiana",
       "Native": "Guyane française",
       "Phone": 594,
       "Continent": "South America",
@@ -801,7 +801,7 @@
     },
     {
       "Code": "GG",
-      "Name": "Guernesey",
+      "Name": "Guernsey",
       "Native": "Guernsey",
       "Phone": 44,
       "Continent": "Europe",
@@ -831,7 +831,7 @@
     },
     {
       "Code": "GL",
-      "Name": "Groenland",
+      "Name": "Greenland",
       "Native": "Kalaallit Nunaat",
       "Phone": 299,
       "Continent": "North America",
@@ -841,7 +841,7 @@
     },
     {
       "Code": "GM",
-      "Name": "Gambie",
+      "Name": "Gambia",
       "Native": "Gambia",
       "Phone": 220,
       "Continent": "Africa",
@@ -851,7 +851,7 @@
     },
     {
       "Code": "GN",
-      "Name": "Guinée",
+      "Name": "Guinea",
       "Native": "Guinée",
       "Phone": 224,
       "Continent": "Africa",
@@ -871,7 +871,7 @@
     },
     {
       "Code": "GQ",
-      "Name": "Guinée équatoriale",
+      "Name": "Equatorial Guinea",
       "Native": "Guinea Ecuatorial",
       "Phone": 240,
       "Continent": "Africa",
@@ -881,7 +881,7 @@
     },
     {
       "Code": "GR",
-      "Name": "Grèce",
+      "Name": "Greece",
       "Native": "Ελλάδα",
       "Phone": 30,
       "Continent": "Europe",
@@ -891,7 +891,7 @@
     },
     {
       "Code": "GS",
-      "Name": "Géorgie du Sud et les Îles Sandwich du Sud",
+      "Name": "South Georgia and the South Sandwich Islands",
       "Native": "South Georgia",
       "Phone": 500,
       "Continent": "Antarctica",
@@ -921,12 +921,12 @@
     },
     {
       "Code": "GW",
-      "Name": "Guinée Bissau",
+      "Name": "Guinea-Bissau",
       "Native": "Guiné-Bissau",
       "Phone": 245,
       "Continent": "Africa",
       "Capital": "Bissau",
-      "Currency": "FCFA",
+      "Currency": "FRANCS CFA",
       "Languages": "pt"
     },
     {
@@ -951,7 +951,7 @@
     },
     {
       "Code": "HM",
-      "Name": "Îles Heard et MacDonald",
+      "Name": "Heard Island and McDonald Islands",
       "Native": "Heard Island and McDonald Islands",
       "Phone": 61,
       "Continent": "Antarctica",
@@ -971,7 +971,7 @@
     },
     {
       "Code": "HR",
-      "Name": "Croatie",
+      "Name": "Croatia",
       "Native": "Hrvatska",
       "Phone": 385,
       "Continent": "Europe",
@@ -981,7 +981,7 @@
     },
     {
       "Code": "HT",
-      "Name": "Haïti",
+      "Name": "Haiti",
       "Native": "Haïti",
       "Phone": 509,
       "Continent": "North America",
@@ -991,7 +991,7 @@
     },
     {
       "Code": "HU",
-      "Name": "Hongrie",
+      "Name": "Hungary",
       "Native": "Magyarország",
       "Phone": 36,
       "Continent": "Europe",
@@ -1001,7 +1001,7 @@
     },
     {
       "Code": "ID",
-      "Name": "Indonésie",
+      "Name": "Indonesia",
       "Native": "Indonesia",
       "Phone": 62,
       "Continent": "Asia",
@@ -1011,7 +1011,7 @@
     },
     {
       "Code": "IE",
-      "Name": "Irlande",
+      "Name": "Ireland",
       "Native": "Éire",
       "Phone": 353,
       "Continent": "Europe",
@@ -1021,7 +1021,7 @@
     },
     {
       "Code": "IL",
-      "Name": "Israël",
+      "Name": "Israel",
       "Native": "יִשְׂרָאֵל",
       "Phone": 972,
       "Continent": "Asia",
@@ -1031,7 +1031,7 @@
     },
     {
       "Code": "IM",
-      "Name": "Île de Man",
+      "Name": "Isle of Man",
       "Native": "Isle of Man",
       "Phone": 44,
       "Continent": "Europe",
@@ -1041,7 +1041,7 @@
     },
     {
       "Code": "IN",
-      "Name": "Inde",
+      "Name": "India",
       "Native": "भारत",
       "Phone": 91,
       "Continent": "Asia",
@@ -1051,7 +1051,7 @@
     },
     {
       "Code": "IO",
-      "Name": "Océan Indien Britannique",
+      "Name": "British Indian Ocean Territory",
       "Native": "British Indian Ocean Territory",
       "Phone": 246,
       "Continent": "Asia",
@@ -1081,7 +1081,7 @@
     },
     {
       "Code": "IS",
-      "Name": "Islande",
+      "Name": "Iceland",
       "Native": "Ísland",
       "Phone": 354,
       "Continent": "Europe",
@@ -1091,7 +1091,7 @@
     },
     {
       "Code": "IT",
-      "Name": "Italie",
+      "Name": "Italy",
       "Native": "Italia",
       "Phone": 39,
       "Continent": "Europe",
@@ -1111,7 +1111,7 @@
     },
     {
       "Code": "JM",
-      "Name": "Jamaïque",
+      "Name": "Jamaica",
       "Native": "Jamaica",
       "Phone": 1876,
       "Continent": "North America",
@@ -1121,7 +1121,7 @@
     },
     {
       "Code": "JO",
-      "Name": "Jordanie",
+      "Name": "Jordan",
       "Native": "الأردن",
       "Phone": 962,
       "Continent": "Asia",
@@ -1131,7 +1131,7 @@
     },
     {
       "Code": "JP",
-      "Name": "Japon",
+      "Name": "Japan",
       "Native": "日本",
       "Phone": 81,
       "Continent": "Asia",
@@ -1151,7 +1151,7 @@
     },
     {
       "Code": "KG",
-      "Name": "Kirghizistan",
+      "Name": "Kyrgyzstan",
       "Native": "Кыргызстан",
       "Phone": 996,
       "Continent": "Asia",
@@ -1161,7 +1161,7 @@
     },
     {
       "Code": "KH",
-      "Name": "Cambodge",
+      "Name": "Cambodia",
       "Native": "Kâmpŭchéa",
       "Phone": 855,
       "Continent": "Asia",
@@ -1181,7 +1181,7 @@
     },
     {
       "Code": "KM",
-      "Name": "Comores",
+      "Name": "Comoros",
       "Native": "Komori",
       "Phone": 269,
       "Continent": "Africa",
@@ -1191,7 +1191,7 @@
     },
     {
       "Code": "KN",
-      "Name": "Saint Christophe et Niévès",
+      "Name": "Saint Kitts and Nevis",
       "Native": "Saint Kitts and Nevis",
       "Phone": 1869,
       "Continent": "North America",
@@ -1201,7 +1201,7 @@
     },
     {
       "Code": "KP",
-      "Name": "Corée du Nord",
+      "Name": "North Korea",
       "Native": "북한",
       "Phone": 850,
       "Continent": "Asia",
@@ -1211,7 +1211,7 @@
     },
     {
       "Code": "KR",
-      "Name": "Corée du Sud",
+      "Name": "South Korea",
       "Native": "대한민국",
       "Phone": 82,
       "Continent": "Asia",
@@ -1221,7 +1221,7 @@
     },
     {
       "Code": "KW",
-      "Name": "Koweït",
+      "Name": "Kuwait",
       "Native": "الكويت",
       "Phone": 965,
       "Continent": "Asia",
@@ -1231,7 +1231,7 @@
     },
     {
       "Code": "KY",
-      "Name": "Îles Caïmans",
+      "Name": "Cayman Islands",
       "Native": "Cayman Islands",
       "Phone": 1345,
       "Continent": "North America",
@@ -1261,7 +1261,7 @@
     },
     {
       "Code": "LB",
-      "Name": "Liban",
+      "Name": "Lebanon",
       "Native": "لبنان",
       "Phone": 961,
       "Continent": "Asia",
@@ -1271,7 +1271,7 @@
     },
     {
       "Code": "LC",
-      "Name": "Sainte Lucie",
+      "Name": "Saint Lucia",
       "Native": "Saint Lucia",
       "Phone": 1758,
       "Continent": "North America",
@@ -1301,7 +1301,7 @@
     },
     {
       "Code": "LR",
-      "Name": "Libéria",
+      "Name": "Liberia",
       "Native": "Liberia",
       "Phone": 231,
       "Continent": "Africa",
@@ -1321,7 +1321,7 @@
     },
     {
       "Code": "LT",
-      "Name": "Lituanie",
+      "Name": "Lithuania",
       "Native": "Lietuva",
       "Phone": 370,
       "Continent": "Europe",
@@ -1341,7 +1341,7 @@
     },
     {
       "Code": "LV",
-      "Name": "Lettonie",
+      "Name": "Latvia",
       "Native": "Latvija",
       "Phone": 371,
       "Continent": "Europe",
@@ -1351,7 +1351,7 @@
     },
     {
       "Code": "LY",
-      "Name": "Libye",
+      "Name": "Libya",
       "Native": "‏ليبيا",
       "Phone": 218,
       "Continent": "Africa",
@@ -1361,7 +1361,7 @@
     },
     {
       "Code": "MA",
-      "Name": "Maroc",
+      "Name": "Morocco",
       "Native": "المغرب",
       "Phone": 212,
       "Continent": "Africa",
@@ -1381,7 +1381,7 @@
     },
     {
       "Code": "MD",
-      "Name": "Moldavie",
+      "Name": "Moldova",
       "Native": "Moldova",
       "Phone": 373,
       "Continent": "Europe",
@@ -1391,7 +1391,7 @@
     },
     {
       "Code": "ME",
-      "Name": "Monténégro",
+      "Name": "Montenegro",
       "Native": "Црна Гора",
       "Phone": 382,
       "Continent": "Europe",
@@ -1401,7 +1401,7 @@
     },
     {
       "Code": "MF",
-      "Name": "Saint Martin (partie française)",
+      "Name": "Saint Martin",
       "Native": "Saint-Martin",
       "Phone": 590,
       "Continent": "North America",
@@ -1421,7 +1421,7 @@
     },
     {
       "Code": "MH",
-      "Name": "Îles Marshall",
+      "Name": "Marshall Islands",
       "Native": "M̧ajeļ",
       "Phone": 692,
       "Continent": "Oceania",
@@ -1431,7 +1431,7 @@
     },
     {
       "Code": "MK",
-      "Name": "Macédoine du Nord",
+      "Name": "North Macedonia",
       "Native": "Северна Македонија",
       "Phone": 389,
       "Continent": "Europe",
@@ -1446,7 +1446,7 @@
       "Phone": 223,
       "Continent": "Africa",
       "Capital": "Bamako",
-      "Currency": "FCFA",
+      "Currency": "FRANCS CFA",
       "Languages": "fr"
     },
     {
@@ -1461,7 +1461,7 @@
     },
     {
       "Code": "MN",
-      "Name": "Mongolie",
+      "Name": "Mongolia",
       "Native": "Монгол улс",
       "Phone": 976,
       "Continent": "Asia",
@@ -1481,7 +1481,7 @@
     },
     {
       "Code": "MP",
-      "Name": "Îles Mariannes du Nord",
+      "Name": "Northern Mariana Islands",
       "Native": "Northern Mariana Islands",
       "Phone": 1670,
       "Continent": "Oceania",
@@ -1501,7 +1501,7 @@
     },
     {
       "Code": "MR",
-      "Name": "Mauritanie",
+      "Name": "Mauritania",
       "Native": "موريتانيا",
       "Phone": 222,
       "Continent": "Africa",
@@ -1521,7 +1521,7 @@
     },
     {
       "Code": "MT",
-      "Name": "Malte",
+      "Name": "Malta",
       "Native": "Malta",
       "Phone": 356,
       "Continent": "Europe",
@@ -1561,7 +1561,7 @@
     },
     {
       "Code": "MX",
-      "Name": "Mexique",
+      "Name": "Mexico",
       "Native": "México",
       "Phone": 52,
       "Continent": "North America",
@@ -1571,7 +1571,7 @@
     },
     {
       "Code": "MY",
-      "Name": "Malaisie",
+      "Name": "Malaysia",
       "Native": "Malaysia",
       "Phone": 60,
       "Continent": "Asia",
@@ -1591,7 +1591,7 @@
     },
     {
       "Code": "NA",
-      "Name": "Namibie",
+      "Name": "Namibia",
       "Native": "Namibia",
       "Phone": 264,
       "Continent": "Africa",
@@ -1601,7 +1601,7 @@
     },
     {
       "Code": "NC",
-      "Name": "Nouvelle Calédonie",
+      "Name": "New Caledonia",
       "Native": "Nouvelle-Calédonie",
       "Phone": 687,
       "Continent": "Oceania",
@@ -1616,12 +1616,12 @@
       "Phone": 227,
       "Continent": "Africa",
       "Capital": "Niamey",
-      "Currency": "FCFA",
+      "Currency": "FRANCS CFA",
       "Languages": "fr"
     },
     {
       "Code": "NF",
-      "Name": "Île Norfolk",
+      "Name": "Norfolk Island",
       "Native": "Norfolk Island",
       "Phone": 672,
       "Continent": "Oceania",
@@ -1631,7 +1631,7 @@
     },
     {
       "Code": "NG",
-      "Name": "Nigéria",
+      "Name": "Nigeria",
       "Native": "Nigeria",
       "Phone": 234,
       "Continent": "Africa",
@@ -1651,7 +1651,7 @@
     },
     {
       "Code": "NL",
-      "Name": "Pays-Bas",
+      "Name": "Netherlands",
       "Native": "Nederland",
       "Phone": 31,
       "Continent": "Europe",
@@ -1661,7 +1661,7 @@
     },
     {
       "Code": "NO",
-      "Name": "Norvège",
+      "Name": "Norway",
       "Native": "Norge",
       "Phone": 47,
       "Continent": "Europe",
@@ -1671,7 +1671,7 @@
     },
     {
       "Code": "NP",
-      "Name": "Népal",
+      "Name": "Nepal",
       "Native": "नेपाल",
       "Phone": 977,
       "Continent": "Asia",
@@ -1691,7 +1691,7 @@
     },
     {
       "Code": "NU",
-      "Name": "Niué",
+      "Name": "Niue",
       "Native": "Niuē",
       "Phone": 683,
       "Continent": "Oceania",
@@ -1701,7 +1701,7 @@
     },
     {
       "Code": "NZ",
-      "Name": "Nouvelle-Zélande",
+      "Name": "New Zealand",
       "Native": "New Zealand",
       "Phone": 64,
       "Continent": "Oceania",
@@ -1731,7 +1731,7 @@
     },
     {
       "Code": "PE",
-      "Name": "Pérou",
+      "Name": "Peru",
       "Native": "Perú",
       "Phone": 51,
       "Continent": "South America",
@@ -1741,7 +1741,7 @@
     },
     {
       "Code": "PF",
-      "Name": "Polynésie française",
+      "Name": "French Polynesia",
       "Native": "Polynésie française",
       "Phone": 689,
       "Continent": "Oceania",
@@ -1751,7 +1751,7 @@
     },
     {
       "Code": "PG",
-      "Name": "Papouasie Nouvelle Guinée",
+      "Name": "Papua New Guinea",
       "Native": "Papua Niugini",
       "Phone": 675,
       "Continent": "Oceania",
@@ -1781,7 +1781,7 @@
     },
     {
       "Code": "PL",
-      "Name": "Pologne",
+      "Name": "Poland",
       "Native": "Polska",
       "Phone": 48,
       "Continent": "Europe",
@@ -1791,7 +1791,7 @@
     },
     {
       "Code": "PM",
-      "Name": "Saint Pierre et Miquelon",
+      "Name": "Saint Pierre and Miquelon",
       "Native": "Saint-Pierre-et-Miquelon",
       "Phone": 508,
       "Continent": "North America",
@@ -1801,7 +1801,7 @@
     },
     {
       "Code": "PN",
-      "Name": "Îles Pitcairn",
+      "Name": "Pitcairn Islands",
       "Native": "Pitcairn Islands",
       "Phone": 64,
       "Continent": "Oceania",
@@ -1811,7 +1811,7 @@
     },
     {
       "Code": "PR",
-      "Name": "Porto Rico",
+      "Name": "Puerto Rico",
       "Native": "Puerto Rico",
       "Phone": "1787,1939",
       "Continent": "North America",
@@ -1841,7 +1841,7 @@
     },
     {
       "Code": "PW",
-      "Name": "Palaos",
+      "Name": "Palau",
       "Native": "Palau",
       "Phone": 680,
       "Continent": "Oceania",
@@ -1871,7 +1871,7 @@
     },
     {
       "Code": "RE",
-      "Name": "Réunion",
+      "Name": "Reunion",
       "Native": "La Réunion",
       "Phone": 262,
       "Continent": "Africa",
@@ -1881,7 +1881,7 @@
     },
     {
       "Code": "RO",
-      "Name": "Roumanie",
+      "Name": "Romania",
       "Native": "România",
       "Phone": 40,
       "Continent": "Europe",
@@ -1891,7 +1891,7 @@
     },
     {
       "Code": "RS",
-      "Name": "Serbie",
+      "Name": "Serbia",
       "Native": "Србија",
       "Phone": 381,
       "Continent": "Europe",
@@ -1901,7 +1901,7 @@
     },
     {
       "Code": "RU",
-      "Name": "Russie",
+      "Name": "Russia",
       "Native": "Россия",
       "Phone": 7,
       "Continent": "Europe",
@@ -1921,7 +1921,7 @@
     },
     {
       "Code": "SA",
-      "Name": "Arabie Saoudite",
+      "Name": "Saudi Arabia",
       "Native": "العربية السعودية",
       "Phone": 966,
       "Continent": "Asia",
@@ -1931,7 +1931,7 @@
     },
     {
       "Code": "SB",
-      "Name": "Îles Salomon",
+      "Name": "Solomon Islands",
       "Native": "Solomon Islands",
       "Phone": 677,
       "Continent": "Oceania",
@@ -1951,7 +1951,7 @@
     },
     {
       "Code": "SD",
-      "Name": "Soudan",
+      "Name": "Sudan",
       "Native": "السودان",
       "Phone": 249,
       "Continent": "Africa",
@@ -1961,7 +1961,7 @@
     },
     {
       "Code": "SE",
-      "Name": "Suède",
+      "Name": "Sweden",
       "Native": "Sverige",
       "Phone": 46,
       "Continent": "Europe",
@@ -1971,7 +1971,7 @@
     },
     {
       "Code": "SG",
-      "Name": "Singapour",
+      "Name": "Singapore",
       "Native": "Singapore",
       "Phone": 65,
       "Continent": "Asia",
@@ -1981,7 +1981,7 @@
     },
     {
       "Code": "SH",
-      "Name": "Sainte Hélène",
+      "Name": "Saint Helena",
       "Native": "Saint Helena",
       "Phone": 290,
       "Continent": "Africa",
@@ -1991,7 +1991,7 @@
     },
     {
       "Code": "SI",
-      "Name": "Slovénie",
+      "Name": "Slovenia",
       "Native": "Slovenija",
       "Phone": 386,
       "Continent": "Europe",
@@ -2001,7 +2001,7 @@
     },
     {
       "Code": "SJ",
-      "Name": "Svalbard et Île Jan Mayen",
+      "Name": "Svalbard and Jan Mayen",
       "Native": "Svalbard og Jan Mayen",
       "Phone": 4779,
       "Continent": "Europe",
@@ -2011,7 +2011,7 @@
     },
     {
       "Code": "SK",
-      "Name": "Slovaquie",
+      "Name": "Slovakia",
       "Native": "Slovensko",
       "Phone": 421,
       "Continent": "Europe",
@@ -2031,7 +2031,7 @@
     },
     {
       "Code": "SM",
-      "Name": "Saint Marin",
+      "Name": "San Marino",
       "Native": "San Marino",
       "Phone": 378,
       "Continent": "Europe",
@@ -2041,17 +2041,17 @@
     },
     {
       "Code": "SN",
-      "Name": "Sénégal",
+      "Name": "Senegal",
       "Native": "Sénégal",
       "Phone": 221,
       "Continent": "Africa",
       "Capital": "Dakar",
-      "Currency": "FCFA",
+      "Currency": "FRANCS CFA",
       "Languages": "fr"
     },
     {
       "Code": "SO",
-      "Name": "Somalie",
+      "Name": "Somalia",
       "Native": "Soomaaliya",
       "Phone": 252,
       "Continent": "Africa",
@@ -2071,7 +2071,7 @@
     },
     {
       "Code": "SS",
-      "Name": "Soudan du Sud",
+      "Name": "South Sudan",
       "Native": "South Sudan",
       "Phone": 211,
       "Continent": "Africa",
@@ -2081,7 +2081,7 @@
     },
     {
       "Code": "ST",
-      "Name": "São Tomé et Principe",
+      "Name": "Sao Tome and Principe",
       "Native": "São Tomé e Príncipe",
       "Phone": 239,
       "Continent": "Africa",
@@ -2101,7 +2101,7 @@
     },
     {
       "Code": "SX",
-      "Name": "Saint Martin (partie néerlandaise)",
+      "Name": "Sint Maarten",
       "Native": "Sint Maarten",
       "Phone": 1721,
       "Continent": "North America",
@@ -2111,7 +2111,7 @@
     },
     {
       "Code": "SY",
-      "Name": "Syrie",
+      "Name": "Syria",
       "Native": "سوريا",
       "Phone": 963,
       "Continent": "Asia",
@@ -2121,7 +2121,7 @@
     },
     {
       "Code": "SZ",
-      "Name": "Royaume d'Eswatini",
+      "Name": "Eswatini",
       "Native": "Eswatini",
       "Phone": 268,
       "Continent": "Africa",
@@ -2131,7 +2131,7 @@
     },
     {
       "Code": "TC",
-      "Name": "Îles Turques et Caïques",
+      "Name": "Turks and Caicos Islands",
       "Native": "Turks and Caicos Islands",
       "Phone": 1649,
       "Continent": "North America",
@@ -2151,7 +2151,7 @@
     },
     {
       "Code": "TF",
-      "Name": "Terres australes françaises",
+      "Name": "French Southern Territories",
       "Native": "Territoire des Terres australes et antarctiques fr",
       "Phone": 262,
       "Continent": "Antarctica",
@@ -2166,12 +2166,12 @@
       "Phone": 228,
       "Continent": "Africa",
       "Capital": "Lomé",
-      "Currency": "FCFA",
+      "Currency": "XOF",
       "Languages": "fr"
     },
     {
       "Code": "TH",
-      "Name": "Thaïlande",
+      "Name": "Thailand",
       "Native": "ประเทศไทย",
       "Phone": 66,
       "Continent": "Asia",
@@ -2181,7 +2181,7 @@
     },
     {
       "Code": "TJ",
-      "Name": "Tadjikistan",
+      "Name": "Tajikistan",
       "Native": "Тоҷикистон",
       "Phone": 992,
       "Continent": "Asia",
@@ -2201,7 +2201,7 @@
     },
     {
       "Code": "TL",
-      "Name": "Timor-Leste",
+      "Name": "East Timor",
       "Native": "Timor-Leste",
       "Phone": 670,
       "Continent": "Oceania",
@@ -2211,7 +2211,7 @@
     },
     {
       "Code": "TM",
-      "Name": "Turkménistan",
+      "Name": "Turkmenistan",
       "Native": "Türkmenistan",
       "Phone": 993,
       "Continent": "Asia",
@@ -2221,7 +2221,7 @@
     },
     {
       "Code": "TN",
-      "Name": "Tunisie",
+      "Name": "Tunisia",
       "Native": "تونس",
       "Phone": 216,
       "Continent": "Africa",
@@ -2241,7 +2241,7 @@
     },
     {
       "Code": "TR",
-      "Name": "Turquie",
+      "Name": "Turkey",
       "Native": "Türkiye",
       "Phone": 90,
       "Continent": "Asia",
@@ -2251,7 +2251,7 @@
     },
     {
       "Code": "TT",
-      "Name": "Trinité et Tobago",
+      "Name": "Trinidad and Tobago",
       "Native": "Trinidad and Tobago",
       "Phone": 1868,
       "Continent": "North America",
@@ -2271,7 +2271,7 @@
     },
     {
       "Code": "TW",
-      "Name": "Taïwan",
+      "Name": "Taiwan",
       "Native": "臺灣",
       "Phone": 886,
       "Continent": "Asia",
@@ -2281,7 +2281,7 @@
     },
     {
       "Code": "TZ",
-      "Name": "République unie de Tanzanie",
+      "Name": "Tanzania",
       "Native": "Tanzania",
       "Phone": 255,
       "Continent": "Africa",
@@ -2301,7 +2301,7 @@
     },
     {
       "Code": "UG",
-      "Name": "Ouganda",
+      "Name": "Uganda",
       "Native": "Uganda",
       "Phone": 256,
       "Continent": "Africa",
@@ -2311,7 +2311,7 @@
     },
     {
       "Code": "UM",
-      "Name": "Îles mineures éloignées des États Unis",
+      "Name": "U.S. Minor Outlying Islands",
       "Native": "United States Minor Outlying Islands",
       "Phone": 1,
       "Continent": "Oceania",
@@ -2321,7 +2321,7 @@
     },
     {
       "Code": "US",
-      "Name": "États-Unis d'Amérique",
+      "Name": "United States",
       "Native": "United States",
       "Phone": 1,
       "Continent": "North America",
@@ -2341,7 +2341,7 @@
     },
     {
       "Code": "UZ",
-      "Name": "Ouzbékistan",
+      "Name": "Uzbekistan",
       "Native": "O‘zbekiston",
       "Phone": 998,
       "Continent": "Asia",
@@ -2351,7 +2351,7 @@
     },
     {
       "Code": "VA",
-      "Name": "Saint Siège (Vatican)",
+      "Name": "Vatican City",
       "Native": "Vaticano",
       "Phone": 379,
       "Continent": "Europe",
@@ -2361,7 +2361,7 @@
     },
     {
       "Code": "VC",
-      "Name": "Saint Vincent et les Grenadines",
+      "Name": "Saint Vincent and the Grenadines",
       "Native": "Saint Vincent and the Grenadines",
       "Phone": 1784,
       "Continent": "North America",
@@ -2381,7 +2381,7 @@
     },
     {
       "Code": "VG",
-      "Name": "Îles vierges britanniques",
+      "Name": "British Virgin Islands",
       "Native": "British Virgin Islands",
       "Phone": 1284,
       "Continent": "North America",
@@ -2391,7 +2391,7 @@
     },
     {
       "Code": "VI",
-      "Name": "Îles vierges américaines",
+      "Name": "U.S. Virgin Islands",
       "Native": "United States Virgin Islands",
       "Phone": 1340,
       "Continent": "North America",
@@ -2421,7 +2421,7 @@
     },
     {
       "Code": "WF",
-      "Name": "Wallis et Futuna",
+      "Name": "Wallis and Futuna",
       "Native": "Wallis et Futuna",
       "Phone": 681,
       "Continent": "Oceania",
@@ -2451,7 +2451,7 @@
     },
     {
       "Code": "YE",
-      "Name": "Yémen",
+      "Name": "Yemen",
       "Native": "اليَمَن",
       "Phone": 967,
       "Continent": "Asia",
@@ -2471,7 +2471,7 @@
     },
     {
       "Code": "ZA",
-      "Name": "Afrique du Sud",
+      "Name": "South Africa",
       "Native": "South Africa",
       "Phone": 27,
       "Continent": "Africa",
@@ -2481,7 +2481,7 @@
     },
     {
       "Code": "ZM",
-      "Name": "Zambie",
+      "Name": "Zambia",
       "Native": "Zambia",
       "Phone": 260,
       "Continent": "Africa",

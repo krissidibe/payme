@@ -399,7 +399,7 @@ function ClientShow(props) {
               modal.customerId = customerInfo.id.toString();
               modal.onOpen();
             }}
-            label={"Ajouter"}
+            label={"Ajouterx"}
             labelClassName="text-[17px]  "
             className="bg-[#ffffff56]   ml-4"
           />
