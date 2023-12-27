@@ -21,7 +21,7 @@ function UserLayout({ children }) {
    else  if (windowSize.width < 1440 && windowSize.width > 1390) {
      setZoomValue(x=> x = 85)     }
    else if (windowSize.width < 1390) {
-     setZoomValue(x=> x = 70)     }
+     setZoomValue(x=> x = 75)     }
    
    
  
