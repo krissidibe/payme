@@ -36,8 +36,8 @@ function UserLayout({ children }) {
   return (
 
     <>
-    {/*  <p className="text-xs">{windowSize.width}
-        - {JSON.stringify(zoomValue)}  -{ pourcentage} </p>  */}
+      <p className="text-xs">{windowSize.width}
+        - {JSON.stringify(zoomValue)}   </p>   
   <ModalProvider style={{"zoom":`${zoomValue}%`}} />
      <div className="flex w-screen h-screen overflow-scroll no-scrollbar " >
       <SideBar  />  
