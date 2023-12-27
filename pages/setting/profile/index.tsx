@@ -455,7 +455,7 @@ const router = useRouter();
         )}
         <div className="h-[200px] bg-gradient-to-r from-[#c0bc839a] via-[#3636368b] to-[#3636368b]  "></div>
 
-        <div className="absolute    flex w-full min-h-full gap-10 px-10 pt-[100px] pb-4 pr-16 ">
+        <div className="absolute    flex w-full min-h-full h-screen  gap-10 px-10 pt-[100px] pb-4 pr-16 ">
           {LeftSection()}
 
           <div className="min-h-full  rounded-md    w-full bg-gradient-to-b from-[#202020] to-[#0e0e0e]    ">
@@ -581,7 +581,7 @@ const router = useRouter();
   function LeftSection() {
     const router = useRouter();
     return (
-      <div className="min-h-full   rounded-md flex flex-col items-center pt-12    min-w-[300px] max-w-[300px] bg-gradient-to-b from-[#202020] to-[#0e0e0e]    ">
+      <div className="    rounded-md flex flex-col items-center pt-12    min-w-[300px] max-w-[300px] bg-gradient-to-b from-[#202020] to-[#0e0e0e]    ">
         <div className="border mb-5 relative rounded-full h-[115px] p-[1px] w-[115px] bg-gray-200 border-black">
         <img
             className="object-contain w-full h-full rounded-full"
@@ -617,10 +617,11 @@ const router = useRouter();
          </div> */}
         </div>
 
-        <div className="flex-1"></div>
+         <div className="flex-1"></div>   
 
         <div
 
+ 
 onClick={() => {
 
 

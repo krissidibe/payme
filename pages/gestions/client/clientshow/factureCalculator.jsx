@@ -26,6 +26,7 @@ function FactureCalculator() {
   });
 
   const [optionShow, setOptionShow] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const factureType = ["0", "1"];
   const modalityValues = [
@@ -121,6 +122,11 @@ function FactureCalculator() {
   }
 
   const saveData = async () => {
+
+    if(isLoading){
+      return
+    }
+    setIsLoading(true)
 const totalAmount = totalTTC()
     
     const data = await saveInvoice(projectInfo.id, {
@@ -138,6 +144,7 @@ const totalAmount = totalTTC()
     if (data) {
       modal.onClose();
       router.back();
+      setIsLoading(false)
     }
   };
 
@@ -369,7 +376,7 @@ const totalAmount = totalTTC()
           />
           <ButtonComponent
           labelClassName="text-[16px]"
-            key={"Enregistré"}
+            key={"Enregistrer"}
             handleClick={() => {
               saveData();
               return;
@@ -391,8 +398,8 @@ const totalAmount = totalTTC()
               modal.setMessage("Voulez vousxxx");
             }
           }
-            label={"Enregistré"}
-            className="bg-[#9a9768] border-none w-[130px] font-bold py-2"
+            label={"Enregistrer"}
+            className={`bg-[#9a9768] border-none w-[130px] font-bold py-2 ${isLoading ? "opacity-30 cursor-default hover:brightness-100" : "opacity-100 cursor-pointer "}`}
           />
         </div>
       </div>

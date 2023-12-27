@@ -25,6 +25,7 @@ import { IoListSharp } from "react-icons/io5";
 
 function Provider(props) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingAdd, setIsLoadingAdd] = useState(false);
   const [indexView, setIndexView] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -197,18 +198,29 @@ function Provider(props) {
               <ButtonComponent
                 key={3}
                 handleClick={async () => {
+
+                  if(isLoadingAdd){
+                    return
+                  }
+                  setIsLoadingAdd(true)
+                  
                   const dataNew: Folder = {
                     name: inputValue,
                     type: "PROVIDER",
                   };
+                
                   const data = await addNewFolder(dataNew);
-                  setInputValue("");
-                  setModalView(false);
-                  setIsLoading(true);
-                  fetch();
+
+                    if(data != null){
+                    setInputValue("");
+                    setModalView(false);
+                    setIsLoadingAdd(false);
+                    fetch();
+                  }
+                  
                 }}
                 label={"Ajouter"}
-                className=" mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none "
+                className={` mt-6 mb-4 shadow-xl  bg-[#9a9768] border-none  ${isLoadingAdd ? "opacity-30 cursor-default hover:brightness-100" : "opacity-100 cursor-pointer "}`}
               />
             )}
           </div>

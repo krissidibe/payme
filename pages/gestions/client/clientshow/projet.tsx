@@ -52,6 +52,7 @@ function Projet(props) {
   const [loadingTime, setLoadingTime] = useState(false);
   const [showSuccesCopy, setShowSuccesCopy] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingConfirmBtn, setIsLoadingConfirmBtn] = useState(false);
   const [copyProject, setCopyProject] = useState(false);
   const [transactionModal, setTransactionModal] = useState(false);
   const [typeTransaction, setTypeTransaction] = useState("");
@@ -777,16 +778,19 @@ className="absolute inset-0 z-10 flex items-center justify-center min-w-screen">
             handleClick={ () => {
              setTransactionModal(false)
              setTypeTransaction("")
-             
+             setIsLoadingConfirmBtn(x=> x = false);
              
             }}
             label={"Annuler"}
             className="  mt-6 mb-4 shadow-xl shadow-black/20 bg-[#484848] border-none  "
           />
           
-          {typeTransaction.length !=0 && <ButtonComponent
+          {(typeTransaction.length !=0  )  && <ButtonComponent
             handleClick={async() => {
- 
+              if(isLoadingConfirmBtn){
+                return;
+              }
+              setIsLoadingConfirmBtn(x=> x = true);
             
             
               const dataProject = await finishProject(project!.id)
@@ -801,11 +805,12 @@ className="absolute inset-0 z-10 flex items-center justify-center min-w-screen">
               if(dataProject && dataTransaction ){
                 await fetch()
                 setTransactionModal(false)
+                setIsLoadingConfirmBtn(x=> x = false);
                 setTypeTransaction("")
               }
             }}
             label={"Confirmer"}
-            className="  mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none   "
+            className={`${isLoadingConfirmBtn ? "opacity-30 cursor-default hover:brightness-100" : "opacity-100 cursor-pointer "}  mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none `}
           />}
           
         </div>

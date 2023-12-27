@@ -58,7 +58,7 @@ function Dashboard(props) {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const menuIndex = useMenuStore();
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingConfirmBtn, setIsLoadingConfirmBtn] = useState(true);
+  const [isLoadingConfirmBtn, setIsLoadingConfirmBtn] = useState(false);
   const [isLoadingProject, setIsLoadingProject] = useState(true);
   const [modalPayment, setModalPayment] = useState(true);
   const [showWeeksPlanning, setShowWeeksPlanning] = useState(false);
@@ -1450,16 +1450,16 @@ onClick={async()=>{
 
   function modalTransaction(project) {
     return  (
-      <div className="absolute inset-0 z-30 flex items-center justify-center min-w-screen bg-black/50">
+      <div className="absolute inset-0 z-10 flex items-center justify-center min-w-screen bg-black/50">
     <div 
   onClick={(e)=>{
   //  e.stopPropagation()
-    setTransactionModal(false)
-    setTypeTransaction("")
-    setIsLoadingConfirmBtn(x=> x = true);
+  setTransactionModal(false)
+  setTypeTransaction("")
+  setIsLoadingConfirmBtn(x=> x = false);
   }}
 
-className="absolute inset-0 z-10 flex items-center justify-center w-screen">
+className="absolute inset-0 z-30 flex items-center justify-center min-w-screen ">
   
 </div>
     
@@ -1503,7 +1503,7 @@ className="absolute inset-0 z-10 flex items-center justify-center w-screen">
             handleClick={ () => {
              setTransactionModal(false)
              setTypeTransaction("")
-             setIsLoadingConfirmBtn(x=> x = true);
+             setIsLoadingConfirmBtn(x=> x = false);
              
             }}
             label={"Annuler"}
@@ -1512,10 +1512,13 @@ className="absolute inset-0 z-10 flex items-center justify-center w-screen">
  
 
           
-          {(typeTransaction.length !=0 && !isLoadingConfirmBtn ) && <ButtonComponent
+          {(typeTransaction.length !=0 ) && <ButtonComponent
             handleClick={async() => {
               
-setIsLoadingConfirmBtn(x=> x = false);
+              if(isLoadingConfirmBtn){
+                return;
+              }
+setIsLoadingConfirmBtn(x=> x = true);
            
        
               const dataProject = await finishProject(project!.id)
@@ -1531,7 +1534,7 @@ setIsLoadingConfirmBtn(x=> x = false);
              //   await fetch()
                 setTransactionModal(false)
                 setTypeTransaction("")
-                setIsLoadingConfirmBtn(x=> x = true);
+                setIsLoadingConfirmBtn(x=> x = false);
 setCurrentProject(null)
                 const dataProjects = await fetchAllProject(searchProject,statutSort,take,skip);
                 setProjects(data => data = dataProjects);
@@ -1540,7 +1543,7 @@ setCurrentProject(null)
               }
             }}
             label={"Confirmer"}
-            className="  mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none   "
+            className={`${isLoadingConfirmBtn ? "opacity-30 cursor-default hover:brightness-100" : "opacity-100 cursor-pointer "}  mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none `}
           />}
           
         </div>

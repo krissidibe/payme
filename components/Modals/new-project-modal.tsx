@@ -13,6 +13,7 @@ function NewProjectModal({style}) {
  
   const modal = useNewProjectModal()
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const typeDatas = [
     {
       index: 0,
@@ -73,6 +74,7 @@ function NewProjectModal({style}) {
           setInputValue("")
           modal.onClose()
           
+          setIsLoading(false)
            
         }}
           label={"Annuler"}
@@ -80,15 +82,25 @@ function NewProjectModal({style}) {
         /> 
      {inputValue.trim().length >=2 &&  <ButtonComponent
         handleClick={async ()=>{
+
+          if(isLoading){
+            return
+          }
+          setIsLoading(true)
      const data = await addNewProject(modal.customerId,inputValue) 
-     setInputValue("")     
-     modal.onClose()
+
+     if(data.id != null){
+      setInputValue("")     
+      modal.onClose()
+      setIsLoading(false)
+     }
+   
     
 
  
         }}
           label={"Ajouter"}
-          className=" min-w-[100px] mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none   "
+          className={` min-w-[100px] mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none  ${isLoading ? "opacity-30 cursor-default hover:brightness-100" : "opacity-100 cursor-pointer "}` }
         /> }
       </div>
       </div>

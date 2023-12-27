@@ -27,6 +27,7 @@ import { MdFolder } from "react-icons/md";
 
 function Personal(props) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingAdd, setIsLoadingAdd] = useState(false);
   const [indexView, setIndexView] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -208,26 +209,40 @@ function Personal(props) {
               handleClick={() => {
                 setInputValue("");
                 setModalView(false);
+                setIsLoadingAdd(false)
               }}
               label={"Annuler"}
               className="  mt-6 mb-4 shadow-xl  bg-[#484848] border-none  "
             />
+          
             {inputValue.trim().length >= 2 && (
               <ButtonComponent
                 key={3}
                 handleClick={async () => {
+
+                  if(isLoadingAdd){
+                    return
+                  }
+                  setIsLoadingAdd(true)
+
                   const dataNew: Folder = {
                     name: inputValue,
                     type: "PERSONAL",
                   };
                   const data = await addNewFolder(dataNew);
-                  setInputValue("");
+
+
+                  if(data != null){
+                    setInputValue("");
                   setModalView(false);
-                  setIsLoading(true);
+                  setIsLoadingAdd(false);
                   fetch();
+                   }
+
+                 
                 }}
                 label={"Ajouter"}
-                className="  mt-6 mb-4 shadow-xl  bg-[#9a9768] border-none  "
+                className={` mt-6 mb-4 shadow-xl  bg-[#9a9768] border-none  ${isLoadingAdd ? "opacity-30 cursor-default hover:brightness-100" : "opacity-100 cursor-pointer "}`}
               />
             )}
           </div>
