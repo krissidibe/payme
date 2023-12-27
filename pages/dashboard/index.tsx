@@ -257,6 +257,7 @@ if(dataUser?.error?.message.includes("authentification")){
                     setShowNotif((x) => (x = false));
                     setSearch("");
                     modal.onOpen();
+                    alert(modal)
                     setShowSearchInput((x) => (x = false));
                     setSearchProject("")
 setStatutSort("");
