@@ -38,9 +38,9 @@ function MyApp({ Component, pageProps }) {
      
     if (windowSize.width > 1440) {
      setZoomValue(x=> x = 100)     }
-     else  if (windowSize.width < 1440 && windowSize.width > 1390) {
+     else  if (windowSize.width < 1440 && windowSize.width > 1368) {
       setZoomValue(x=> x = 85)     }
-    else if (windowSize.width < 1390) {
+    else if (windowSize.width < 1368) {
       setZoomValue(x=> x = 75)     }
    
    
