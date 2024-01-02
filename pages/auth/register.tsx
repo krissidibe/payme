@@ -39,6 +39,7 @@ import InputDropdownCountryComponent2 from "../../components/UI/InputDropdownCou
 import { LiaFileAltSolid } from "react-icons/lia";
 import useMenuStore from "../../utils/MenuStore";
 import FacturesFirst from "../setting/facturesfirst";
+import { BsFillFileEarmarkTextFill } from "react-icons/bs";
 function Register(props) {
   const [showIndicatifInput, setShowIndicatifInput] = useState(false);
   const [showIndicatifInput2, setShowIndicatifInput2] = useState(false);
@@ -1183,11 +1184,13 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
             onClick={() => {
               setFactureChoose(x=> x = true)
             }}
-            className="bg-[#232323] flex justify-between    border-spacing-[70px] border-dashed cursor-pointer items-center border-[1px] placeholder:opacity-40  text-white border-white  px-6 outline-none w-full  rounded-[8px] text-[14px]  py-[22px]  border-opacity-30   "
+            className="bg-[#232323] flex justify-between  relative   border-spacing-[70px] border-dashed cursor-pointer items-center border-[1px] placeholder:opacity-40  text-white border-white  px-6 outline-none w-full  rounded-[8px] text-[14px]  py-[22px]  border-opacity-30   "
           >
 
             <div className="flex gap-7">
-            <svg width="79" height="79" viewBox="0 0 79 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+         {factureChooseOk == false ?
+          <>
+          <svg width="79" height="79" viewBox="0 0 79 79" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="79" height="79" rx="10" fill="#1B1A1A"/>
 <g clip-path="url(#clip0_1011_1914)">
 <path d="M46 45.1405C46 44.5874 45.5547 44.1421 45.0016 44.1421L35.0031 44.1421C32.2422 44.1421 30.0016 41.9062 30.0016 39.1405C30.0016 36.3749 32.2422 34.139 35.0031 34.139L47.0031 34.139C48.6578 34.139 50.0031 35.4796 50.0031 37.139C50.0031 38.7983 48.6578 40.139 47.0031 40.139L37 40.139C36.4469 40.139 36.0016 39.689 36.0016 39.1405C36.0016 38.5921 36.4469 38.1421 37 38.1421L45.0016 38.1421C45.5547 38.1421 46 37.6921 46 37.1437C46 36.5905 45.5547 36.1452 45.0016 36.1452L37 36.1452C35.3406 36.1452 34 37.4858 34 39.1452C34 40.8046 35.3406 42.1452 37 42.1452L46.9984 42.1452C49.7594 42.1405 52 39.8999 52 37.139C52 34.378 49.7594 32.1421 46.9984 32.1421L34.9984 32.1421C31.1312 32.1421 28 35.278 28 39.1405C28 43.003 31.1359 46.139 34.9984 46.139L45.0016 46.139C45.5547 46.139 46 45.6937 46 45.1405Z" fill="white"/>
@@ -1197,14 +1200,43 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
 <rect width="24" height="24" fill="white" transform="translate(52 27) rotate(90)"/>
 </clipPath>
 </defs>
-</svg>
+</svg>  
+          </>
+:  
+<div className="w-[79px] h-[79px] flex justify-center bg-[#1B1A1A] rounded-md items-center">
+<BsFillFileEarmarkTextFill className="w-[40px] h-[40px] opacity-50 " />
+</div>
+}
 
            <div className="flex flex-col items-start justify-center ">
  
 
-<p className="text-[16px] leading-1">Choisissez un modèle de facture</p>
-<p className="text-[14px] leading-[20px] text-[#7C7C7C]">Explorez notre gamme diversifiée de modèles de factures 
-professionnels pour trouver celui qui correspond à vos besoins.</p>
+<p className="text-[16px] leading-1"> {factureChooseOk == false ? " Choisissez un modèle de facture" : "Modèle choisi : Facture 001"}</p>
+{factureChooseOk == false && 
+<p className="text-[14px] leading-[20px] text-[#7C7C7C]">Explorez notre gamme diversifiée de modèles de factures professionnels pour trouver celui qui correspond à vos besoins.</p>
+}
+{factureChooseOk != false && 
+  <p className="text-[14px] leading-[20px] text-[#7C7C7C]">Modèle choisi avec succès. Personnalisez et utilisez-le pour vos factures.  <br /> Pour plus d'options, revenez à la sélection.</p>
+}
+ 
+
+{factureChooseOk != false && <div className="absolute right-10">
+<svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M17.2037 10.796L18.9997 9.00001C19.5447 8.45501 19.8177 8.18201 19.9637 7.88801C20.1005 7.61198 20.1717 7.30808 20.1717 7.00001C20.1717 6.69195 20.1005 6.38804 19.9637 6.11201C19.8177 5.81801 19.5447 5.54501 18.9997 5.00001C18.4547 4.45501 18.1817 4.18201 17.8877 4.03601C17.6117 3.89923 17.3078 3.82806 16.9997 3.82806C16.6917 3.82806 16.3878 3.89923 16.1117 4.03601C15.8177 4.18201 15.5447 4.45501 14.9997 5.00001L13.1807 6.81901C14.1484 8.47562 15.5361 9.84749 17.2037 10.796ZM11.7267 8.27301L4.85675 15.143C4.43075 15.569 4.21875 15.781 4.07875 16.043C3.93875 16.303 3.87975 16.598 3.76275 17.188L3.14675 20.265C3.08075 20.597 3.04675 20.763 3.14175 20.858C3.23675 20.953 3.40175 20.919 3.73475 20.853L6.81175 20.237C7.40175 20.12 7.69675 20.061 7.95775 19.921C8.21775 19.781 8.43075 19.569 8.85575 19.144L15.7457 12.254C14.1278 11.2411 12.7548 9.88174 11.7257 8.27401L11.7267 8.27301Z"
+                          fill="#D9D9D9"
+                        />
+                      </svg>
+</div>}
+
             </div>
             </div>
              

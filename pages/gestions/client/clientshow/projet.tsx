@@ -28,7 +28,8 @@ import { fetchAllCustomer } from "../../../../services/customerModel";
 import { CiCircleCheck } from "react-icons/ci";
 import { LiaFileAltSolid } from "react-icons/lia";
 import { fetchEnterprise } from "../../../../services/enterpriseService";
-async function fetchPdf(enterprise,project,invoiceType,signed) {
+import { fetchUser } from "../../../../services/userService";
+async function fetchPdf(invoiceFileName,enterprise,project,invoiceType,signed) {
   console.log(enterprise);
   console.log(project);
   
@@ -36,7 +37,7 @@ async function fetchPdf(enterprise,project,invoiceType,signed) {
   const request = await fetch(`${process.env.BASE_API_URL}/api/facture`,{
     
     method:"POST",
-    body:JSON.stringify({enterprise:enterprise,project:project,invoiceType:invoiceType,signed:signed})
+    body:JSON.stringify({invoiceFileName:invoiceFileName,enterprise:enterprise,project:project,invoiceType:invoiceType,signed:signed})
 
 });
   const dataBlob = await request.blob();
@@ -570,20 +571,24 @@ invoiceDate
           
           handleClick={async () => {
  
-
-console.log(project.proformaDate);
-console.log(project.invoiceDate);
-
+const dataUser = await fetchUser()
+ 
         
               if(project?.amountTotal == "0" ){
 
                 return;
               }
               
-            const dd =  await  fetchPdf(enterprise,project,factureType,signed)
+            let dd =  await  fetchPdf(dataUser.invoice.invoiceFileName,enterprise,project,factureType,signed)
+            console.log("=====");
+            console.log(dd);
+
+            if(dd){
+
+            await  saveAs(dd, `${project!.customer.name} - ${project!.name}`); 
+            }
             
  
-  saveAs(dd, `${project!.customer.name} - ${project!.name}`); 
           }}
             label={"Télécharger"}
             labelClassName="text-white text-[16px]"

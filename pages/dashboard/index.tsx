@@ -50,6 +50,7 @@ import FolderComponentNew from "../../components/UI/FolderComponentNew";
 import GlobalPayment from "../../components/Modals/global-modal-payment";
 import { fetchUser } from "../../services/userService";
 import { useGlobalPayment } from "../../utils/use-global-payment";
+import { useGlobalUpdate } from "../../utils/use-global-update";
 
 function Dashboard(props) {
   const [dataUser, setDataUser] = useState(null)
@@ -85,6 +86,7 @@ function Dashboard(props) {
   const [currentNotifId, setCurrentNotifId] = useState("");
   const modalGlobal = useGlobalModal()
   const globalPayment = useGlobalPayment();
+  const globalUpdate = useGlobalUpdate();
 
     
   useEffect(() => {
