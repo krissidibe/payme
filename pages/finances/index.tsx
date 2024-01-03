@@ -15,6 +15,7 @@ import { fetchEnterprise } from "../../services/enterpriseService";
 import { sendCodeOTP, sendCodeOTPFinance } from "../../services/emailService";
 import { fetchUser, updateUserCodeOTP } from "../../services/userService";
 import { IoMdClose } from "react-icons/io";
+import { country } from "../../utils/country";
 
 interface ApexChartProps {}
 interface TravelDetailsViewProps {
@@ -641,6 +642,14 @@ setShowOPTModal(x=> x =true)
 
     
 
+  function getCurrency(currency: string): React.ReactNode {
+    const datasFilter = country.filter((item) => item.Phone.toString().toLowerCase().includes(currency.toString().replaceAll('"','')))
+    console.log(currency.toString().replaceAll('"',''));
+
+    return datasFilter[0].Currency
+    
+  }
+
   return (
     <>
      {modalView && InfoView()}
@@ -755,11 +764,11 @@ setShowOPTModal(x=> x =true)
        
        <div className="max-h-[140px]   relative flex-col flex rounded-xl  items-center justify-center min-w-[300px] px-10 pl-[70px]  bg-gradient-to-b  from-[#1f1f1f]   to-[#141414]">
          <p className="absolute text-2xl top-4 right-8 text-white/30 ">
-           FCFA
+           {getCurrency(data.currency)}
          </p>
-         <div className="flex flex-col mt-1 mr-[70px] ">
+       {isLoadingFirst &&  <div className="flex flex-col mt-1 mr-[70px] ">
            <p className="text-[54px] tracking-wide leading-[59px]  font-bold ">
-             {totalTransactionAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") ?? 0} 
+             { totalTransactionAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") ?? 0} 
            </p>
            <div className="flex items-center self-end justify-center gap-2">
             <MdSort className="text-teal-500/70 w-[23px] h-[23px]" />
@@ -767,16 +776,16 @@ setShowOPTModal(x=> x =true)
              Votre balance
            </p>
            </div>
-         </div>
+         </div>}
        </div>
        <div className="min-h-[140px]    relative flex-col flex rounded-xl items-center justify-center min-w-[300px] ml-8 mr-[40px] ">
-         <div className="flex flex-col mt-4">
-           <p className="self-end text-[18px] text-white/40">FCFA</p>
+        {isLoadingFirst && <div className="flex flex-col mt-4">
+           <p className="self-end text-[18px] text-white/40"> {getCurrency(data.currency)}</p>
            <p className="text-[40px] leading-[45px]   font-normal text-primary ">
              + {totalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") ?? 0}{" "}
            </p>
            <p className="self-end text-xl text-white/40">En attente</p>
-         </div>
+         </div>}
        </div>
      </div>
 
@@ -951,7 +960,7 @@ useEffect(() => {
          
          <div className="max-h-[140px]   relative flex-col flex rounded-xl  items-center justify-center min-w-[300px] px-10 pl-[70px]  bg-gradient-to-b  from-[#1f1f1f]   to-[#141414]">
            <p className="absolute text-2xl top-4 right-8 text-white/30 ">
-             FCFA
+             ----
            </p>
            <div className="flex flex-col mt-1 mr-[70px] ">
              <p className="text-[54px] tracking-wide leading-[59px]  font-bold ">
@@ -967,7 +976,7 @@ useEffect(() => {
          </div>
          <div className="min-h-[140px]    relative flex-col flex rounded-xl items-center justify-center min-w-[300px] ml-8 mr-[40px] ">
            <div className="flex flex-col mt-4">
-             <p className="self-end text-[18px] text-white/40">FCFA</p>
+             <p className="self-end text-[18px] text-white/40">----</p>
              <p className="text-[40px] leading-[45px]   font-normal text-primary ">
                + {"10000000".toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") ?? 0}{" "}
              </p>

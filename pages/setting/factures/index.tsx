@@ -15,6 +15,7 @@ import { useGlobalModal } from "../../../utils/use-global-modal";
 import { saveAs } from "file-saver";
 import {decode as base64_decode, encode as base64_encode} from 'base-64';
 import { fetchUser } from "../../../services/userService";
+import { BiCheck } from "react-icons/bi";
 
 
 
@@ -27,14 +28,14 @@ function Factures(props) {
     "email": "kris@gmail.com",
     "activity": "Commerce de Détail",
     "address": "Bamako",
-    "numbers": "[{\"id\":\"b34ea58c-f34c-4d9b-82b4-3950c8d261d2\",\"indicatif\":\"223\",\"number\":\"90909090\"}]",
+    "numbers": "[{\"id\":\"b34ea58c-f34c-4d9b-82b4-3950c8d261d2\",\"indicatif\":\"223\",\"number\":\"90909090\"},{\"id\":\"53c30284-7246-4cc1-9eaf-d6f5408360f1\",\"indicatif\":\"223\",\"number\":\"39393933\"}]",
     "currency": "223",
     "name": "Devenir pro",
-    "nif": "[{\"id\":\"48ef830a-4049-4368-9a73-ce790372992d\",\"content\":\"\"}]",
+    "nif": "[{\"id\":\"48ef830a-4049-4368-9a73-ce790372992d\",\"content\":\"NIF:121291290112\"}]",
     "statut": "Société à responsabilité limitée (SARL)",
-    "bankNumber": "",
-    "website": "",
-    "factureNumber": 15,
+    "bankNumber": "1212921921212MALI",
+    "website": "www.test.com",
+    "factureNumber": 25,
     "codeFinance": null,
     "lockFinance": null,
     "userId": "clqwpi6m5000413l5nnyefwrx",
@@ -42,48 +43,47 @@ function Factures(props) {
     "deletedAt": null,
     "inTrash": false,
     "updatedAt": "2024-01-02T18:52:23.000Z",
-    "rccm": ""
+    "rccm": "Bamako.ML400"
 }
-
-const projetFake = {
-  "id": "clqx5v7jm000110ac61et5sys",
-  "name": "Deux",
+const projetFake =  {
+  "id": "clqy5ra600017vb4w72lhpl0y",
+  "name": "Facture Test",
   "type": "ISVALIDATE",
-  "invoiceNumber": 15,
+  "invoiceNumber": 32125,
   "proformaDate": null,
-  "invoiceDate": "2024-01-03T02:31:23.000Z",
+  "invoiceDate": "2024-01-03T19:18:39.000Z",
   "discountItemTable": null,
-  "table": "[{\"id\":\"2afa2b55-78dd-4c9b-b6d0-52f3ddb9e100\",\"designation\":\"Element 1\",\"quantity\":\"10\",\"rate\":\"2000\",\"amount\":20000},{\"id\":\"9ae225a3-049e-4cca-a975-d88f2fcc1c99\",\"designation\":\"Element 2\",\"quantity\":\"2\",\"rate\":\"30000\",\"amount\":60000}]",
-  "amountTotal": "99220",
-  "tva": "10",
+  "table": "[{\"id\":\"c5765f45-af90-4296-8dfa-2ec4af470367\",\"designation\":\"Adaptation , éxécution et mise en page , badge professionnel, en PVC, Recto, Verso, impréssion en couleur avec pochette plastique, cordon- forfait\",\"quantity\":70000,\"rate\":20,\"amount\":1400000},{\"id\":\"2203fac1-d731-4fb4-8192-cfe799854b72\",\"designation\":\"Item\",\"quantity\":\"10\",\"rate\":\"30000\",\"amount\":300000},{\"id\":\"a6be2d73-e7c0-49ef-8462-982676eb73f9\",\"designation\":\"Adaptation , éxécution et mise en page , badge professionnel, en PVC, Recto, Verso, impréssion en couleur avec pochette plastique, cordon- forfait\",\"quantity\":\"50\",\"rate\":\"300\",\"amount\":15000},{\"id\":\"fe7e5f2b-9cf5-4d34-a806-9f20d4045446\",\"designation\":\"Adaptation , éxécution et mise en page , badge professionnel, en PVC, Recto, Verso, impréssion en couleur avec pochette plastique, cordon- forfait\",\"quantity\":\"677\",\"rate\":\"778\",\"amount\":526706}]",
+  "amountTotal": "2380692",
+  "tva": "18",
   "inTrash": false,
-  "createdAt": "2024-01-03T02:30:25.000Z",
-  "updatedAt": "2024-01-03T02:30:25.000Z",
+  "createdAt": "2024-01-03T19:15:08.000Z",
+  "updatedAt": "2024-01-03T19:15:08.000Z",
   "deletedAt": null,
-  "customerId": "clqwrc1n5000g13l556yfcqaq",
+  "customerId": "clqxcczzr0007vb4w90owh21s",
   "userId": "clqwpi6m5000413l5nnyefwrx",
-  "discount": "18",
+  "discount": "10",
   "invoiceType": 0,
   "modalite": "40",
-  "remarque": "Remearque",
+  "remarque": "",
   "customer": {
-      "id": "clqwrc1n5000g13l556yfcqaq",
-      "externalContact": "9422232323",
-      "externalEmail": "vibuz@mailinator.com",
-      "externalName": "Madeline Olsen",
+      "id": "clqxcczzr0007vb4w90owh21s",
+      "externalContact": "37808080",
+      "externalEmail": "zefi@mailinator.com",
+      "externalName": "Zephr Duffy",
       "activity": "Commerce de Détail",
-      "address": "Et sapiente veniam ",
-      "country": "Émirats Arabes Unis",
-      "email": "pali@mailinator.com",
+      "address": "Aut vel cum reprehen",
+      "country": "Afghanistan",
+      "email": "hegupe@mailinator.com",
       "image": "",
-      "name": "Ulla Garza",
+      "name": "Michael Randolph",
       "type": "ENTERPRISE",
       "inTrash": false,
-      "createdAt": "2024-01-02T19:43:36.000Z",
-      "updatedAt": "2024-01-02T19:43:36.000Z",
+      "createdAt": "2024-01-03T05:32:12.000Z",
+      "updatedAt": "2024-01-03T05:32:12.000Z",
       "deletedAt": null,
       "userId": "clqwpi6m5000413l5nnyefwrx",
-      "poste": "Ut eos qui rerum cil"
+      "poste": "Eiusmod consequatur "
   }
 }
 
@@ -109,7 +109,7 @@ const projetFake = {
 
 
   const updateInvoiceViewer = async () => {
-    let dd =  await  fetchPdf(currentInvoice.invoiceFileName,enterpriseFake,projetFake,1,true,primaryColor,secondaryColor)
+    let dd =  await  fetchPdf(currentInvoice.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor)
  
 setCurrentBlob(x => x = dd)
   }
@@ -216,7 +216,7 @@ setCurrentInvoice(x=> x = item)
 
 
 
-let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,true,primaryColor,secondaryColor)
+let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor)
  
 setCurrentBlob(x => x = dd)
  
@@ -233,9 +233,13 @@ setCurrentBlob(x => x = dd)
         invoicesFilter.map((item) => (
 
           <ItemFacture
-          handleClick={()=>{
+          handleClick={async ()=>{
  
 setCurrentInvoice(x=> x = item)
+let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor)
+ 
+setCurrentBlob(x => x = dd)
+ 
 
           }}
           key={item.id} item={item} />
@@ -252,6 +256,7 @@ setCurrentInvoice(x=> x = item)
         </div>
       </div>
 
+ 
       <div className="min-h-full flex flex-col bg-[#151515] min-w-[340px]">
         <div className="h-[130px] border-b-[1px] flex items-end mx-10 pb-6  border-white border-opacity-20">
           <p className="flex items-center justify-center opacity-50"> 
@@ -272,16 +277,21 @@ setCurrentInvoice(x=> x = item)
       
       {/*   <PdfBuilder color={primaryColor.toString().substring(0,7) + saturationValue} />  */}
      {/* <img className="rounded" src={`${process.env.BASE_API_URL}/images/invoices/${currentInvoice?.invoiceFileName}.jpg`} alt="" /> */}   
-     {currentBlob != null && <iframe className="rounded-md rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`} height="100%" width="100%"></iframe>}
+     {currentBlob != null && <iframe className="overflow-hidden rounded-md rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`} height="100%" width="100%"></iframe>}
           </div>
         </div>
 
         <div className="flex flex-col leading-[1.2rem] px-12 py-4 text-[15px] font-normal space-y-1  text-white text-opacity-40">
-          <p className="">
+          <p className="mb-2">
             <span className="mr-2 font-bold text-white">Modèle :</span>{" "}
             <span>{currentInvoice?.name?.toString().split(" ")[0]} {currentInvoice?.name?.split(" ")[1]?.toString().padStart(3, '0')}   </span>{" "}
           </p>
-          <div className="flex flex-col leading-[1.2rem] px-2 py-4 space-y-1  border-white border-opacity-30">
+          <p className="pt-3 border-t border-white border-opacity-30">
+            <span className="mr-2 font-bold text-white/50">Personnalisation</span>{" "}
+            
+          </p>
+           
+         {false && <div className="flex flex-col leading-[1.2rem] px-2 py-4 space-y-1  border-white border-opacity-30">
             <div className="flex items-center justify-between space-x-4">
               <span className="ml-[20px] opacity-70" >Primaire</span>
               <HuePicker
@@ -320,10 +330,19 @@ setCurrentInvoice(x=> x = item)
             
             </div>
             
-          </div>
-          <div className="flex flex-col leading-[1.2rem] px-2 py-3 space-y-1 border-t border-white border-opacity-30">
+          </div>}
+          <div className="flex flex-col leading-[1.2rem] text-xs px-0 py-3 pt-1 space-y-1 border-t-0 border-white border-opacity-30">
+      
+      <p className="">Couleur primaire</p>
+      <div className="p-4 rounded-lg bg-gradient-to-l from-white cursor-pointer to-red-500 h-[50px] "></div>
+      <p>Couleur secondaire</p>
+      <div className="p-4 rounded-lg bg-gradient-to-l from-white cursor-pointer to-yellow-500 h-[50px] "></div>
+      {/*  <input type="color" className="h-4" onChange={(e)=>{
+            setPrimaryColor(e.target.value)
+          }} />  */} 
+
         
-            <div className="flex items-center justify-between space-x-[22px] pr-4 ">
+          { false && <div className="flex items-center justify-between space-x-[22px] pr-4 ">
               <span className=" opacity-70">Saturation  </span>
               <input id="small-range" type="range" onChange={(e) =>{
                  setSaturationColor(e.target.value)
@@ -336,7 +355,7 @@ setCurrentInvoice(x=> x = item)
                } value={saturationColor} className="w-full max-w-[100px]    h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-[#515151]"/>
 
              
-            </div>
+            </div>}
             <div className="hidden">
               <span className="ml-[30px]  opacity-70" >Corps   </span>{" "}
             </div>
@@ -344,11 +363,12 @@ setCurrentInvoice(x=> x = item)
               <span>2 {JSON.stringify(secondaryColor.toString().substring(0,5) + saturationValue   )}</span>  */}
           </div>
 
-          <div className="flex justify-between gap-4 px-0 pt-8 border-t border-white border-opacity-30">
+          <div className="flex justify-between px-0 pt-4 border-t-0 border-white border-opacity-30">
+            
             <ButtonComponent
               label={"Aperçu"}
               labelClassName="text-[15px]"
-              className="  border-none text-[12px] text-center items-center justify-center bg-[#2b2b2b]   "
+              className="  border-none !min-w-[112px]    text-[12px] text-center items-center justify-center bg-[#2b2b2b]   "
             />
             <ButtonComponent
             handleClick={async ()=>{
@@ -390,7 +410,9 @@ setCurrentInvoice(x=> x = item)
                       if(data.id != null){
                         modal.onClose();
                        // setCurrentInvoice(currentInvoice)
-                       
+                    //   user.invoice.invoiceFileName == currentInvoice.invoiceFileName
+
+                       setUser(x => x = {...user,invoice:{...user.invoice,invoiceFileName:currentInvoice.invoiceFileName,primaryColor:primaryColor.toString().substring(0,7) + saturationValue,secondaryColor:secondaryColor.toString().substring(0,7) + saturationValue}})
                        setTimeout(() => {
                           alert("Modèle de facture appliqué avec succès")
                          // router.back();
@@ -403,7 +425,7 @@ setCurrentInvoice(x=> x = item)
                 // handleSubmit()
               }}
               label={"Appliquer"}
-              className="max-h-[36px] min-w-[120px] mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none  "
+              className="max-h-[36px]  mt-6 mb-4 shadow-xl shadow-black/20 bg-[#9a9768] border-none  "
             />
           );
           modal.onOpen();
@@ -415,7 +437,7 @@ setCurrentInvoice(x=> x = item)
             }}
               label={"Appliquer"}
               labelClassName="text-[15px]"
-              className="  border-none text-[12px] text-center items-center justify-center  bg-[#9a9768] "
+              className="  border-none !min-w-[112px]  text-[12px] text-center items-center justify-center  bg-[#9a9768] "
             />
           </div>
         </div>
@@ -468,39 +490,53 @@ setCurrentInvoice(x=> x = item)
       </div>
     );
   }
+
+  function ItemFacture({item,handleClick}) { 
+  
+    return (
+      <div
+      onClick={handleClick}
+      className={`relative max-h-[280px] w-[200px] h-[280px] cursor-pointer max-w-[200px] flex   rounded-md  bg-gradient-to-b from-[#ffffff13] to-[#ffffff25] gradient-opacity-10 mb-0 m-[6px]`}>
+  
+  {/* http://localhost:3001/images/invoices/facture1.jpg */}
+  
+ 
+   
+  
+  <img className="rounded-md" src={`${process.env.BASE_API_URL}/images/invoices/${item.invoiceFileName}.jpg`} alt="" />
+        <div className="absolute z-20 flex flex-row self-end justify-between w-full h-full px-4 py-2 text-sm bg-gradient-to-t from-black/70 via-black/0 to-black/0 rounded-bl-xs rounded-br-xs">
+
+        {user.invoice.invoiceFileName == item.invoiceFileName
+            && <div className="absolute bottom-6 right-5">
+
+             <div className="p-[5px] bg-teal-500 rounded-full">
+             <BiCheck className="" />
+             </div>
+            </div>
+            }
+
+          <div className="absolute flex flex-col leading-4 text-white bottom-4">
+            <h3 className="font-bold" >{item.name.toString().split(" ")[0]} {item.name.split(" ")[1]?.toString().padStart(3, '0')} </h3>
+            <h4 className="text-[12px] opacity-50">{item.category?.name ?? "Non categorisé"}</h4>
+       
+          </div>
+          {/*  <h3 className="opacity-100">1</h3> */}
+        </div>
+       
+       
+      {/*   <div className="absolute z-20 flex flex-row self-end justify-between w-full px-4 py-2 text-sm bg-black/80 rounded-bl-xs rounded-br-xs ">
+          <h3>Classique</h3>
+       
+          <h3 className="opacity-100">1</h3>
+        </div> */}
+      </div>
+    );
+  }
 }
 
 export default Factures;
 
 
 
-function ItemFacture({item,handleClick}) { 
-  
-  return (
-    <div
-    onClick={handleClick}
-    className=" relative max-h-[280px] w-[200px] h-[280px] cursor-pointer max-w-[200px] flex   rounded-md  bg-gradient-to-b from-[#ffffff13] to-[#ffffff25] gradient-opacity-10 mb-0 m-[6px]">
 
-{/* http://localhost:3001/images/invoices/facture1.jpg */}
-
- 
-
-<img className="rounded-md" src={`${process.env.BASE_API_URL}/images/invoices/${item.invoiceFileName}.jpg`} alt="" />
-      <div className="absolute z-20 flex flex-row self-end justify-between w-full h-full px-4 py-2 text-sm bg-gradient-to-t from-black/100 via-black/0 to-black/0 rounded-bl-xs rounded-br-xs">
-        <div className="absolute flex flex-col leading-4 text-white bottom-4">
-          <h3 className="font-bold" >{item.name.toString().split(" ")[0]} {item.name.split(" ")[1]?.toString().padStart(3, '0')} </h3>
-          <h4 className="text-[10px]">{item.category?.name ?? "Non categorisé"}</h4>
-        </div>
-        {/*  <h3 className="opacity-100">1</h3> */}
-      </div>
-     
-     
-    {/*   <div className="absolute z-20 flex flex-row self-end justify-between w-full px-4 py-2 text-sm bg-black/80 rounded-bl-xs rounded-br-xs ">
-        <h3>Classique</h3>
-     
-        <h3 className="opacity-100">1</h3>
-      </div> */}
-    </div>
-  );
-}
 

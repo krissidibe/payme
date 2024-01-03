@@ -582,7 +582,7 @@ const router = useRouter();
     const router = useRouter();
     return (
       <div className="    rounded-md flex flex-col items-center pt-12    min-w-[300px] max-w-[300px] bg-gradient-to-b from-[#202020] to-[#0e0e0e]    ">
-        <div className="border mb-5 relative rounded-full h-[115px] p-[1px] w-[115px] bg-gray-200 border-black">
+        <div className="border mb-5 relative rounded-full h-[115px] p-[1px] w-[115px] bg-white border-black">
         <img
             className="object-contain w-full h-full rounded-full"
             /* http://localhost:3001/images/Rectangle%2014.png */
