@@ -22,7 +22,7 @@ import { BiCheck } from "react-icons/bi";
 
 
 function Factures(props) {
-
+  const [user, setUser] = useState(null);
   const enterpriseFake ={
     "id": "clqwpi6ra000613l5nw8fv3pc",
     "email": "kris@gmail.com",
@@ -38,7 +38,7 @@ function Factures(props) {
     "factureNumber": 25,
     "codeFinance": null,
     "lockFinance": null,
-    "userId": "clqwpi6m5000413l5nnyefwrx",
+    "userId": user.id,
     "createdAt": "2024-01-02T18:52:23.000Z",
     "deletedAt": null,
     "inTrash": false,
@@ -140,7 +140,7 @@ setCurrentBlob(x => x = dd)
   
   const [typeFactures, setTypeFactures] = useState([]);
   const [invoices, setInvoices] = useState([]);
-  const [user, setUser] = useState(null);
+
   const [invoicesFilter, setInvoicesFilter] = useState([]);
   const [currentInvoice, setCurrentInvoice] = useState<any>({});
   const [currentCategory, setCurrentCategory] = useState<any>(0);
