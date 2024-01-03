@@ -38,7 +38,7 @@ function Factures(props) {
     "factureNumber": 25,
     "codeFinance": null,
     "lockFinance": null,
-    "userId": user.id,
+    "userId": user?.id,
     "createdAt": "2024-01-02T18:52:23.000Z",
     "deletedAt": null,
     "inTrash": false,
@@ -61,7 +61,7 @@ const projetFake =  {
   "updatedAt": "2024-01-03T19:15:08.000Z",
   "deletedAt": null,
   "customerId": "clqxcczzr0007vb4w90owh21s",
-  "userId": user.id,
+  "userId": user?.id,
   "discount": "10",
   "invoiceType": 0,
   "modalite": "40",
@@ -82,7 +82,7 @@ const projetFake =  {
       "createdAt": "2024-01-03T05:32:12.000Z",
       "updatedAt": "2024-01-03T05:32:12.000Z",
       "deletedAt": null,
-      "userId": "clqwpi6m5000413l5nnyefwrx",
+      "userId": user?.id,
       "poste": "Eiusmod consequatur "
   }
 }
