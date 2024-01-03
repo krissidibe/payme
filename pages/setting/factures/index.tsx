@@ -1,19 +1,120 @@
 import React, { useEffect, useState } from "react";
 import { HiFolder, HiFolderAdd } from "react-icons/hi";
 import { IoIosArrowBack, IoIosNotifications, IoIosPeople, IoMdBusiness } from "react-icons/io";
-import ReactPDF from '@react-pdf/renderer';
+import ReactPDF, { PDFViewer } from '@react-pdf/renderer';
 import { useRouter } from "next/router";
 import ButtonComponent from "../../../components/UI/ButtonComponent";
 import { HuePicker,AlphaPicker } from "react-color";
 import PdfBuilder from "../../../components/PdfDemo";
+import {pdfjs, Document,Page} from 'react-pdf'
 import { LiaFileAltSolid } from "react-icons/lia";
 import useMenuStore from "../../../utils/MenuStore";
 import InputComponent from "../../../components/UI/InputComponent";
 import { fetchAllCategories, fetchAllInvoices, updateInvoice } from "../../../services/invoiceService";
 import { useGlobalModal } from "../../../utils/use-global-modal";
+import { saveAs } from "file-saver";
+import {decode as base64_decode, encode as base64_encode} from 'base-64';
+import { fetchUser } from "../../../services/userService";
+
+
+
 
 
 function Factures(props) {
+
+  const enterpriseFake ={
+    "id": "clqwpi6ra000613l5nw8fv3pc",
+    "email": "kris@gmail.com",
+    "activity": "Commerce de Détail",
+    "address": "Bamako",
+    "numbers": "[{\"id\":\"b34ea58c-f34c-4d9b-82b4-3950c8d261d2\",\"indicatif\":\"223\",\"number\":\"90909090\"}]",
+    "currency": "223",
+    "name": "Devenir pro",
+    "nif": "[{\"id\":\"48ef830a-4049-4368-9a73-ce790372992d\",\"content\":\"\"}]",
+    "statut": "Société à responsabilité limitée (SARL)",
+    "bankNumber": "",
+    "website": "",
+    "factureNumber": 15,
+    "codeFinance": null,
+    "lockFinance": null,
+    "userId": "clqwpi6m5000413l5nnyefwrx",
+    "createdAt": "2024-01-02T18:52:23.000Z",
+    "deletedAt": null,
+    "inTrash": false,
+    "updatedAt": "2024-01-02T18:52:23.000Z",
+    "rccm": ""
+}
+
+const projetFake = {
+  "id": "clqx5v7jm000110ac61et5sys",
+  "name": "Deux",
+  "type": "ISVALIDATE",
+  "invoiceNumber": 15,
+  "proformaDate": null,
+  "invoiceDate": "2024-01-03T02:31:23.000Z",
+  "discountItemTable": null,
+  "table": "[{\"id\":\"2afa2b55-78dd-4c9b-b6d0-52f3ddb9e100\",\"designation\":\"Element 1\",\"quantity\":\"10\",\"rate\":\"2000\",\"amount\":20000},{\"id\":\"9ae225a3-049e-4cca-a975-d88f2fcc1c99\",\"designation\":\"Element 2\",\"quantity\":\"2\",\"rate\":\"30000\",\"amount\":60000}]",
+  "amountTotal": "99220",
+  "tva": "10",
+  "inTrash": false,
+  "createdAt": "2024-01-03T02:30:25.000Z",
+  "updatedAt": "2024-01-03T02:30:25.000Z",
+  "deletedAt": null,
+  "customerId": "clqwrc1n5000g13l556yfcqaq",
+  "userId": "clqwpi6m5000413l5nnyefwrx",
+  "discount": "18",
+  "invoiceType": 0,
+  "modalite": "40",
+  "remarque": "Remearque",
+  "customer": {
+      "id": "clqwrc1n5000g13l556yfcqaq",
+      "externalContact": "9422232323",
+      "externalEmail": "vibuz@mailinator.com",
+      "externalName": "Madeline Olsen",
+      "activity": "Commerce de Détail",
+      "address": "Et sapiente veniam ",
+      "country": "Émirats Arabes Unis",
+      "email": "pali@mailinator.com",
+      "image": "",
+      "name": "Ulla Garza",
+      "type": "ENTERPRISE",
+      "inTrash": false,
+      "createdAt": "2024-01-02T19:43:36.000Z",
+      "updatedAt": "2024-01-02T19:43:36.000Z",
+      "deletedAt": null,
+      "userId": "clqwpi6m5000413l5nnyefwrx",
+      "poste": "Ut eos qui rerum cil"
+  }
+}
+
+
+  async function fetchPdf(invoiceFileName,enterprise,project,invoiceType,signed,primaryColor,secondaryColor) {
+   
+    
+    
+    const request = await fetch(`${process.env.BASE_API_URL}/api/facture`,{
+      
+      method:"POST",
+      body:JSON.stringify({invoiceFileName:invoiceFileName,enterprise:enterprise,project:project,invoiceType:invoiceType,signed:signed,primaryColor,secondaryColor})
+  
+  });
+    const dataBlob = await request.blob();
+  
+    const blob = new Blob([dataBlob], { type: "application/pdf" });
+    
+    return URL.createObjectURL(blob);
+    return blob;
+  }
+  
+
+
+  const updateInvoiceViewer = async () => {
+    let dd =  await  fetchPdf(currentInvoice.invoiceFileName,enterpriseFake,projetFake,1,true,primaryColor,secondaryColor)
+ 
+setCurrentBlob(x => x = dd)
+  }
+
+
   const router = useRouter()
   const modal = useGlobalModal();
   const menuIndex = useMenuStore()
@@ -39,16 +140,20 @@ function Factures(props) {
   
   const [typeFactures, setTypeFactures] = useState([]);
   const [invoices, setInvoices] = useState([]);
+  const [user, setUser] = useState(null);
   const [invoicesFilter, setInvoicesFilter] = useState([]);
   const [currentInvoice, setCurrentInvoice] = useState<any>({});
   const [currentCategory, setCurrentCategory] = useState<any>(0);
-
+  
+  const [currentBlob, setCurrentBlob] = useState<any>(null);
 
   const fetchTypeFactures = async () => {
   const data = await fetchAllCategories();
   const dataInvoice = await fetchAllInvoices();
+  const dataUser = await fetchUser()
   setTypeFactures(data)
   setInvoices(dataInvoice)
+  setUser(dataUser)
   }
 
 
@@ -61,8 +166,8 @@ function Factures(props) {
   const [saturationColor, setSaturationColor] = useState("100");
   const [saturationValue, setSaturationValue] = useState("FF");
 
-  const [primaryColor, setPrimaryColor] = useState(`#ff60FF`);
-  const [secondaryColor, setSecondaryColor] = useState(`#F8FF6A`);
+  const [primaryColor, setPrimaryColor] = useState(``);
+  const [secondaryColor, setSecondaryColor] = useState(``);
   return (
     <div className="flex w-full h-full min-h-screen select-none ">
       <div className="flex flex-col w-full h-full ">
@@ -105,9 +210,21 @@ onClick={()=>{
           {invoicesFilter.length == 0 ? invoices.map((item) => (
 
           <ItemFacture
-          handleClick={()=>{
+          handleClick={ async ()=>{
  
 setCurrentInvoice(x=> x = item)
+
+
+
+let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,true,primaryColor,secondaryColor)
+ 
+setCurrentBlob(x => x = dd)
+ 
+ 
+//await  saveAs(dd, `page`); 
+
+ 
+
 
           }}
           key={item.id} item={item} />
@@ -143,11 +260,18 @@ setCurrentInvoice(x=> x = item)
         </div>
 
         <div className="flex justify-center w-full mt-10">
-          <div className=" rpv-print__body-printing  print__zone  min-h-[324px] cursor-pointer min-w-[244px] w-[244px] flex 0   bg-gradient-to-b from-[#ffffff] to-[#ffffff] gradient-opacity-10 m-[6px]">
-      
+          <div className=" rpv-print__body-printing  print__zone  min-h-[343px] rounded-md cursor-pointer min-w-[244px] w-[244px] flex 0   bg-gradient-to-b from-[#ffffff] to-[#ffffff] gradient-opacity-10 m-[6px]">
+        
+     {/*  <Document file={`${process.env.BASE_API_URL}/images/test.pdf`} >
+
+      </Document> */}
+   {/*  <p className="text-black">
+    {JSON.stringify(base64_encode(currentBlob))}
+    </p> */}
       
       {/*   <PdfBuilder color={primaryColor.toString().substring(0,7) + saturationValue} />  */}
-          <img className="rounded" src={`${process.env.BASE_API_URL}/images/invoices/${currentInvoice?.invoiceFileName}.jpg`} alt="" /> 
+     {/* <img className="rounded" src={`${process.env.BASE_API_URL}/images/invoices/${currentInvoice?.invoiceFileName}.jpg`} alt="" /> */}   
+     <iframe className="rounded-md rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`} height="100%" width="100%"></iframe>
           </div>
         </div>
 
@@ -161,8 +285,19 @@ setCurrentInvoice(x=> x = item)
               <span className="ml-[20px] opacity-70" >Primaire</span>
               <HuePicker
                 color={primaryColor}
+             
+
+                
+                onChangeComplete={()=>{
+                  setTimeout(() => {
+                    
+                    updateInvoiceViewer();
+                  }, 2000);
+                }}
+           
                 onChange={(color) => {
                   setPrimaryColor(color.hex+saturationValue);
+               
                 }}
                 className="flex-1 max-w-[135px] scale-75"
               />{" "}
@@ -248,11 +383,20 @@ setCurrentInvoice(x=> x = item)
                 
                       const data =     await updateInvoice(invoiceInfo);
                 
+                      console.log("data");
                       console.log(data);
                       
                       if(data.id != null){
                         modal.onClose();
-                        router.back();
+                       // setCurrentInvoice(currentInvoice)
+                       
+                       setTimeout(() => {
+                          alert("Modèle de facture appliqué avec succès")
+                         // router.back();
+                         // router.back();
+                          
+  
+                        },2000)
                        }
                 
                 // handleSubmit()
@@ -329,7 +473,7 @@ export default Factures;
 
 
 
-function ItemFacture({item,handleClick}:{item:any,handleClick: ()  =>void}) { 
+function ItemFacture({item,handleClick}) { 
   
   return (
     <div
