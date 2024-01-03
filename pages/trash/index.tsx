@@ -57,6 +57,7 @@ assignment_turned_in_rounded
 */
 const modal = useGlobalModal()
   const [isLoading, setIsLoading] = useState(true);
+  const [sortType, setSortType] = useState(0);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [projets, setProjets] = useState<Project[]>([]);
   const [datas, setDatas] = useState<any[]>([]);
@@ -95,6 +96,7 @@ const modal = useGlobalModal()
     <div className="flex flex-col w-full h-full no-scrollbar">
       {SearchElement()}
 
+ 
       <div className="flex-1 overflow-scroll no-scrollbar">
         <div className="flex flex-col flex-1 h-full ml-4 mr-8 space-y-4 p-12 pt-[22px] ">
           <div className="flex p-2 mt-0 mb-2 pb-2  text-[14px]   px-1 2xl:ml-14 ml-10  mr-20 border-b border-white/10 ">
@@ -128,9 +130,27 @@ const modal = useGlobalModal()
            {isLoading && [1,2,3,4,5,6,7].map((item) => (
               <ItemTrashShimmer key={item} item={item} />
             ))}   
-              {!isLoading && datasFiltered.map((item) => (
+         {/*      {!isLoading && datasFiltered.map((item) => (
               <ItemTrash key={item.id} item={item} />
-            ))}   
+            ))}    */}
+          
+
+{(!isLoading && sortType == 0) && datasFiltered.map((item)=>(
+     
+
+ {...item,date: new Date(item.deletedAt)}
+    )).sort((a,b)=>  Number(b.date) - Number(a.date) ).map((itemData,index)=>(
+      <ItemTrash key={itemData.id} item={itemData} />
+          ))   }
+{(!isLoading && sortType == 1) && datasFiltered.map((item)=>(
+     
+
+ {...item,date: new Date(item.deletedAt)}
+    )).sort((a,b)=>  Number(b.date) - Number(a.date) ).map((itemData,index)=>(
+      <ItemTrash key={itemData.id} item={itemData} />
+          )).reverse()   }
+
+
               <h3 className="flex w-full pr-10 text-[14px] pb-2 pt-4 pl-12 text-white/20">
             Les éléments placés dans la corbeille sont définitivement supprimés
             au bout de 30 jours.
@@ -194,6 +214,7 @@ const modal = useGlobalModal()
                 <div
                   onClick={() => {
                     // setTypeValue("ENTERPRISE");
+                    setSortType(x=>x=0)
                   }}
                   className={`  px-2  py-2 flex  justify-start pl-4  items-center gap-2   text-[17px] cursor-pointer mx-2 ${
                     active
@@ -214,7 +235,7 @@ const modal = useGlobalModal()
               {({ active }) => (
                 <div
                   onClick={() => {
-                    // setTypeValue("PERSONAL");
+                    setSortType(x=>x=1)
                   }}
                   className={`  px-2  py-2 flex  justify-start pl-4  items-center gap-2   text-[17px] cursor-pointer mx-2 ${
                     active
@@ -357,6 +378,8 @@ const modal = useGlobalModal()
                     
                     setDatasFiltered((current) =>
                     current.filter((itemData) => itemData.id != item.id))
+                    setDatas((current) =>
+                    current.filter((itemData) => itemData.id != item.id))
  
 
                 
@@ -392,6 +415,8 @@ const modal = useGlobalModal()
                     //setCustomers([]);
                     //setProjets([]);
                     setDatasFiltered((current) =>
+                    current.filter((itemData) => itemData.id != item.id))
+                    setDatas((current) =>
                     current.filter((itemData) => itemData.id != item.id))
                     if (item.customer?.name) {
                       await deletProjectInTrash(item.id);

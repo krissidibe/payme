@@ -259,6 +259,7 @@ setCurrentInvoice(x=> x = item)
           Aperçu Fichier</p>
         </div>
 
+ 
         <div className="flex justify-center w-full mt-10">
           <div className=" rpv-print__body-printing  print__zone  min-h-[343px] rounded-md cursor-pointer min-w-[244px] w-[244px] flex 0   bg-gradient-to-b from-[#ffffff] to-[#ffffff] gradient-opacity-10 m-[6px]">
         
@@ -271,7 +272,7 @@ setCurrentInvoice(x=> x = item)
       
       {/*   <PdfBuilder color={primaryColor.toString().substring(0,7) + saturationValue} />  */}
      {/* <img className="rounded" src={`${process.env.BASE_API_URL}/images/invoices/${currentInvoice?.invoiceFileName}.jpg`} alt="" /> */}   
-     <iframe className="rounded-md rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`} height="100%" width="100%"></iframe>
+     {currentBlob != null && <iframe className="rounded-md rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`} height="100%" width="100%"></iframe>}
           </div>
         </div>
 
