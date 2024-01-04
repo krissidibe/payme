@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { HiFolder, HiFolderAdd } from "react-icons/hi";
 import { IoIosArrowBack, IoIosNotifications, IoIosPeople, IoMdBusiness } from "react-icons/io";
 import ReactPDF, { PDFViewer } from '@react-pdf/renderer';
@@ -24,7 +24,7 @@ import { BiCheck } from "react-icons/bi";
 function Factures(props) {
   const [user, setUser] = useState(null);
   const enterpriseFake ={
-    "id": "clqwpi6ra000613l5nw8fv3pc",
+    "id":user?.enterprise?.id,
     "email": "kris@gmail.com",
     "activity": "Commerce de Détail",
     "address": "Bamako",
@@ -139,20 +139,44 @@ setCurrentBlob(x => x = dd)
  
   
   const [typeFactures, setTypeFactures] = useState([]);
+  const [invoicesAll, setInvoicesAll] = useState([]);
   const [invoices, setInvoices] = useState([]);
+  const [scrollTop, setScrollTop] = useState(0);
 
+  const handleScroll = event => {
+    const bottom = event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight;
+   
+     
+    setScrollTop(event.currentTarget.scrollTop);
+    if(bottom){
+      setSliceValue(x => x = sliceValue + 20);
+      setInvoices(x=> x = invoicesAll.slice(0, sliceValue))
+    }
+   // setSliceValue(x => x = sliceValue + 5)
+  };
   const [invoicesFilter, setInvoicesFilter] = useState([]);
+  const [sliceValue, setSliceValue] = useState(50);
   const [currentInvoice, setCurrentInvoice] = useState<any>({});
   const [currentCategory, setCurrentCategory] = useState<any>(0);
   
   const [currentBlob, setCurrentBlob] = useState<any>(null);
 
+  const shuffle = (array: string[]) => { 
+    for (let i = array.length - 1; i > 0; i--) { 
+      const j = Math.floor(Math.random() * (i + 1)); 
+      [array[i], array[j]] = [array[j], array[i]]; 
+    } 
+    return array; 
+  }; 
   const fetchTypeFactures = async () => {
   const data = await fetchAllCategories();
   const dataInvoice = await fetchAllInvoices();
   const dataUser = await fetchUser()
   setTypeFactures(data)
-  setInvoices(dataInvoice)
+
+  setInvoicesAll(shuffle(dataInvoice))
+  
+  setInvoices(shuffle(dataInvoice).slice(0, sliceValue))
   setUser(dataUser)
   }
 
@@ -165,6 +189,8 @@ setCurrentBlob(x => x = dd)
   
   const [saturationColor, setSaturationColor] = useState("100");
   const [saturationValue, setSaturationValue] = useState("FF");
+
+  const primaryColorRef = useRef<any>(null)
 
   const [primaryColor, setPrimaryColor] = useState(``);
   const [secondaryColor, setSecondaryColor] = useState(``);
@@ -206,7 +232,11 @@ onClick={()=>{
           ))}
         </div>
 
-        <div className="flex flex-wrap w-full px-8 ml-6 overflow-scroll no-scrollbar md:items-start">
+        <div 
+          onScroll={handleScroll}
+        className="flex flex-wrap w-full px-8 ml-6 overflow-scroll no-scrollbar md:items-start">
+ 
+
           {invoicesFilter.length == 0 ? invoices.map((item) => (
 
           <ItemFacture
@@ -264,7 +294,7 @@ setCurrentBlob(x => x = dd)
           Aperçu Fichier</p>
         </div>
 
- 
+      
         <div className="flex justify-center w-full mt-10">
           <div className=" rpv-print__body-printing  print__zone  min-h-[343px] rounded-md cursor-pointer min-w-[244px] w-[244px] flex 0   bg-gradient-to-b from-[#ffffff] to-[#ffffff] gradient-opacity-10 m-[6px]">
         
@@ -274,13 +304,19 @@ setCurrentBlob(x => x = dd)
    {/*  <p className="text-black">
     {JSON.stringify(base64_encode(currentBlob))}
     </p> */}
+
+  
       
       {/*   <PdfBuilder color={primaryColor.toString().substring(0,7) + saturationValue} />  */}
      {/* <img className="rounded" src={`${process.env.BASE_API_URL}/images/invoices/${currentInvoice?.invoiceFileName}.jpg`} alt="" /> */}   
      {currentBlob != null && <iframe className="overflow-hidden rounded-md rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`} height="100%" width="100%"></iframe>}
           </div>
         </div>
-
+       {/*  <button className="" onClick={()=>{
+        setSliceValue(x => x = sliceValue + 1);
+          setInvoices(x=> x = invoicesAll.slice(0, sliceValue))
+        }} >Add 5</button> */}
+         
         <div className="flex flex-col leading-[1.2rem] px-12 py-4 text-[15px] font-normal space-y-1  text-white text-opacity-40">
           <p className="mb-2">
             <span className="mr-2 font-bold text-white">Modèle :</span>{" "}
@@ -333,14 +369,34 @@ setCurrentBlob(x => x = dd)
           </div>}
           <div className="flex flex-col leading-[1.2rem] text-xs px-0 py-3 pt-1 space-y-1 border-t-0 border-white border-opacity-30">
       
-      <p className="">Couleur primaire</p>
-      <div className="p-4 rounded-lg bg-gradient-to-l from-white cursor-pointer to-red-500 h-[50px] "></div>
+      <div className="relative flex flex-col">
+      <p className={`text-[$primaryColor] `}>Couleur primaire</p>
+      
+      
+      <div
+      onClick={()=>{
+        primaryColorRef.current.click()
+      }}
+      className={` cursor-pointer p-4 rounded-lg bg-gradient-to-l from-white  to-${primaryColor} h-[50px] `}
+      style={{backgroundColor: primaryColor}}
+      ></div>
+       <input ref={primaryColorRef}
+       
+       
+       
+       type="color" className={`${primaryColorRef ? "" : "hidden"} cursor-pointer absolute bottom-0 opacity-0 max-h-4`} onChange={(e)=>{
+            setPrimaryColor(e.target.value)
+            updateInvoiceViewer();
+          /*   setTimeout(() => {
+          
+            }, 2000); */
+          }} />   
+
+      </div>
+     
       <p>Couleur secondaire</p>
       <div className="p-4 rounded-lg bg-gradient-to-l from-white cursor-pointer to-yellow-500 h-[50px] "></div>
-      {/*  <input type="color" className="h-4" onChange={(e)=>{
-            setPrimaryColor(e.target.value)
-          }} />  */} 
-
+    
         
           { false && <div className="flex items-center justify-between space-x-[22px] pr-4 ">
               <span className=" opacity-70">Saturation  </span>

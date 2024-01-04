@@ -26,6 +26,7 @@ interface TravelDetailsViewProps {
 function Finances(props) {
 
   const [modalView, setModalView] = useState(false);
+  const [showAmount, setShowAmount] = useState(false);
   const [modalViewContent, setModalViewContent] = useState("");
 
   useEffect(() => {
@@ -33,6 +34,7 @@ function Finances(props) {
       
      setTimeout(() => {
        setModalView(x=> x = false)
+      
      }, 4000);
     }
    
@@ -98,7 +100,7 @@ useEffect(()=>{
     setCheckedFinance(dataUser.lockCode);
     
 
-
+    setShowAmount(x=> x = true)
 
 
   if(dataUser.lockCode){
@@ -766,7 +768,8 @@ setShowOPTModal(x=> x =true)
          <p className="absolute text-2xl top-4 right-8 text-white/30 ">
            {getCurrency(data.currency)}
          </p>
-       {isLoadingFirst &&  <div className="flex flex-col mt-1 mr-[70px] ">
+        
+       {showAmount &&  <div className="flex flex-col mt-1 mr-[70px] ">
            <p className="text-[54px] tracking-wide leading-[59px]  font-bold ">
              { totalTransactionAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") ?? 0} 
            </p>
@@ -779,7 +782,7 @@ setShowOPTModal(x=> x =true)
          </div>}
        </div>
        <div className="min-h-[140px]    relative flex-col flex rounded-xl items-center justify-center min-w-[300px] ml-8 mr-[40px] ">
-        {isLoadingFirst && <div className="flex flex-col mt-4">
+        {showAmount && <div className="flex flex-col mt-4">
            <p className="self-end text-[18px] text-white/40"> {getCurrency(data.currency)}</p>
            <p className="text-[40px] leading-[45px]   font-normal text-primary ">
              + {totalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") ?? 0}{" "}
