@@ -101,26 +101,27 @@ function Client(props) {
         {indexView == 1 ? (
           <div className="flex w-auto min-h-[40px] text-[15px] pb-1 mt-3   mr-[130px] items-end  text-[#ffffff6f]  border-b border-white border-opacity-10 ml-[103px] no-scrollbar ">
             <div className=" text-sm  lg:w-[360px] w-[150px]">CLIENT</div>
-            <div className="flex-1 w-auto text-sm ">SECTEUR</div>
-            <div className=" text-sm  w-[350px]">ADRESSE</div>
+            <div className="  w-[350px]  text-sm ">SECTEUR</div>
+            <div className="flex-1 text-sm ">ADRESSE</div>
           </div>
         ) : null}
 
         <div className={` ${indexView == 0 ? "flex flex-row  px-8 ml-10    justify-start overflow-scroll md:items-start  mt-4 " : "flex-col  px-8  mr-[115px] ml-16  overflow-x-scroll"} flex-wrap   w-auto no-scrollbar `}>
-    
+     
         {      !isLoading && customersFiltered!.length ==0 && 
 
 
- 
+
 <div className="flex flex-col items-center justify-center w-full m-auto  opacity-30 h-[570px] mr-[65px]">
-<p className="mb-2 font-bold opacity-90 text-md" >Aucun {searchValue.length == 0 ? "résultat" : "résultat"} </p>
+  {customersFiltered.length == 0 && searchValue.length == 0  && <p className="mb-2 font-bold opacity-90 text-md" >Aucun contenu </p>}
+{searchValue.length != 0  && <p className="mb-2 font-bold opacity-90 text-md" >Aucun {searchValue.length == 0 ? "résultat" : "résultat"} </p>}
 { searchValue.length == 0 && 
 <>
  
 
-<p className="text-sm opacity-70 font-light leading-[17px]">Ce fichier clients ne contient aucun dossier,</p>
+<p className="text-sm opacity-70 font-light leading-[17px]">Ce fichier ne contient aucun client,</p>
    <p className="text-sm opacity-70 font-light leading-[17px]">veuillez cliquer sur le bouton "Ajouter"</p>
-   <p className="text-sm opacity-70 font-light leading-[17px]">pour en créer une</p>
+   <p className="text-sm opacity-70 font-light leading-[17px]">pour en créer un</p>
 </>
 
 }
@@ -311,8 +312,8 @@ function ItemGestion({ item, indexType,handleClick=()=>{} }) {
         </div>
         
         </div>
-      <div className="flex flex-1 w-auto mb-1 "> <div className={`w-auto p-3 text-white rounded-full items-center text-center ${primaries[Math.floor(Math.random()*primaries.length)]} flex justify-center text-opacity-100 py-[2px] text-[12px]`}>{item.activity}</div> </div>
-      <div className=" w-[350px] line-clamp-1 mb-1">{item.address}</div>
+      <div className="flex  w-[350px]  mb-1 "> <div className={`w-auto p-3 text-white rounded-full items-center text-center ${primaries[Math.floor(Math.random()*primaries.length)]} flex justify-center text-opacity-100 py-[2px] text-[12px]`}>{item.activity}</div> </div>
+      <div className="flex-1 mb-1 line-clamp-1">{item.address}</div>
     </div>
   );
 }

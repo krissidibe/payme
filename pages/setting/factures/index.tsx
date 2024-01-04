@@ -24,7 +24,7 @@ import { BiCheck } from "react-icons/bi";
 function Factures(props) {
   const [user, setUser] = useState(null);
   const enterpriseFake ={
-    "id":user?.enterprise?.id,
+    "id":user?.enterprise.id,
     "email": "kris@gmail.com",
     "activity": "Commerce de Détail",
     "address": "Bamako",
@@ -309,7 +309,7 @@ setCurrentBlob(x => x = dd)
       
       {/*   <PdfBuilder color={primaryColor.toString().substring(0,7) + saturationValue} />  */}
      {/* <img className="rounded" src={`${process.env.BASE_API_URL}/images/invoices/${currentInvoice?.invoiceFileName}.jpg`} alt="" /> */}   
-     {currentBlob != null && <iframe className="overflow-hidden rounded-md rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`} height="100%" width="100%"></iframe>}
+     {currentBlob != null && <iframe className="w-full h-full overflow-hidden rounded-md rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`} height="100%" width="100%"></iframe>}
           </div>
         </div>
        {/*  <button className="" onClick={()=>{

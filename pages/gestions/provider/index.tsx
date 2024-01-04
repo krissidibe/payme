@@ -106,7 +106,8 @@ function Provider(props) {
 
  
 <div className="flex flex-col items-center justify-center w-full m-auto  opacity-30 h-[570px] mr-[65px]">
-<p className="mb-2 font-bold opacity-90 text-md" >Aucun {searchValue.length == 0 ? "résultat" : "résultat"}</p>
+{customersFiltered.length == 0 && searchValue.length == 0  && <p className="mb-2 font-bold opacity-90 text-md" >Aucun contenu </p>}
+{searchValue.length != 0  && <p className="mb-2 font-bold opacity-90 text-md" >Aucun {searchValue.length == 0 ? "résultat" : "résultat"} </p>} 
 { searchValue.length == 0 && 
 <>
  

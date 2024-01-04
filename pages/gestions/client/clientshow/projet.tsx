@@ -10,7 +10,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useRouter } from "next/router";
 import useMenuStore from "../../../../utils/MenuStore";
 import { daysFr } from "../../../../utils/helpers";
-import { addNewProject, fetchAllCustomerProject, fetchOneCustomerProject, finishProject, intrashProject, saveInvoice,   updateInvoiceDate,   updateNameProject, updateProformaDate, validateProforma } from "../../../../services/projectService";
+import { addNewProject, fetchAllCustomerProject, fetchOneCustomerProject, finishProject, intrashProject, saveInvoice,   saveInvoiceCopy,   updateInvoiceDate,   updateNameProject, updateProformaDate, validateProforma } from "../../../../services/projectService";
 import { useGlobalModal } from "../../../../utils/use-global-modal";
 import { Menu } from "@headlessui/react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
@@ -277,10 +277,16 @@ const modal = useGlobalModal()
           className={`  "flex-row flex   px-9  mr-40 ml-2 pt-12 flex-row    w-full  overflow-x-scroll   flex-1    no-scrollbar `}
         >
         
-          <ItemFacture key={1}  handleClick={()=>{setFactureType(0)}}  index={0} factureType={factureType} indexType={1} label="Proforma" />
+          <ItemFacture key={1}  handleClick={()=>{setFactureType(0),
+          setSigned(x=> x=false)
+          }}  index={0} factureType={factureType} indexType={1} label="Proforma" />
       
-      { project?.type !="INPROGRESS" &&     <ItemFacture key={2}  handleClick={()=>{setFactureType(1)}}  index={1} factureType={factureType} indexType={1} label="Facture" /> }
-      { project?.type !="INPROGRESS" &&     <ItemFacture key={3}  handleClick={()=>{setFactureType(2)}}  index={2} factureType={factureType} indexType={1} label="Bordereau de livraison" />
+      { project?.type !="INPROGRESS" &&     <ItemFacture key={2}  handleClick={()=>{setFactureType(1),
+      setSigned(x=> x=false)
+      }}  index={1} factureType={factureType} indexType={1} label="Facture" /> }
+      { project?.type !="INPROGRESS" &&     <ItemFacture key={3}  handleClick={()=>{setFactureType(2),
+    setSigned(x=> x=false)  
+    }}  index={2} factureType={factureType} indexType={1} label="Bordereau de livraison" />
        }
       
         </div>}
@@ -615,7 +621,7 @@ const dataUser = await fetchUser()
        //setShowSuccesCopy(x=> x= false)
        //setLoadingTime(x=> x= false)
       }}
-      className="absolute inset-0 z-10 flex items-center justify-center w-screen py-[70px] bg-black/50">
+      className="absolute inset-0 z-10 right-0 flex items-center justify-center w-full py-[70px] bg-black/50">
       <div 
       onClick={(e) => {
        e.stopPropagation()
@@ -720,7 +726,7 @@ const dataUser = await fetchUser()
     
    
     const dataProjectCopy = await addNewProject(item.id,project.name) 
-    const dataUpdate = await saveInvoice(dataProjectCopy.id, {
+    const dataUpdate = await saveInvoiceCopy(dataProjectCopy.id, {
       table: project.table,
       tva: project.tva,
       discount: project.discount,

@@ -166,6 +166,38 @@ export const addNewProject = async (
 
 
 
+export const saveInvoiceCopy = async (
+ 
+  projectId: string,
+  bodyData
+) => {
+   
+  const request = await fetch(
+    `${
+      process.env.BASE_API_URL
+    }/api/protected/project?userId=${window.localStorage.getItem(
+      "userId"
+    )}&projectId=${projectId}`,
+    {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: window.localStorage.getItem("accessToken"),
+      },
+      method: "PATCH",
+      body: JSON.stringify(bodyData),
+    }
+  );
+
+  const datas: Project = await request.json();
+  console.log(datas);
+
+  console.log(request);
+  if (!request.ok) {
+    return null;
+  }
+
+  return datas;
+};
 
 
 
@@ -181,7 +213,7 @@ export const saveInvoice = async (
       process.env.BASE_API_URL
     }/api/protected/project?userId=${window.localStorage.getItem(
       "userId"
-    )}&projectId=${projectId}`,
+    )}&projectId=${projectId}&save=save`,
     {
       headers: {
         "Content-type": "application/json",

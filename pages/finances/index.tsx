@@ -144,7 +144,7 @@ setShowOPTModal(x=> x =true)
     return () => {};
   }, []);
 
-  const [activeDate, setActiveDate] = useState("2023");
+  const [activeDate, setActiveDate] = useState(new Date().getFullYear().toString());
   
   useEffect(() => {
      
@@ -765,9 +765,9 @@ setShowOPTModal(x=> x =true)
      <div className="flex self-end ">
        
        <div className="max-h-[140px]   relative flex-col flex rounded-xl  items-center justify-center min-w-[300px] px-10 pl-[70px]  bg-gradient-to-b  from-[#1f1f1f]   to-[#141414]">
-         <p className="absolute text-2xl top-4 right-8 text-white/30 ">
+       {   showAmount && <p className="absolute text-2xl top-4 right-8 text-white/30 ">
            {getCurrency(data.currency)}
-         </p>
+         </p>}
         
        {showAmount &&  <div className="flex flex-col mt-1 mr-[70px] ">
            <p className="text-[54px] tracking-wide leading-[59px]  font-bold ">
@@ -800,14 +800,14 @@ setShowOPTModal(x=> x =true)
            </p>
           <div className="flex gap-2">
           <div onClick={()=>{
-            setActiveDate(x => x= "2023")
-          }}  className={`cursor-pointer text-[12px] flex justify-center items-center h-[22px] w-[52px] rounded-full ${activeDate == "2023" ? "bg-[#606060]" : "bg-[#444444]"} text-white/60 `}>
-             2023
-           </div>
-          <div onClick={()=>{
             setActiveDate(x => x= "2024")
           }}  className={`cursor-pointer text-[12px] flex justify-center items-center h-[22px] w-[52px] rounded-full ${activeDate == "2024" ? "bg-[#606060]" : "bg-[#444444]"} text-white/60 `}>
              2024
+           </div>
+          <div onClick={()=>{
+            setActiveDate(x => x= "2025")
+          }}  className={`cursor-pointer text-[12px] flex justify-center items-center h-[22px] w-[52px] rounded-full ${activeDate == "2025" ? "bg-[#606060]" : "bg-[#444444]"} text-white/60 `}>
+             2025
            </div>
            
           </div>
