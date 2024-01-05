@@ -313,7 +313,7 @@ setCurrentBlob(x => x = dd)
       
         <div className="flex justify-center w-full mt-10 no-scrollbar ">
 
-        {currentBlob != null && <embed    className="overflow-hidden rounded-none no-scrollbar" type="application/pdf"  width={"244px"} height={"343px"} src={`${currentBlob}#toolbar=0`}  ></embed>}
+        {currentBlob != null && <embed    className="overflow-hidden top-[110px] rounded-none no-scrollbar" type="application/pdf"  width={"244px"} height={"320px"} src={`${currentBlob}#toolbar=0`}  ></embed>}
          
         </div>
        {/*  <button className="" onClick={()=>{
