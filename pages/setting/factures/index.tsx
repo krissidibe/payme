@@ -582,17 +582,7 @@ setCurrentBlob(x => x = dd)
           }}
           className="absolute inset-0 z-50 flex items-center justify-center transition "
         ></div>
-        <div className=" bg-[#1E1E1E]  no-scrollbar   absolute z-50 font-light   text-base pr-14 h-[690px] w-[488px] justify-center  flex flex-col  text-white rounded">
-      {/*   <IoMdClose
-            onClick={() => {
-              setModalView(false);
-            }}
-            className="w-[20px] absolute top-4 right-5 h-[20px] opacity-60 mr-0   cursor-pointer self-end"
-          />   */}
-   
-
-  {currentBlob != null && <object    className="h-full no-scrollbar overflow-hidden rounded-none  w-[488px]  " type="application/pdf" width={6000} height={1700} data={`${currentBlob}#toolbar=0`}  ></object>}
-        </div>
+           {currentBlob != null && <embed    className="overflow-hidden rounded-none no-scrollbar" type="application/pdf" width={596} height={842} src={`${currentBlob}#toolbar=0`}  ></embed>}
         
       </div>
     );
