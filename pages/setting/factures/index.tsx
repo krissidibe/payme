@@ -325,7 +325,7 @@ setCurrentBlob(x => x = dd)
       
       {/*   <PdfBuilder color={primaryColor.toString().substring(0,7) + saturationValue} />  */}
      {/* <img className="rounded" src={`${process.env.BASE_API_URL}/images/invoices/${currentInvoice?.invoiceFileName}.jpg`} alt="" /> */}   
-     {currentBlob != null && <iframe className="w-[244px] h-[343px] no-scrollbar overflow-hidden rounded-md no-scrollbar rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`}  ></iframe>}
+     {currentBlob != null && <embed className="overflow-hidden rounded-md no-scrollbar rpv-print__body-printing print__zone"  width={"244px"} height={"343px"} src={`${currentBlob}#toolbar=0`}  ></embed>}
           </div>
         </div>
        {/*  <button className="" onClick={()=>{
