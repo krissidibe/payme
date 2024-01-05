@@ -589,7 +589,7 @@ setCurrentBlob(x => x = dd)
             }}
             className="w-[20px] absolute top-4 right-5 h-[20px] opacity-60 mr-0   cursor-pointer self-end"
           />   */}
-  
+   
 
   {currentBlob != null && <object    className="h-full no-scrollbar overflow-hidden rounded-none  w-[488px]  " type="application/pdf" width={6000} height={1700} data={`${currentBlob}#toolbar=0`}  ></object>}
         </div>
