@@ -312,21 +312,9 @@ setCurrentBlob(x => x = dd)
 
       
         <div className="flex justify-center w-full mt-10 no-scrollbar ">
-          <div className=" rpv-print__body-printing  print__zone  min-h-[343px] rounded-md cursor-pointer min-w-[244px] w-[244px] flex 0   bg-gradient-to-b from-[#ffffff] no-scrollbar  to-[#ffffff] gradient-opacity-10 m-[6px]">
-        
-     {/*  <Document file={`${process.env.BASE_API_URL}/images/test.pdf`} >
 
-      </Document> */}
-   {/*  <p className="text-black">
-    {JSON.stringify(base64_encode(currentBlob))}
-    </p> */}
-
-  
-      
-      {/*   <PdfBuilder color={primaryColor.toString().substring(0,7) + saturationValue} />  */}
-     {/* <img className="rounded" src={`${process.env.BASE_API_URL}/images/invoices/${currentInvoice?.invoiceFileName}.jpg`} alt="" /> */}   
-     {currentBlob != null && <embed className="overflow-hidden rounded-md no-scrollbar rpv-print__body-printing print__zone"  width={"244px"} height={"343px"} src={`${currentBlob}#toolbar=0`}  ></embed>}
-          </div>
+        {currentBlob != null && <embed    className="overflow-hidden rounded-none no-scrollbar" type="application/pdf"  width={"244px"} height={"343px"} src={`${currentBlob}#toolbar=0`}  ></embed>}
+         
         </div>
        {/*  <button className="" onClick={()=>{
         setSliceValue(x => x = sliceValue + 1);
