@@ -582,7 +582,7 @@ setCurrentBlob(x => x = dd)
           }}
           className="absolute inset-0 z-50 flex items-center justify-center transition "
         ></div>
-        <div className=" bg-[#1E1E1E]  no-scrollbar   absolute z-50 font-light   text-base pr-14 h-[690px] w-[488px] justify-center  flex flex-col  text-white rounded-xl">
+        <div className=" bg-[#1E1E1E]  no-scrollbar   absolute z-50 font-light   text-base pr-14 h-[690px] w-[488px] justify-center  flex flex-col  text-white rounded">
       {/*   <IoMdClose
             onClick={() => {
               setModalView(false);
@@ -591,7 +591,7 @@ setCurrentBlob(x => x = dd)
           />   */}
   
 
-  {currentBlob != null && <iframe  frameBorder={0} className=" h-full no-scrollbar overflow-hidden rounded-none  w-[488px] rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`}  ></iframe>}
+  {currentBlob != null && <object    className="h-full no-scrollbar overflow-hidden rounded-none  w-[488px]  " type="application/pdf" width={6000} height={1700} data={`${currentBlob}#toolbar=0`}  ></object>}
         </div>
         
       </div>
