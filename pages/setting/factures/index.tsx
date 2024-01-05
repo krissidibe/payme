@@ -234,7 +234,7 @@ onClick={()=>{
 
         <div 
           onScroll={handleScroll}
-        className="flex flex-wrap w-full px-8 ml-6 overflow-scroll no-scrollbar md:items-start">
+        className="flex flex-wrap w-full px-8 ml-6 overflow-scroll gap-y-2 no-scrollbar md:items-start">
  
 
           {invoicesFilter.length == 0 ? invoices.map((item) => (

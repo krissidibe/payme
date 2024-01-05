@@ -108,28 +108,30 @@ console.log("datasFilter");
  
 
  }
-  const [data, setData] = useState<any>({
+  const [dataDate, setDataDate] = useState<any>({
   
     proformaDate:null,
     invoiceDate:null,
    
   });
   const handleChange = async (e) => {
-     
+
+    
     await updateProformaDate(project.id,e.target.value)
     const { name, value } = e.target;
-    setData((prevState) => ({
+    project.proformaDate  = value;
+    dataDate.proformaDate = value;
+    setDataDate((prevState) => ({
+
       ...prevState,
       [name]: value,
     }));
-
-    project.proformaDate  = value;
   };
   const handleChangeDate = async (e) => {
     
     await updateInvoiceDate(project.id,e.target.value)
     const { name, value } = e.target;
-    setData((prevState) => ({
+    setDataDate((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -240,7 +242,7 @@ const modal = useGlobalModal()
    {copyProject && modalCopyProject()}
    {showSuccesCopy && succesCopy()}
       <div className="flex flex-col w-full h-full ">
-        <SearchElement />
+        {SearchElement()}
          
 
 
@@ -505,7 +507,7 @@ invoiceDate
  
           <div className="flex justify-between w-full">
             <span>{rightInfo.label == "Proforma" ? "Date Proforma" : rightInfo.label == "Facture" ? "Date Facture" : "Date Bordereau"} :</span>
-            <span className=""> {rightInfo.label == "Proforma" ? project?.proformaDate ? daysFr(data?.proformaDate ?? project?.proformaDate) : daysFr(data?.proformaDate ?? project?.createdAt) : project?.invoiceDate ? daysFr(data.invoiceDate ?? project?.invoiceDate) : daysFr(data?.proformaDate ?? project?.createdAt)}   </span>
+            <span className=""> {rightInfo.label == "Proforma" ? project?.proformaDate ? daysFr(dataDate?.proformaDate ?? project?.proformaDate) : daysFr(dataDate?.proformaDate ?? project?.createdAt) : project?.invoiceDate ? daysFr(dataDate.invoiceDate ?? project?.invoiceDate) : daysFr(dataDate?.proformaDate ?? project?.createdAt)}   </span>
           </div>
         </div>
         <div className="relative flex flex-row items-start justify-between w-full px-12 pt-6 ">
@@ -863,6 +865,8 @@ className="absolute inset-0 z-10 flex items-center justify-center min-w-screen">
       </div>
       
       <input          ref={proformaDateRef}
+
+ 
                 type="date" 
                 name="proformaDate" 
                 onChange={handleChange}

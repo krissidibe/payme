@@ -500,12 +500,14 @@ const totalAmount = totalTTC()
 
           <div className="py-2 w-[340px]   bg-[#ffffff13]  text-center ">
             <p className="border-[#ffffff] font-bold max-h-5  border-r ">
-              MONTANT TOTAL TTC
+              MONTANT TOTAL   {tvaValue == 0 ? "" : "TTC"}
             </p>
           </div>
 
           <p className="w-[170px]  bg-[#ffffff13] border-[#ffffff20] flex justify-center items-center  text-center ">
-            {totalTTC().toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}
+          
+          
+            { totalTTC().toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}
           </p>
         </div>
       </div>

@@ -41,6 +41,7 @@ function Finances(props) {
        return () => {};
      }, [modalView]);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingGraph, setIsLoadingGraph] = useState(true);
   const [isLoadingFirst, setIsLoadingFirst] = useState(true);
 
   const [search, setSearch] = useState("");
@@ -112,11 +113,24 @@ setShowOPTModal(x=> x =true)
 })()
   setIsLoadingFirst(x => x = false)
 },[])
+const [activeDate, setActiveDate] = useState(new Date().getFullYear().toString());
   useEffect(() => {
-    
+    setIsLoadingGraph(true);
     (async () => {
-      const dataTransaction = await fetchAllTransaction();
-      setTransaction(dataTransaction);
+      const dateStart = new Date() ;
+      dateStart.setMonth(0)
+      dateStart.setDate(1)
+      dateStart.setFullYear(parseInt(activeDate))
+      console.log(dateStart);
+      const dateEnd = new Date() ;
+      dateEnd.setMonth(11)
+      dateEnd.setDate(31)
+      dateEnd.setFullYear(parseInt(activeDate))
+      console.log(dateEnd);
+      
+       
+      const dataTransaction = await fetchAllTransaction(dateStart,dateEnd);
+      setTransaction(dataTransaction); 
 
       const dataProjectsValide = await fetchAllIsValideProject();
       setProjectsValide(dataProjectsValide);
@@ -137,14 +151,17 @@ setShowOPTModal(x=> x =true)
 
      
       setIsLoading(false);
+    setTimeout(()=>{
+      setIsLoadingGraph(false);
+    },500)
     })();
     
      
 
     return () => {};
-  }, []);
+  }, [activeDate]);
 
-  const [activeDate, setActiveDate] = useState(new Date().getFullYear().toString());
+  
   
   useEffect(() => {
      
@@ -188,8 +205,15 @@ setShowOPTModal(x=> x =true)
      DEC: M12,
    }));
   
+   console.log("monthChart");
+   console.log(transaction);
+   console.log(activeDate);
+   console.log("monthChart1");
+   console.log("monthChart2");
+   
+
      
-  }, [isLoading,activeDate])
+  }, [transaction])
   
 
   const intToString = (num) => {
@@ -800,6 +824,11 @@ setShowOPTModal(x=> x =true)
            </p>
           <div className="flex gap-2">
           <div onClick={()=>{
+            setActiveDate(x => x= "2023")
+          }}  className={`cursor-pointer text-[12px] flex justify-center items-center h-[22px] w-[52px] rounded-full ${activeDate == "2023" ? "bg-[#606060]" : "bg-[#444444]"} text-white/60 `}>
+             2023
+           </div>
+          <div onClick={()=>{
             setActiveDate(x => x= "2024")
           }}  className={`cursor-pointer text-[12px] flex justify-center items-center h-[22px] w-[52px] rounded-full ${activeDate == "2024" ? "bg-[#606060]" : "bg-[#444444]"} text-white/60 `}>
              2024
@@ -824,7 +853,7 @@ setShowOPTModal(x=> x =true)
        </div>
 
         <div className="flex-1 pb-10 ">
-         {!isLoading && (
+         {!loadingGraph && (
            <ReactApexChart
              height="100%"
              className="w-full h-[200px]"
@@ -854,8 +883,7 @@ setShowOPTModal(x=> x =true)
 
 const [isLoadingFake, setisLoadingFake] = useState(true)
 useEffect(() => {
-  console.log("render");
-  
+ 
   setisLoadingFake(x => x = false)
 
    
@@ -946,7 +974,7 @@ useEffect(() => {
 
 const [isLoadingFake, setisLoadingFake] = useState(true)
 useEffect(() => {
-  console.log("render");
+  
   
   setisLoadingFake(x => x = false)
 

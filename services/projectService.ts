@@ -259,9 +259,7 @@ export const updateProformaDate = async (
   );
 
   const datas: Project = await request.json();
-  console.log(datas);
-
-  console.log(request);
+  
   if (!request.ok) {
     return null;
   }

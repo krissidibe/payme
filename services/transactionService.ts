@@ -1,11 +1,11 @@
-export const fetchAllTransaction = async () => {
+export const fetchAllTransaction = async (date,dateEnd) => {
   // console.log(window.localStorage.getItem("accessToken"));
 
  
   const request = await fetch(
     `${
       process.env.BASE_API_URL
-    }/api/protected/transaction?userId=${window.localStorage.getItem("userId")}&date=date`,
+    }/api/protected/transaction?userId=${window.localStorage.getItem("userId")}&date=${date}&dateEnd=${dateEnd}`,
     {
       headers: {
         "Content-type": "application/json",
