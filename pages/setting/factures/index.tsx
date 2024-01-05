@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { HiFolder, HiFolderAdd } from "react-icons/hi";
-import { IoIosArrowBack, IoIosNotifications, IoIosPeople, IoMdBusiness } from "react-icons/io";
+import { IoIosArrowBack, IoIosNotifications, IoIosPeople, IoMdBusiness, IoMdClose } from "react-icons/io";
 import ReactPDF, { PDFViewer } from '@react-pdf/renderer';
 import { useRouter } from "next/router";
 import ButtonComponent from "../../../components/UI/ButtonComponent";
@@ -23,11 +23,24 @@ import { BiCheck } from "react-icons/bi";
 
 function Factures(props) {
   const [user, setUser] = useState(null);
-  const enterpriseFake ={
+  const [modalViewInvoice, setModalViewInvoice] = useState(false);
+  const [modalView, setModalView] = useState(false);
+  const [modalViewContent, setModalViewContent] = useState("");
+  useEffect(() => {
+    if(modalView){
+     setTimeout(() => {
+       setModalView(x=> x = false)
+     }, 4000);
+    }
+   
+       return () => {};
+     }, [modalView]);
+     const enterpriseFake = user?.enterprise
+  const enterpriseFakeTest ={
     "id":user?.enterprise.id,
-    "email": "kris@gmail.com",
-    "activity": "Commerce de Détail",
-    "address": "Bamako",
+    "email": "test@test.com",
+    "activity": "Lorem ipsum dolor sit ame",
+    "address": "Curabitur est sapien, sollicitudin eget condimentum",
     "numbers": "[{\"id\":\"b34ea58c-f34c-4d9b-82b4-3950c8d261d2\",\"indicatif\":\"223\",\"number\":\"90909090\"},{\"id\":\"53c30284-7246-4cc1-9eaf-d6f5408360f1\",\"indicatif\":\"223\",\"number\":\"39393933\"}]",
     "currency": "223",
     "name": "Devenir pro",
@@ -45,45 +58,45 @@ function Factures(props) {
     "updatedAt": "2024-01-02T18:52:23.000Z",
     "rccm": "Bamako.ML400"
 }
-const projetFake =  {
-  "id": "clqy5ra600017vb4w72lhpl0y",
-  "name": "Facture Test",
+const projetFake =   {
+  "id": "clr14br8i000v4c5i62lvc47f",
+  "name": "Lorem ipsum dolor sit amet consectetur",
   "type": "ISVALIDATE",
-  "invoiceNumber": 32125,
+  "invoiceNumber": 63,
   "proformaDate": null,
-  "invoiceDate": "2024-01-03T19:18:39.000Z",
+  "invoiceDate": "2024-01-05T21:36:53.000Z",
   "discountItemTable": null,
-  "table": "[{\"id\":\"c5765f45-af90-4296-8dfa-2ec4af470367\",\"designation\":\"Adaptation , éxécution et mise en page , badge professionnel, en PVC, Recto, Verso, impréssion en couleur avec pochette plastique, cordon- forfait\",\"quantity\":70000,\"rate\":20,\"amount\":1400000},{\"id\":\"2203fac1-d731-4fb4-8192-cfe799854b72\",\"designation\":\"Item\",\"quantity\":\"10\",\"rate\":\"30000\",\"amount\":300000},{\"id\":\"a6be2d73-e7c0-49ef-8462-982676eb73f9\",\"designation\":\"Adaptation , éxécution et mise en page , badge professionnel, en PVC, Recto, Verso, impréssion en couleur avec pochette plastique, cordon- forfait\",\"quantity\":\"50\",\"rate\":\"300\",\"amount\":15000},{\"id\":\"fe7e5f2b-9cf5-4d34-a806-9f20d4045446\",\"designation\":\"Adaptation , éxécution et mise en page , badge professionnel, en PVC, Recto, Verso, impréssion en couleur avec pochette plastique, cordon- forfait\",\"quantity\":\"677\",\"rate\":\"778\",\"amount\":526706}]",
-  "amountTotal": "2380692",
+  "table": "[{\"id\":\"f99006ec-1c53-437c-be0c-a4d340c4d902\",\"designation\":\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugit pariatur repudiandae natus tempora eligendi voluptas quod quidem molestiae\",\"quantity\":700000,\"rate\":20,\"amount\":14000000},{\"id\":\"04b6310d-979d-44df-a9e5-8dfc913f4004\",\"designation\":\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugit pariatur repudiandae natus tempora \",\"quantity\":80000,\"rate\":50,\"amount\":4000000},{\"id\":\"97977560-4656-49a7-ab28-62cf5bcf63a0\",\"designation\":\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugit pariatur repudiandae natus tempora \",\"quantity\":778,\"rate\":677,\"amount\":526706}]",
+  "amountTotal": "17926440",
   "tva": "18",
   "inTrash": false,
-  "createdAt": "2024-01-03T19:15:08.000Z",
-  "updatedAt": "2024-01-03T19:15:08.000Z",
+  "createdAt": "2024-01-05T20:58:22.000Z",
+  "updatedAt": "2024-01-05T20:58:22.000Z",
   "deletedAt": null,
-  "customerId": "clqxcczzr0007vb4w90owh21s",
-  "userId": user?.id,
-  "discount": "10",
+  "customerId": "clqznsd4t0025rm7n794kw2k1",
+  "userId": "clqwpi6m5000413l5nnyefwrx",
+  "discount": "18",
   "invoiceType": 0,
-  "modalite": "40",
-  "remarque": "",
+  "modalite": "50",
+  "remarque": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugit pariatur repudiandae natus tempora sit amet consectetur",
   "customer": {
-      "id": "clqxcczzr0007vb4w90owh21s",
-      "externalContact": "37808080",
-      "externalEmail": "zefi@mailinator.com",
-      "externalName": "Zephr Duffy",
+      "id": "clqznsd4t0025rm7n794kw2k1",
+      "externalContact": "713909093",
+      "externalEmail": "sula@mailinator.com",
+      "externalName": "",
       "activity": "Commerce de Détail",
-      "address": "Aut vel cum reprehen",
-      "country": "Afghanistan",
-      "email": "hegupe@mailinator.com",
+      "address": "Minus ipsam quae ips",
+      "country": "Émirats Arabes Unis",
+      "email": "sula@mailinator.com",
       "image": "",
-      "name": "Michael Randolph",
-      "type": "ENTERPRISE",
+      "name": "Steven Case",
+      "type": "PERSONAL",
       "inTrash": false,
-      "createdAt": "2024-01-03T05:32:12.000Z",
-      "updatedAt": "2024-01-03T05:32:12.000Z",
+      "createdAt": "2024-01-04T20:27:37.000Z",
+      "updatedAt": "2024-01-04T20:27:37.000Z",
       "deletedAt": null,
-      "userId": user?.id,
-      "poste": "Eiusmod consequatur "
+      "userId": "clqwpi6m5000413l5nnyefwrx",
+      "poste": ""
   }
 }
 
@@ -196,6 +209,9 @@ setCurrentBlob(x => x = dd)
   const [secondaryColor, setSecondaryColor] = useState(``);
   return (
     <div className="flex w-full h-full min-h-screen select-none ">
+      {/* modalViewInvoice */}
+       {modalViewInvoice && InfoViewInvoice()}
+       {modalView && InfoView()}
       <div className="flex flex-col w-full h-full ">
         <SearchElement />
         <div className="flex p-10 ml-5 space-x-3 overflow-x-scroll text-sm pb-7 pt-7 no-scrollbar xl:w-full ">
@@ -295,8 +311,8 @@ setCurrentBlob(x => x = dd)
         </div>
 
       
-        <div className="flex justify-center w-full mt-10">
-          <div className=" rpv-print__body-printing  print__zone  min-h-[343px] rounded-md cursor-pointer min-w-[244px] w-[244px] flex 0   bg-gradient-to-b from-[#ffffff] to-[#ffffff] gradient-opacity-10 m-[6px]">
+        <div className="flex justify-center w-full mt-10 no-scrollbar ">
+          <div className=" rpv-print__body-printing  print__zone  min-h-[343px] rounded-md cursor-pointer min-w-[244px] w-[244px] flex 0   bg-gradient-to-b from-[#ffffff] no-scrollbar  to-[#ffffff] gradient-opacity-10 m-[6px]">
         
      {/*  <Document file={`${process.env.BASE_API_URL}/images/test.pdf`} >
 
@@ -309,7 +325,7 @@ setCurrentBlob(x => x = dd)
       
       {/*   <PdfBuilder color={primaryColor.toString().substring(0,7) + saturationValue} />  */}
      {/* <img className="rounded" src={`${process.env.BASE_API_URL}/images/invoices/${currentInvoice?.invoiceFileName}.jpg`} alt="" /> */}   
-     {currentBlob != null && <iframe className="w-full h-full overflow-hidden rounded-md rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`} height="100%" width="100%"></iframe>}
+     {currentBlob != null && <iframe className="w-[244px] h-[343px] no-scrollbar overflow-hidden rounded-md no-scrollbar rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`}  ></iframe>}
           </div>
         </div>
        {/*  <button className="" onClick={()=>{
@@ -423,6 +439,9 @@ setCurrentBlob(x => x = dd)
             
             <ButtonComponent
               label={"Aperçu"}
+              handleClick={()=>{
+                setModalViewInvoice(true);
+              }}
               labelClassName="text-[15px]"
               className="  border-none !min-w-[112px]    text-[12px] text-center items-center justify-center bg-[#2b2b2b]   "
             />
@@ -470,12 +489,16 @@ setCurrentBlob(x => x = dd)
 
                        setUser(x => x = {...user,invoice:{...user.invoice,invoiceFileName:currentInvoice.invoiceFileName,primaryColor:primaryColor.toString().substring(0,7) + saturationValue,secondaryColor:secondaryColor.toString().substring(0,7) + saturationValue}})
                        setTimeout(() => {
-                          alert("Modèle de facture appliqué avec succès")
+
+                        setModalView(true);
+                      
+                        setModalViewContent("Le modèle de facture a été appliqué avec succès.")
+                          
                          // router.back();
                          // router.back();
                           
   
-                        },2000)
+                        },1000)
                        }
                 
                 // handleSubmit()
@@ -543,6 +566,93 @@ setCurrentBlob(x => x = dd)
         /> 
      </div>
         </div>
+      </div>
+    );
+  }
+
+  function InfoViewInvoice() {
+    return (
+      <div className="absolute inset-0 bottom-0 right-0 z-50 flex items-center justify-center w-full pb-0 bg-black/50 ">
+       
+       
+        <div
+          onClick={() => {
+            setModalViewInvoice(false);
+          
+          }}
+          className="absolute inset-0 z-50 flex items-center justify-center transition "
+        ></div>
+        <div className=" bg-[#1E1E1E]  no-scrollbar   absolute z-50 font-light   text-base pr-14 h-[690px] w-[488px] justify-center  flex flex-col  text-white rounded-xl">
+      {/*   <IoMdClose
+            onClick={() => {
+              setModalView(false);
+            }}
+            className="w-[20px] absolute top-4 right-5 h-[20px] opacity-60 mr-0   cursor-pointer self-end"
+          />   */}
+  
+
+  {currentBlob != null && <iframe  frameBorder={0} className=" h-full no-scrollbar overflow-hidden rounded-none  w-[488px] rpv-print__body-printing print__zone" src={`${currentBlob}#toolbar=0`}  ></iframe>}
+        </div>
+        
+      </div>
+    );
+  }
+  function InfoView() {
+    return (
+      <div className="absolute bottom-0 right-0 z-[100] flex items-center justify-center w-full pb-0 transition bg-black/0 ">
+       
+       
+        <div
+          onClick={() => {
+            setModalView(false);
+          
+          }}
+          className="absolute inset-0 z-50 flex items-center justify-center transition "
+        ></div>
+        <div className="p-4  bg-[#1E1E1E] bottom-10 right-10 absolute z-50 font-light  text-base pr-14 h-[70px] justify-center  flex flex-col  text-white rounded-xl">
+        <IoMdClose
+            onClick={() => {
+              setModalView(false);
+            }}
+            className="w-[20px] absolute top-2 right-3 h-[20px] opacity-60 mr-0   cursor-pointer self-end"
+          />  
+  
+ 
+<div className="flex items-start justify-start gap-3 ">
+<div>
+    {modalViewContent.includes("succès") ?
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_1339_105)">
+    <path d="M21.7986 12.1112C21.7986 17.4615 17.4614 21.7987 12.1111 21.7987C6.76081 21.7987 2.42358 17.4615 2.42358 12.1112C2.42358 6.76091 6.76081 2.42369 12.1111 2.42369C17.4614 2.42369 21.7986 6.76091 21.7986 12.1112ZM10.9905 17.2406L18.178 10.0531C18.4221 9.80908 18.4221 9.41334 18.178 9.16927L17.2942 8.28541C17.0501 8.0413 16.6544 8.0413 16.4103 8.28541L10.5486 14.147L7.8119 11.4104C7.56784 11.1663 7.1721 11.1663 6.928 11.4104L6.04413 12.2942C5.80007 12.5383 5.80007 12.934 6.04413 13.1781L10.1066 17.2406C10.3507 17.4847 10.7464 17.4847 10.9905 17.2406Z" fill="#55B938"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_1339_105">
+    <rect width="20" height="20" fill="white" transform="translate(2.11108 2.11114)"/>
+    </clipPath>
+    </defs>
+    </svg>
+    
+    :  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1201_45)">
+<path d="M21.8887 12.2222C21.8887 17.7462 17.4111 22.2222 11.8887 22.2222C6.36621 22.2222 1.88867 17.7462 1.88867 12.2222C1.88867 6.70132 6.36621 2.22217 11.8887 2.22217C17.4111 2.22217 21.8887 6.70132 21.8887 12.2222ZM11.8887 14.2383C10.8643 14.2383 10.0338 15.0687 10.0338 16.0931C10.0338 17.1175 10.8643 17.948 11.8887 17.948C12.9131 17.948 13.7435 17.1175 13.7435 16.0931C13.7435 15.0687 12.9131 14.2383 11.8887 14.2383ZM10.1277 7.57112L10.4268 13.055C10.4408 13.3116 10.6529 13.5125 10.9099 13.5125H12.8674C13.1244 13.5125 13.3366 13.3116 13.3506 13.055L13.6497 7.57112C13.6648 7.29394 13.4441 7.06088 13.1665 7.06088H10.6108C10.3332 7.06088 10.1125 7.29394 10.1277 7.57112Z" fill="#FFA300"/>
+</g>
+<defs>
+<clipPath id="clip0_1201_45">
+<rect width="20" height="20" fill="white" transform="translate(1.88867 2.22217)"/>
+</clipPath>
+</defs>
+</svg>}
+      
+
+      </div>
+ 
+    <p className="max-w-[280px]" >{modalViewContent}</p>
+</div>
+ 
+  
+         
+        </div>
+        
       </div>
     );
   }
