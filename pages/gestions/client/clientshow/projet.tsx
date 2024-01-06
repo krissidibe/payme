@@ -30,9 +30,7 @@ import { LiaFileAltSolid } from "react-icons/lia";
 import { fetchEnterprise } from "../../../../services/enterpriseService";
 import { fetchUser } from "../../../../services/userService";
 async function fetchPdf(invoiceFileName,enterprise,project,invoiceType,signed,primaryColor,secondaryColor) {
-  console.log(secondaryColor);
-  console.log(project);
-  
+ 
   
   const request = await fetch(`${process.env.BASE_API_URL}/api/facture`,{
     
@@ -43,7 +41,7 @@ async function fetchPdf(invoiceFileName,enterprise,project,invoiceType,signed,pr
   const dataBlob = await request.blob();
 
   const blob = new Blob([dataBlob], { type: "application/pdf" });
-  console.log(blob);
+ 
 
   return blob;
 }

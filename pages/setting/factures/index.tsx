@@ -175,6 +175,7 @@ setCurrentBlob(x => x = dd)
   const [currentBlob, setCurrentBlob] = useState<any>(null);
 
   const shuffle = (array: string[]) => { 
+    return array
     for (let i = array.length - 1; i > 0; i--) { 
       const j = Math.floor(Math.random() * (i + 1)); 
       [array[i], array[j]] = [array[j], array[i]]; 
@@ -313,7 +314,7 @@ setCurrentBlob(x => x = dd)
       
         <div className="flex justify-center w-full mt-10 no-scrollbar ">
 
-        {currentBlob != null && <embed    className="overflow-hidden top-[110px] rounded-none no-scrollbar" type="application/pdf"  width={"244px"} height={"320px"} src={`${currentBlob}#toolbar=0`}  ></embed>}
+        {currentBlob != null && <embed    className="overflow-hidden top-[110px] rounded-none no-scrollbar" type="application/pdf"  width={"244px"} height={"343px"} src={`${currentBlob}#toolbar=0`}  ></embed>}
          
         </div>
        {/*  <button className="" onClick={()=>{
