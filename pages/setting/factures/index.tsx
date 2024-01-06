@@ -571,7 +571,7 @@ setCurrentBlob(x => x = dd)
           }}
           className="absolute inset-0 z-50 flex items-center justify-center transition "
         ></div>
-           {currentBlob != null && <embed    className="overflow-hidden rounded-none no-scrollbar" type="application/pdf"  width={"477px"} height={"673px"} src={`${currentBlob}#toolbar=0`}  ></embed>}
+           {currentBlob != null && <embed    className="overflow-hidden rounded-none no-scrollbar" type="application/pdf"  width={"100%"} height={"100%"} src={`${currentBlob}#toolbar=0`}  ></embed>}
         
       </div>
     );
