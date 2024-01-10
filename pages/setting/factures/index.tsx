@@ -105,7 +105,7 @@ const projetFake =   {
    
     
     
-    const request = await fetch(`${process.env.BASE_API_URL}/api/facture`,{
+    const request = await fetch(`${process.env.BASE_API_URL}/api/factureimg`,{
       
       method:"POST",
       body:JSON.stringify({invoiceFileName:invoiceFileName,enterprise:enterprise,project:project,invoiceType:invoiceType,signed:signed,primaryColor,secondaryColor})
@@ -113,7 +113,7 @@ const projetFake =   {
   });
     const dataBlob = await request.blob();
   
-    const blob = new Blob([dataBlob], { type: "application/pdf" });
+    const blob = new Blob([dataBlob], { type: "image/png" });
     
     return URL.createObjectURL(blob);
     return blob;
@@ -314,7 +314,7 @@ setCurrentBlob(x => x = dd)
       
         <div className="flex justify-center w-full mt-10 no-scrollbar ">
 
-        {currentBlob != null && <embed    className="overflow-hidden top-[110px] rounded-none no-scrollbar" type="application/pdf"  width={"244px"} height={"343px"} src={`${currentBlob}#toolbar=0`}  ></embed>}
+        {currentBlob != null && <img    className="overflow-hidden w-[244px] h-[343px] object-contain top-[110px] rounded-none no-scrollbar"    src={`${currentBlob}#toolbar=0`}  />}
          
         </div>
        {/*  <button className="" onClick={()=>{
@@ -571,8 +571,8 @@ setCurrentBlob(x => x = dd)
           }}
           className="absolute inset-0 z-50 flex items-center justify-center transition "
         ></div>
-           {currentBlob != null && <embed    className="overflow-hidden rounded-none no-scrollbar" type="application/pdf"  width={"100%"} height={"100%"} src={`${currentBlob}#toolbar=0`}  ></embed>}
-        
+          {/*  {currentBlob != null && <embed    className="overflow-hidden rounded-none no-scrollbar" type="application/pdf"  width={"100%"} height={"100%"} src={`${currentBlob}#toolbar=0`}  ></embed>} */}
+          {currentBlob != null && <img    className="overflow-hidden w-[694px] h-[793px] object-contain top-[110px] rounded-none no-scrollbar"    src={`${currentBlob}#toolbar=0`}  />}
       </div>
     );
   }
