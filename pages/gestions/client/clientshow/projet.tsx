@@ -29,13 +29,13 @@ import { CiCircleCheck } from "react-icons/ci";
 import { LiaFileAltSolid } from "react-icons/lia";
 import { fetchEnterprise } from "../../../../services/enterpriseService";
 import { fetchUser } from "../../../../services/userService";
-async function fetchPdf(invoiceFileName,enterprise,project,invoiceType,signed,primaryColor,secondaryColor) {
+async function fetchPdf(invoiceFileName,enterprise,project,invoiceType,signed,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor) {
  
   
   const request = await fetch(`${process.env.BASE_API_URL}/api/facture`,{
     
     method:"POST",
-    body:JSON.stringify({invoiceFileName:invoiceFileName,enterprise:enterprise,project:project,invoiceType:invoiceType,signed:signed,primaryColor,secondaryColor})
+    body:JSON.stringify({invoiceFileName:invoiceFileName,enterprise:enterprise,project:project,invoiceType:invoiceType,signed:signed,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor})
 
 });
   const dataBlob = await request.blob();
@@ -592,7 +592,7 @@ const dataUser = await fetchUser()
 
 
               
-            let dd =  await  fetchPdf(dataUser.invoice.invoiceFileName,enterprise,project,factureType,signed,dataUser.invoice.primaryColor,dataUser.invoice.secondaryColor)
+            let dd =  await  fetchPdf(dataUser.invoice.invoiceFileName,enterprise,project,factureType,signed,dataUser.invoice.primaryColor,dataUser.invoice.secondaryColor,dataUser.invoice.primaryTextColor,dataUser.invoice.secondaryTextColor)
           
     
 

@@ -22,6 +22,7 @@ import { BiCheck } from "react-icons/bi";
 
 
 function Factures(props) {
+  const [searchValue, setSearchValue] = useState("");
   const [user, setUser] = useState(null);
   const [modalViewInvoice, setModalViewInvoice] = useState(false);
   const [modalView, setModalView] = useState(false);
@@ -101,14 +102,14 @@ const projetFake =   {
 }
 
 
-  async function fetchPdf(invoiceFileName,enterprise,project,invoiceType,signed,primaryColor,secondaryColor) {
+  async function fetchPdf(invoiceFileName,enterprise,project,invoiceType,signed,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor) {
    
     
     
     const request = await fetch(`${process.env.BASE_API_URL}/api/factureimg`,{
       
       method:"POST",
-      body:JSON.stringify({invoiceFileName:invoiceFileName,enterprise:enterprise,project:project,invoiceType:invoiceType,signed:signed,primaryColor,secondaryColor})
+      body:JSON.stringify({invoiceFileName:invoiceFileName,enterprise:enterprise,project:project,invoiceType:invoiceType,signed:signed,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor})
   
   });
     const dataBlob = await request.blob();
@@ -122,7 +123,7 @@ const projetFake =   {
 
 
   const updateInvoiceViewer = async () => {
-    let dd =  await  fetchPdf(currentInvoice.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor)
+    let dd =  await  fetchPdf(currentInvoice.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor)
  
 setCurrentBlob(x => x = dd)
   }
@@ -175,7 +176,7 @@ setCurrentBlob(x => x = dd)
   const [currentBlob, setCurrentBlob] = useState<any>(null);
 
   const shuffle = (array: string[]) => { 
-    return array
+  //  return array
     for (let i = array.length - 1; i > 0; i--) { 
       const j = Math.floor(Math.random() * (i + 1)); 
       [array[i], array[j]] = [array[j], array[i]]; 
@@ -205,16 +206,50 @@ setCurrentBlob(x => x = dd)
   const [saturationValue, setSaturationValue] = useState("FF");
 
   const primaryColorRef = useRef<any>(null)
+  const secondaryColorRef = useRef<any>(null)
 
   const [primaryColor, setPrimaryColor] = useState(``);
   const [secondaryColor, setSecondaryColor] = useState(``);
+  const [primaryTextColor, setPrimaryTextColor] = useState(``);
+  const [secondaryTextColor, setSecondaryTextColor] = useState(``);
+
+  useEffect(() => {
+    const calculateBrightness = (color) => {
+        const hex = color.replace('#', '');
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        return brightness;
+    };
+
+    const isDarkBackground = calculateBrightness(primaryColor) < 128;
+    const newTextColor = isDarkBackground ? 'white' : 'black';
+    setPrimaryTextColor(newTextColor);
+}, [primaryColor]);
+
+  useEffect(() => {
+    const calculateBrightness = (color) => {
+        const hex = color.replace('#', '');
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        return brightness;
+    };
+
+    const isDarkBackground = calculateBrightness(secondaryColor) < 128;
+    const newTextColor = isDarkBackground ? 'white' : 'black';
+    setSecondaryTextColor(newTextColor);
+}, [secondaryColor]);
   return (
     <div className="flex w-full h-full min-h-screen select-none ">
       {/* modalViewInvoice */}
        {modalViewInvoice && InfoViewInvoice()}
        {modalView && InfoView()}
       <div className="flex flex-col w-full h-full ">
-        <SearchElement />
+        
+       {SearchElement()}
         <div className="flex p-10 ml-5 space-x-3 overflow-x-scroll text-sm pb-7 pt-7 no-scrollbar xl:w-full ">
         <div
 
@@ -263,7 +298,7 @@ setCurrentInvoice(x=> x = item)
 
 
 
-let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor)
+let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor)
  
 setCurrentBlob(x => x = dd)
  
@@ -283,7 +318,7 @@ setCurrentBlob(x => x = dd)
           handleClick={async ()=>{
  
 setCurrentInvoice(x=> x = item)
-let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor)
+let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor)
  
 setCurrentBlob(x => x = dd)
  
@@ -389,7 +424,7 @@ setCurrentBlob(x => x = dd)
        
        
        
-       type="color" className={`${primaryColorRef ? "" : "hidden"} cursor-pointer absolute bottom-0 opacity-0 max-h-4`} onChange={(e)=>{
+       type="color" className={`${primaryColorRef ? "" : ""} cursor-pointer absolute bottom-0 opacity-0 max-h-4`} onChange={(e)=>{
             setPrimaryColor(e.target.value)
             updateInvoiceViewer();
           /*   setTimeout(() => {
@@ -400,8 +435,31 @@ setCurrentBlob(x => x = dd)
       </div>
      
       <p>Couleur secondaire</p>
-      <div className="p-4 rounded-lg bg-gradient-to-l from-white cursor-pointer to-yellow-500 h-[50px] "></div>
-    
+
+      
+       
+
+      <div
+      onClick={()=>{
+        secondaryColorRef.current.click()
+      }}
+      className={` cursor-pointer p-4 rounded-lg bg-gradient-to-l from-white  to-${secondaryColor} h-[50px] `}
+      style={{backgroundColor: secondaryColor}}
+      ></div>
+       <input ref={secondaryColorRef}
+       
+       
+       
+       type="color" className={`${secondaryColor ? "" : ""} cursor-pointer absolute bottom-0 opacity-0 max-h-4`} onChange={(e)=>{
+            setSecondaryColor(e.target.value)
+            updateInvoiceViewer();
+          /*   setTimeout(() => {
+          
+            }, 2000); */
+          }} />   
+
+    {primaryTextColor}
+    {secondaryTextColor}
         
           { false && <div className="flex items-center justify-between space-x-[22px] pr-4 ">
               <span className=" opacity-70">Saturation  </span>
@@ -463,6 +521,8 @@ setCurrentBlob(x => x = dd)
                   invoiceFileName:currentInvoice.invoiceFileName,
                   primaryColor:primaryColor.toString().substring(0,7) + saturationValue,
                   secondaryColor:secondaryColor.toString().substring(0,7) + saturationValue,
+                  primaryTextColor:primaryTextColor,
+                  secondaryTextColor:secondaryTextColor,
                   
                 }
                 
@@ -515,7 +575,8 @@ setCurrentBlob(x => x = dd)
 
 
   function SearchElement() {
-    const [searchValue, setSearchValue] = useState("");
+    
+   
     return (
       <div className=" min-h-[130px] px-14 flex items-end mr-10 pb-6    relative    justify-start pr-10 border-b-[1px]  border-white border-opacity-20">
        {paramInfo.first !="true" &&   <IoIosArrowBack
