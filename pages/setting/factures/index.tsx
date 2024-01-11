@@ -176,7 +176,7 @@ setCurrentBlob(x => x = dd)
   const [currentBlob, setCurrentBlob] = useState<any>(null);
 
   const shuffle = (array: string[]) => { 
-  //  return array
+   return array
     for (let i = array.length - 1; i > 0; i--) { 
       const j = Math.floor(Math.random() * (i + 1)); 
       [array[i], array[j]] = [array[j], array[i]]; 
@@ -203,7 +203,7 @@ setCurrentBlob(x => x = dd)
   }, [])
   
   const [saturationColor, setSaturationColor] = useState("100");
-  const [saturationValue, setSaturationValue] = useState("FF");
+  const [saturationValue, setSaturationValue] = useState("");
 
   const primaryColorRef = useRef<any>(null)
   const secondaryColorRef = useRef<any>(null)
@@ -293,12 +293,15 @@ onClick={()=>{
 
           <ItemFacture
           handleClick={ async ()=>{
- 
+setPrimaryColor("") 
+setSecondaryColor("") 
+setPrimaryTextColor("") 
+setSecondaryTextColor("") 
 setCurrentInvoice(x=> x = item)
 
 
 
-let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor)
+let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,"","",primaryTextColor,secondaryTextColor)
  
 setCurrentBlob(x => x = dd)
  
@@ -316,9 +319,12 @@ setCurrentBlob(x => x = dd)
 
           <ItemFacture
           handleClick={async ()=>{
- 
+setPrimaryColor("") 
+setSecondaryColor("") 
+setPrimaryTextColor("") 
+setSecondaryTextColor("") 
 setCurrentInvoice(x=> x = item)
-let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor)
+let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,"","",primaryTextColor,secondaryTextColor)
  
 setCurrentBlob(x => x = dd)
  
