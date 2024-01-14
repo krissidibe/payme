@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <style>
+    :root
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Inter:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .inter {
+      font-family: 'Inter', sans-serif;
+    }
+    .poppin {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .page-header,
+    .page-header-space {
+      height: 100px;
+    }
+
+    .page-footer,
+    .page-footer-space {
+      height: 80px;
+    }
+
+    .page-footer {
+      position: fixed;
+      bottom: 80px;
+
+      width: 100%;
+      /* for demo */
+      /* for demo */
+    }
+
+    .tabs-item > div {
+      
+      border: none;
+    }
+    .page-header {
+      position: fixed;
+      top: 0mm;
+      width: 100%;
+      border-bottom: 1px solid black; /* for demo */
+      background: yellow; /* for demo */
+    }
+
+    .page {
+      page-break-after: always;
+      padding-bottom: 0px;
+    }
+
+    @page {
+      margin: 0mm;
+    }
+
+    @media print {
+      thead {
+        display: table-header-group;
+      }
+      tfoot {
+        display: table-footer-group;
+      }
+
+      button {
+        display: none;
+      }
+
+      body {
+        margin: 0;
+      }
+    }
+    /* Facture Custom styling */
+    .heading {
+      margin-top: 94px;
+      padding-left: 105px !important;
+      padding-right: 105px !important;
+    }
+
+    .facture-number {
+      color: #000000;
+    }
+
+    .heading .logo {
+      border-radius: 0 !important;
+      background-color: #634E42;
+    }
+
+    .pages .headline {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .pages .facture-number {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin-bottom: 0;
+    }
+
+    .headline p {
+      
+      font-weight: 400;
+    }
+
+    .tabs {
+      margin-top: 26px;
+      padding-top: 20px;
+      padding-bottom: 30px;
+      background: #F5F5F5;
+    }
+
+    .tabs .separator {
+      border: none;
+    }
+
+    .tabs-item {
+      color: #4D4B4C;
+    }
+
+    .tabs .tabs-header {
+      color: #242437;
+      font-weight: 400;
+    }
+
+    .tabs .tabs-header p {
+      background: #E8E7E7;
+    }
+
+    .tabs .tabs-header p:first-child {
+      background: transparent;
+      color: #634E42;
+    }
+
+    .total .total-amount {
+      
+     
+      background:  var(--primary-color,#634E42);
+      color: var(--primary-text-color,white);
+    }
+    
+    .footer {
+      bottom: 0;
+      background:  var(--primary-color,#634E42);
+      color: var(--primary-text-color,white);
+    }
+
+    /* End Facture Custom styling */
+  </style>
+
+  <body>
+    <!-- footer -->
+    <%- include('../subtemplates/footer1') %>
+    <table>
+      <tbody>
+        <tr>
+          <td class="pages w-[827px]">
+
+            <div class="flex flex-col w-full page-content">
+              <!-- logo + facture -->
+              <header class="heading flex justify-center mt-[68px] px-[56px]">
+                <div class="max-h-[120px] flex object-left object-contain h-[120px] max-w-[400px] w-[400px]  ">
+                  <img class=" max-h-[120px] object-left object-contain h-[120px] max-w-[400px] w-[400px] " src="<%=logo%>" alt="" srcset="">
+                  
+                                </div>
+                             
+              </header>
+          
+              <!-- headline (object, address, client) -->
+              <div class="flex justify-between mt-[20px] px-14 ">
+                <div class="headline leading-5 inter font-bold mt-[27.53px] text-[16.4px] ">
+                  <p>Objet: <%= project.name %></p>
+  <p>Client: <%=  customer.name %></p>
+  <p>Adresse: <%=  customer.address %></p> 
+                </div>
+                <div class="facture-number my-[15px] font-light text-[23px] inter pr-8">
+                  <div class="mb-1 leading-tight">
+                    <% if(invoiceType == 0) { %>
+                      <p>PROFORMA</p>
+                    <% } %>
+                    <% if(invoiceType == 1) { %>
+                      <p>FACTURE</p>
+                    <% } %>
+                    <% if(invoiceType == 2) { %>
+                      <p >BORDEREAU</p>
+                    <% } %> 
+                    <p >N°: <span><%=project.invoiceNumber.toString().padStart(5, '0')%></span> </p>
+                  </div>
+                  <% if(invoiceType == 0) { %>
+                    
+                    <p class="pt-2 mt-2  border-t-[1px] font-light border-[#4D4B4C] text-[17px] flex justify-between">Date: <%=date%></p>
+                  <% } %> 
+                  <% if(invoiceType == 1) { %>
+                  
+                    <p class="pt-2 mt-2  border-t-[1px] font-light border-[#4D4B4C] text-[14px] flex justify-between">Date: <%=date%></p>
+                  <% } %> 
+                  <% if(invoiceType == 2) { %>
+                  
+                    <p class="pt-2 mt-2  border-t-[1px] font-light border-[#4D4B4C] text-[19px] flex justify-between">Date: <%=date%></p>
+                  <% } %> 
+                </div>
+              </div>
+
+              <!-- table -->
+              <%- include('../subtemplates/table1') %>
+                
+              <!-- facture totals informations -->
+              <%- include('../subtemplates/total1') %>
+
+
+              <!-- signature -->
+              <%- include('../subtemplates/sign1') %>
+
+              <!-- footer -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td>
+            <!--place holder for the fixed-position footer-->
+            <div class="page-footer-space"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <style>
+    :root
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Inter:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .inter {
+      font-family: 'Inter', sans-serif;
+    } 
+    .poppin {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .page-header,
+    .page-header-space {
+      height: 100px;
+    }
+
+    .page-footer,
+    .page-footer-space {
+      height: 80px;
+    }
+
+    .page-footer {
+      position: fixed;
+      bottom: 80px;
+
+      width: 100%;
+      /* for demo */
+      /* for demo */
+    }
+
+    .page-header {
+      position: fixed;
+      top: 0mm;
+      width: 100%;
+      border-bottom: 1px solid black; /* for demo */
+      background: yellow; /* for demo */
+    }
+
+    .page {
+      page-break-after: always;
+      padding-bottom: 0px;
+    }
+
+    @page {
+      margin: 0mm;
+    }
+
+    @media print {
+      thead {
+        display: table-header-group;
+      }
+      tfoot {
+        display: table-footer-group;
+      }
+
+      button {
+        display: none;
+      }
+
+      body {
+        margin: 0;
+      }
+    }
+    /* Facture Custom styling */
+    .heading {
+      margin-top: 94px;
+      padding-left: 95px !important;
+      padding-right: 95px !important;
+    }
+
+    .facture-number p:first-child {
+      color: #634E42;
+    }
+
+    .heading .logo {
+      border-radius: 0 !important;
+      background-color: #634E42;
+    }
+
+    .pages .headline {
+      line-height: 20px;
+    }
+
+    .headline p {
+      padding-left: 40px !important;
+      font-size: 13.4px;
+      font-weight: 400;
+    }
+
+    .tabs {
+      margin-top: 26px;
+      padding-top: 90px;
+      padding-bottom: 30px;
+      background: #F5F5F5;
+    }
+
+    .tabs .separator {
+      border: none;
+    }
+
+    .tabs-item {
+      color: #4D4B4C;
+    }
+
+
+
+    .pages .tabs {
+      margin-top: 15px;
+      padding-top: 35px;
+      padding-bottom: 20px;
+      background: #F5F5F5;
+    }
+    .tabs-item > div {
+      
+      border: none;
+    }
+   
+    
+    .tabs .tabs-header {
+      color: #242437;
+      font-weight: 400;
+    }
+    
+    .tabs .tabs-header p {
+      background: #E8E7E7;
+    }
+
+    .tabs .tabs-header p:first-child {
+      background:  var(--primary-color,#634E42);
+      color: var(--primary-text-color,white);
+    }
+
+    .total .right p span:last-child {
+      padding-right: 10px;
+    }
+
+    .total .total-amount {
+      background:  var(--primary-color,#634E42);
+      color: var(--primary-text-color,white);
+    }
+    
+    .footer {
+      bottom: 0;
+      background:  var(--primary-color,#634E42);
+      color: var(--primary-text-color,white);
+    }
+
+    /* End Facture Custom styling */
+  </style>
+
+  <body>
+    <!-- footer -->
+    <%- include('../subtemplates/footer1') %>
+    <table>
+      <tbody>
+        <tr>
+          <td class="pages w-[827px]">
+
+            <div class="flex flex-col w-full page-content">
+              <!-- logo + facture -->
+              <%- include('../subtemplates/header2') %>
+          
+              <!-- headline (object, address, client) -->
+              <%- include('../subtemplates/headline1') %>
+
+              <!-- table -->
+              <%- include('../subtemplates/table1') %>
+                
+              <!-- facture totals informations -->
+              <%- include('../subtemplates/total1') %>
+
+
+              <!-- signature -->
+              <%- include('../subtemplates/sign1') %>
+
+              <!-- footer -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td>
+            <!--place holder for the fixed-position footer-->
+            <div class="page-footer-space"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>

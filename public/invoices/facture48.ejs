@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<footerECE7DDhtml lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Inter:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .inter {
+      font-family: 'Inter', sans-serif;
+    }
+    .poppin {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .page-header,
+    .page-header-space {
+      height: 100px;
+    }
+
+    .page-footer,
+    .page-footer-space {
+      height: 50px;
+    }
+
+    .page-footer {
+      position: fixed;
+      bottom: 80px;
+
+      width: 100%;
+      /* for demo */
+      /* for demo */
+    }
+
+    .page-header {
+      position: fixed;
+      top: 0mm;
+      width: 100%;
+      border-bottom: 1px solid black; /* for demo */
+      background: yellow; /* for demo */
+    }
+
+    .page {
+      page-break-after: always;
+      padding-bottom: 0px;
+    }
+
+    @page {
+      margin: 0mm;
+    }
+
+    @media print {
+      thead {
+        display: table-header-group;
+      }
+      tfoot {
+        display: table-footer-group;
+      }
+
+      button {
+        display: none;
+      }
+
+      body {
+        margin: 0;
+      }
+    }
+    /* Facture Custom styling */
+    @font-face {
+      font-family: 'Helvetica Neue';
+      src: url('path-to-your-fonts/HelveticaNeue-Bold.woff2') format('woff2'),
+          url('path-to-your-fonts/HelveticaNeue-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    .pages {
+      background: #ECE7DD;
+    }
+
+    .heading {
+      margin-top: 66px;
+      margin-left: 15px;
+      flex-direction: column;
+    }
+
+    .facture-number {
+      margin: auto;
+      height: max-content;
+      justify-self: flex-start;
+      padding-right: 0 !important;
+      border-color: #010101;
+    }
+
+    .facture-number > div p:first-child {
+      color: #010101;
+    }
+
+    .facture-number .dividor {
+      display: block !important;
+      width: 80px;
+      border-top: 1px solid #010101;
+      margin-left: 11px;
+      margin-right: 3px;
+    }
+
+    .heading .logo {
+      margin-left: 30%;
+      font-family: 'Helvetica Neue', sans-serif;
+      color: #383838;
+    }
+
+    .headline {
+      margin-top: 30.5px !important;
+      padding-top: 44px;
+    }
+
+    .headline p {
+      font-size: 13.4px;
+      font-weight: 400;
+    }
+
+    .tabs-item {
+      color: #4D4B4C;
+    }
+
+    .tabs-item:last-child {
+      border-bottom: 1px solid #010101;
+    }
+
+    .tabs-item:first-child p {
+      padding-top: 36px;
+    }
+
+    .tabs-item:last-child p {
+      padding-bottom: 32px;
+    }
+
+    .tabs .tabs-header {
+      gap: 0;
+      color: #3C3C3B;
+      font-weight: 700;
+      padding-top: 0 !important;
+    }
+
+    .tabs .tabs-header p {
+      border-top: 1px solid #010101;
+      padding-top: 9.7px;
+    }
+
+    .tabs .tabs-header p:first-child {
+      background: transparent;
+    }
+
+    .total {
+      margin-top: 0 !important;
+      margin-bottom: 14.9px;
+    }
+
+    .total .left {
+      padding-top: 12px;
+    }
+
+    .total .right {
+      position: relative;
+      bottom: -2px;
+    }
+
+    .total .right p {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    .total .total-amount {
+      color: #383838;
+      border-top: 1px solid #010101;
+    }
+
+    .sign {
+      font-weight: 700;
+    }
+    
+    .footer {
+      bottom: 0;
+      z-index: 1;
+      color: #383838;
+      margin-bottom: 42px;
+    }
+
+    .page-footer, .page-footer-space {
+      background: #ECE7DD;
+    }
+
+    .footer-mark {
+      width: 325px;
+      height: 10px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #CA9E67;
+    }
+
+    .footer-img {
+      height: 278px;
+      width: 278px;
+      position: fixed;
+      bottom: 0 !important;
+      right: -16px;
+    }
+
+    /* End Facture Custom styling */
+  </style>
+
+  <body>
+    <!-- footer -->
+    <%- include('../subtemplates/footer1') %>
+    <table>
+      <tbody>
+        <tr>
+          <td class="pages w-[827px]">
+
+            <div class="page-content flex flex-col w-full">
+              <!-- logo + facture -->
+              <%- include('../subtemplates/header4') %>
+          
+              <!-- headline (object, address, client) -->
+              <%- include('../subtemplates/headline1') %>
+
+              <!-- table -->
+              <%- include('../subtemplates/table3') %>
+                
+              <!-- facture totals informations -->
+              <%- include('../subtemplates/total2') %>
+
+              <!-- signature -->
+              <%- include('../subtemplates/sign1') %>
+
+              <!-- footer -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td>
+            <!--place holder for the fixed-position footer-->
+            <div class="page-footer-space"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>

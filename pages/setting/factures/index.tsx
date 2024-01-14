@@ -125,6 +125,7 @@ const projetFake =   {
   const updateInvoiceViewer = async () => {
     let dd =  await  fetchPdf(currentInvoice.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor)
  
+    setCurrentInvoice(x=>  x = {...currentInvoice,["primaryColor"]: primaryColor,["secondaryColor"]: secondaryColor})
 setCurrentBlob(x => x = dd)
   }
 
@@ -169,7 +170,7 @@ setCurrentBlob(x => x = dd)
    // setSliceValue(x => x = sliceValue + 5)
   };
   const [invoicesFilter, setInvoicesFilter] = useState([]);
-  const [sliceValue, setSliceValue] = useState(50);
+  const [sliceValue, setSliceValue] = useState(100);
   const [currentInvoice, setCurrentInvoice] = useState<any>({});
   const [currentCategory, setCurrentCategory] = useState<any>(0);
   
@@ -421,22 +422,36 @@ setCurrentBlob(x => x = dd)
       
       <div
       onClick={()=>{
-        primaryColorRef.current.click()
+       // 
+        setModalViewInvoice(true);
+        setTimeout(() => {
+          primaryColorRef.current.click()
+          
+        }, 1000);
       }}
       className={` cursor-pointer p-4 rounded-lg bg-gradient-to-l from-white  to-${primaryColor} h-[50px] `}
       style={{backgroundColor: primaryColor}}
       ></div>
-       <input ref={primaryColorRef}
+      <div className="absolute">
+      <input  
+       
        
        
        
        type="color" className={`${primaryColorRef ? "" : ""} cursor-pointer absolute bottom-0 opacity-0 max-h-4`} onChange={(e)=>{
             setPrimaryColor(e.target.value)
+            console.log("demo");
+         
+            
+            return;
             updateInvoiceViewer();
           /*   setTimeout(() => {
           
             }, 2000); */
           }} />   
+
+         
+      </div>
 
       </div>
      
@@ -447,12 +462,16 @@ setCurrentBlob(x => x = dd)
 
       <div
       onClick={()=>{
-        secondaryColorRef.current.click()
+        setModalViewInvoice(true);
+        setTimeout(() => {
+          secondaryColorRef.current.click()
+          
+        }, 1000);
       }}
       className={` cursor-pointer p-4 rounded-lg bg-gradient-to-l from-white  to-${secondaryColor} h-[50px] `}
       style={{backgroundColor: secondaryColor}}
       ></div>
-       <input ref={secondaryColorRef}
+       <input  
        
        
        
@@ -464,8 +483,7 @@ setCurrentBlob(x => x = dd)
             }, 2000); */
           }} />   
 
-    {primaryTextColor}
-    {secondaryTextColor}
+    
         
           { false && <div className="flex items-center justify-between space-x-[22px] pr-4 ">
               <span className=" opacity-70">Saturation  </span>
@@ -629,7 +647,12 @@ setCurrentBlob(x => x = dd)
   function InfoViewInvoice() {
     return (
       <div className="absolute inset-0 bottom-0 right-0 z-50 flex items-center justify-center w-full pb-0 bg-black/50 ">
-       
+      {/*  <p
+          onClick={()=>{
+           
+            updateInvoiceViewer()
+          }}
+          className="absolute z-[100] p-4 text-xs text-white bg-red-700 rounded cursor-pointer left-80 ">Update</p> */}
        
         <div
           onClick={() => {
@@ -639,7 +662,74 @@ setCurrentBlob(x => x = dd)
           className="absolute inset-0 z-50 flex items-center justify-center transition "
         ></div>
           {/*  {currentBlob != null && <embed    className="overflow-hidden rounded-none no-scrollbar" type="application/pdf"  width={"100%"} height={"100%"} src={`${currentBlob}#toolbar=0`}  ></embed>} */}
-          {currentBlob != null && <img    className="overflow-hidden w-[694px] h-[793px] object-contain top-[110px] rounded-none no-scrollbar"    src={`${currentBlob}#toolbar=0`}  />}
+          {currentBlob != null && <img    className="overflow-hidden w-[590px]   object-contain top-[110px] rounded-none no-scrollbar"    src={`${currentBlob}#toolbar=0`}  />}
+     
+        <div className="z-50 flex w-[260px] flex-col  p-4 rounded-md gap-2 top-[80px] right-[250px] absolute  bg-black/70 ">
+        <p className="">Couleur primaire</p>
+ <div className="flex gap-3">
+
+ <div
+      onClick={()=>{
+       // 
+        
+        primaryColorRef.current.click()
+        
+      }}
+      className={` cursor-pointer p-4 rounded-lg bg-gradient-to-l w-[150px] ${primaryColor ? `from-${primaryColor}  to-${primaryColor}` :"from-red-300  to-red-800" }   h-[34px] `}
+      style={{backgroundColor: primaryColor}}
+      ></div>
+ <input  
+       
+       
+       ref={primaryColorRef}
+       type="color" className={`cursor-pointer absolute top-14   border-none p-0 bottom-0 opacity-0 min-h-[34px]`} onChange={(e)=>{
+            setPrimaryColor(e.target.value)
+         
+            
+          }} />   
+          {currentInvoice.primaryColor != primaryColor && <p
+          onClick={()=>{
+            if(currentInvoice.primaryColor == primaryColor){
+            return
+            }
+            updateInvoiceViewer()
+          }}
+          className="right-0 p-2 text-xs text-white z-[100] rounded cursor-pointer bg-zinc-700 ">Appliquer</p>}
+ </div>
+ <p className="">Couleur Secondaire</p>
+ <div className="flex gap-3">
+
+ <div
+      onClick={()=>{
+       // 
+        
+        secondaryColorRef.current.click()
+        
+      }}
+      className={` cursor-pointer p-4 rounded-lg bg-gradient-to-l w-[150px] ${secondaryColor ? `from-${secondaryColor}  to-${secondaryColor}` :"from-red-300  to-red-800" }   h-[34px] `}
+      style={{backgroundColor: secondaryColor}}
+      ></div>
+ <input  
+       
+       
+       ref={secondaryColorRef}
+       type="color" className={`cursor-pointer absolute top-[129px]   border-none p-0 bottom-0 opacity-0 min-h-[34px]`} onChange={(e)=>{
+            setSecondaryColor(e.target.value)
+         
+            
+          }} />   
+
+          
+          {currentInvoice.secondaryColor != secondaryColor && <p
+          onClick={()=>{
+            if(currentInvoice.secondaryColor == secondaryColor){
+            return
+            }
+            updateInvoiceViewer()
+          }}
+          className="right-0 p-2 text-xs text-white z-[100] rounded cursor-pointer bg-zinc-700 ">Appliquer</p>}
+ </div>
+        </div>
       </div>
     );
   }

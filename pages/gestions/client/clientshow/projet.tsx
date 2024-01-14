@@ -598,7 +598,7 @@ const dataUser = await fetchUser()
 
             if(dd){
 
-            await  saveAs(dd, `${project!.customer.name} - ${project!.name}`); 
+            await  saveAs(dd, `${project!.customer.name.replaceAll("."," ")} - ${project!.name.replaceAll("."," ")}`); 
             }
             
  

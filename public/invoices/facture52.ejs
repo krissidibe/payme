@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<footerECE7DDhtml lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Inter:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .inter {
+      font-family: 'Inter', sans-serif;
+    }
+    .poppin {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .page-header,
+    .page-header-space {
+      height: 100px;
+    }
+
+    .page-footer,
+    .page-footer-space {
+      height: 50px;
+    }
+
+    .page-footer {
+      position: fixed;
+      bottom: 80px;
+
+      width: 100%;
+      /* for demo */
+      /* for demo */
+    }
+
+    .page-header {
+      position: fixed;
+      top: 0mm;
+      width: 100%;
+      border-bottom: 1px solid black; /* for demo */
+      background: yellow; /* for demo */
+    }
+
+    .page {
+      page-break-after: always;
+      padding-bottom: 0px;
+    }
+
+    @page {
+      margin: 0mm;
+    }
+
+    @media print {
+      thead {
+        display: table-header-group;
+      }
+      tfoot {
+        display: table-footer-group;
+      }
+
+      button {
+        display: none;
+      }
+
+      body {
+        margin: 0;
+      }
+    }
+    /* Facture Custom styling */
+    @font-face {
+      font-family: 'Helvetica Neue';
+      src: url('path-to-your-fonts/HelveticaNeue-Bold.woff2') format('woff2'),
+          url('path-to-your-fonts/HelveticaNeue-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    .heading {
+      margin-top: 66px;
+      margin-left: 15px;
+      flex-direction: column;
+    }
+
+    .pages .facture-number {
+      width: 280px;
+      margin: 24px auto;
+      justify-self: flex-start;
+      padding-right: 0 !important;
+      border-color: #010101;
+    }
+
+    .pages .facture-number > div {
+      width: 280px;
+      padding: 2px 12.5px;
+      color: white;
+      background: #A48A7B;
+    }
+
+    .facture-number .dividor {
+      display: block !important;
+      width: 80px;
+      height: 0px;
+      border-top: 1px solid white;
+      margin-left: 11px;
+      margin-right: 3px;
+    }
+
+    .heading .logo {
+      font-family: 'Helvetica Neue', sans-serif;
+      color: #383838;
+      background: #A48A7B;
+      margin-left: 34%;
+    }
+
+    .headline {
+      margin-top: 30.5px !important;
+      padding-top: 0;
+    }
+
+    .headline p {
+      font-size: 13.4px;
+      font-weight: 400;
+    }
+
+    .tabs {
+      margin-top: 21.6px;
+      padding-bottom: 0;
+    }
+
+    .tabs-item {
+      color: #4D4B4C;
+      border-bottom: 1px solid #010101;
+    }
+
+    .tabs .tabs-header {
+      gap: 0;
+      color: white;
+      font-weight: 700;
+      padding-left: 11px;
+      padding-right: 11px;
+      background-color: #A48A7B;
+      border-radius: 40px;
+      margin-bottom: 19.5px;
+      border-bottom: none;
+    }
+
+    .total {
+      margin-top: 0 !important;
+      margin-bottom: 14.9px;
+    }
+
+    .total .left {
+      padding-top: 12px;
+    }
+
+    .total .right {
+      position: relative;
+      bottom: -2px;
+    }
+
+    .total .right p {
+      border-bottom: 1px solid #010101;
+    }
+
+    .total .right .total-amount {
+      color: #383838;
+      border-bottom: none;
+    }
+
+    .sign {
+      font-weight: 700;
+    }
+    
+    .footer {
+      bottom: 0;
+      height: 90px;
+      z-index: 1;
+      color: white;
+      padding-top: 0 !important;
+      background-color: #A48A7B;
+    }
+
+    .footer div {
+      height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* End Facture Custom styling */
+  </style>
+
+  <body>
+    <!-- footer -->
+    <%- include('../subtemplates/footer1') %>
+    <table>
+      <tbody>
+        <tr>
+          <td class="pages w-[827px]">
+
+            <div class="page-content flex flex-col w-full">
+              <!-- logo + facture -->
+              <%- include('../subtemplates/header4') %>
+          
+              <!-- headline (object, address, client) -->
+              <%- include('../subtemplates/headline1') %>
+
+              <!-- table -->
+              <%- include('../subtemplates/table3') %>
+                
+              <!-- facture totals informations -->
+              <%- include('../subtemplates/total2') %>
+
+              <!-- signature -->
+              <%- include('../subtemplates/sign1') %>
+
+              <!-- footer -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td>
+            <!--place holder for the fixed-position footer-->
+            <div class="page-footer-space"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Inter:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .inter {
+      font-family: 'Inter', sans-serif;
+    }
+    .poppin {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .page-header,
+    .page-header-space {
+      height: 100px;
+    }
+
+    .page-footer,
+    .page-footer-space {
+      height: 50px;
+    }
+
+    .page-footer {
+      position: fixed;
+      bottom: 80px;
+
+      width: 100%;
+      /* for demo */
+      /* for demo */
+    }
+
+    .page-header {
+      position: fixed;
+      top: 0mm;
+      width: 100%;
+      border-bottom: 1px solid black; /* for demo */
+      background: yellow; /* for demo */
+    }
+
+    .page {
+      page-break-after: always;
+      padding-bottom: 0px;
+    }
+
+    @page {
+      margin: 0mm;
+    }
+
+    @media print {
+      thead {
+        display: table-header-group;
+      }
+      tfoot {
+        display: table-footer-group;
+      }
+
+      button {
+        display: none;
+      }
+
+      body {
+        margin: 0;
+      }
+    }
+    /* Facture Custom styling */
+    .logo {
+      background-color: #3E2256;
+    }
+
+    .tabs-item {
+      color: #4D4B4C;
+    }
+
+    .tabs .tabs-header {
+      color: #3E2256;
+    }
+    
+    .total .total-amount {
+      background: #3E2256;
+      color: white;
+    }
+
+    .footer {
+      background: #3E2256;
+      color: white;
+      bottom: 0;
+    }
+
+    /* End Facture Custom styling */
+  </style>
+<!-- enterprise.name,
+enterprise.address,
+enterprise.rccm,
+enterprise.email,
+enterprise.bankNumber,
+enterprise.numbers,
+enterprise.numbers,
+enterprise.numbers,
+enterprise.numbers,
+enterprise.nif, -->
+  <body>
+    <!-- footer -->
+    <%- include('../subtemplates/footer1') %>
+    <table>
+      <tbody>
+         
+
+        <tr>
+          <td class="pages w-[827px]">
+
+            <div class="flex flex-col w-full page-content">
+             
+              <!-- logo + facture -->
+              <%- include('../subtemplates/header1',logo,invoiceType ,project,date) %>
+          
+              <!-- headline (object, address, client) -->
+              <%- include('../subtemplates/headline1',project,customer) %>
+
+              <!-- table -->
+              <%- include('../subtemplates/table1',invoiceType = invoiceType,table = table) %>
+                
+              <!-- facture totals informations -->
+              <%- include('../subtemplates/total1',total,totalDiscount,totalTva,project,totalHT,invoiceType,totalLetter,currency) %>
+
+
+              <!-- signature -->
+              <%- include('../subtemplates/sign1',signed,signature) %>
+
+              <!-- footer -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td>
+            <!--place holder for the fixed-position footer-->
+            <div class="page-footer-space"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>

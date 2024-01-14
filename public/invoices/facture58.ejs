@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Inter:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .inter {
+      font-family: 'Inter', sans-serif;
+    }
+    .poppin {
+      font-family: 'Poppins', sans-serif;;
+    }
+    .page-header,
+    .page-header-space {
+      height: 100px;
+    }
+
+    .page-footer,
+    .page-footer-space {
+      height: 50px;
+    }
+
+    .page-footer {
+      position: fixed;
+      bottom: 80px;
+
+      width: 100%;
+      /* for demo */
+      /* for demo */
+    }
+
+    .page-header {
+      position: fixed;
+      top: 0mm;
+      width: 100%;
+      border-bottom: 1px solid black; /* for demo */
+      background: yellow; /* for demo */
+    }
+
+    .page {
+      page-break-after: always;
+      padding-bottom: 0px;
+    }
+
+    @page {
+      margin: 0mm;
+    }
+
+    @media print {
+      thead {
+        display: table-header-group;
+      }
+      tfoot {
+        display: table-footer-group;
+      }
+
+      button {
+        display: none;
+      }
+
+      body {
+        margin: 0;
+      }
+    }
+    /* Facture Custom styling */
+    @font-face {
+      font-family: 'Helvetica Neue';
+      src: url('path-to-your-fonts/HelveticaNeue-Bold.woff2') format('woff2'),
+          url('path-to-your-fonts/HelveticaNeue-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+    .heading {
+      margin-top: 110px;
+    }
+
+    .facture-number div p:first-child {
+      color: #3C3C3B;
+    }
+
+    .facture-number {
+      border-color: #3C3C3B;
+    }
+
+    .heading .logo {
+      font-family: 'Helvetica Neue', sans-serif;
+      color: #383838;
+    }
+
+    .heading .logo p {
+      margin-left: 0;
+    }
+
+    .headline {
+      margin-top: 40px !important;
+    }
+
+    .headline p {
+      font-size: 13.4px;
+      font-weight: 400;
+    }
+
+    .pages .tabs {
+      margin-top: 10px;
+      padding-bottom: 0;
+    }
+
+    .tabs-item {
+      color: #4D4B4C;
+    }
+
+    .tabs .tabs-header {
+      color: #3C3C3B;
+      font-weight: 700;
+      border-top: 4px solid #3C3C3B;
+      padding: 0 !important;
+      margin: 14px 56px 0 56px;
+      width: 709px;
+    }
+
+    .tabs .tabs-header p {
+      background: transparent;
+      padding-top: 20px;
+    }
+
+    .tabs .tabs-header p:first-child {
+      padding-left: 0;
+      background: transparent;
+    }
+
+    .total .left {
+      padding-top: 12px;
+    }
+
+    .total .right p {
+      border-bottom: 1px solid #010101;
+    }
+
+    .total .right p:last-child {
+      border-bottom: 4px solid #3C3C3B;
+    }
+
+    .total .total-amount {
+      color: #383838;
+    }
+
+    .sign {
+      font-weight: 700;
+    }
+    
+    .footer {
+      bottom: 0;
+      color: #383838;
+      margin-bottom: 32px;
+    }
+
+    .footer-mark {
+      width: 234px;
+      height: 34px;
+      position: relative;
+      bottom: -4px;
+      left: 0;
+      background: #3C3C3B;
+    }
+
+    .footer-img {
+      height: 278px;
+      width: 278px;
+      position: fixed;
+      bottom: 0 !important;
+      right: -16px;
+    }
+
+    /* End Facture Custom styling */
+  </style>
+
+  <body>
+    <!-- footer -->
+    <%- include('../subtemplates/footer2') %>
+    <table>
+      <tbody>
+        <tr>
+          <td class="pages w-[827px]">
+
+            <div class="page-content flex flex-col w-full">
+              <!-- logo + facture -->
+              <%- include('../subtemplates/header3') %>
+          
+              <!-- headline (object, address, client) -->
+              <%- include('../subtemplates/headline1') %>
+
+              <!-- table -->
+              <%- include('../subtemplates/table1') %>
+                
+              <!-- facture totals informations -->
+              <%- include('../subtemplates/total2') %>
+
+
+              <!-- signature -->
+              <%- include('../subtemplates/sign1') %>
+
+              <!-- footer -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td>
+            <!--place holder for the fixed-position footer-->
+            <div class="page-footer-space"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>
