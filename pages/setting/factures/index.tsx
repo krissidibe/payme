@@ -67,7 +67,7 @@ const projetFake =   {
   "proformaDate": null,
   "invoiceDate": "2024-01-05T21:36:53.000Z",
   "discountItemTable": null,
-  "table": "[{\"id\":\"f99006ec-1c53-437c-be0c-a4d340c4d902\",\"designation\":\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugit pariatur repudiandae natus tempora eligendi voluptas quod quidem molestiae\",\"quantity\":700000,\"rate\":20,\"amount\":14000000},{\"id\":\"04b6310d-979d-44df-a9e5-8dfc913f4004\",\"designation\":\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugit pariatur repudiandae natus tempora \",\"quantity\":80000,\"rate\":50,\"amount\":4000000},{\"id\":\"97977560-4656-49a7-ab28-62cf5bcf63a0\",\"designation\":\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugit pariatur repudiandae natus tempora \",\"quantity\":778,\"rate\":677,\"amount\":526706}]",
+  "table": "[{\"id\":\"f99006ec-1c53-437c-be0c-a4d340c4d902\",\"designation\":\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugit pariatur repudiandae natus tempora eligendi voluptas quod quidem molestiae\",\"quantity\":700000,\"rate\":20,\"amount\":14000000},{\"id\":\"f99006ec-1c53-437c-be0c-a4d340c4d902\",\"designation\":\"item\",\"quantity\":700000,\"rate\":20,\"amount\":14000000},{\"id\":\"04b6310d-979d-44df-a9e5-8dfc913f4004\",\"designation\":\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugit pariatur repudiandae natus tempora \",\"quantity\":80000,\"rate\":50,\"amount\":4000000},{\"id\":\"97977560-4656-49a7-ab28-62cf5bcf63a0\",\"designation\":\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugit pariatur repudiandae natus tempora \",\"quantity\":778,\"rate\":677,\"amount\":526706}]",
   "amountTotal": "17926440",
   "tva": "18",
   "inTrash": false,
@@ -194,6 +194,19 @@ setCurrentBlob(x => x = dd)
   
   setInvoices(shuffle(dataInvoice).slice(0, sliceValue))
   setUser(dataUser)
+
+  if(dataUser){
+   
+  setCurrentInvoice(x=> x =  dataUser.invoice)
+
+console.log(dataUser.invoice);
+
+
+
+let dd =  await  fetchPdf( dataUser.invoice.invoiceFileName,enterpriseFake,projetFake,1,false,dataUser.invoice.primaryColor,dataUser.invoice.secondaryColor,primaryTextColor,secondaryTextColor)
+ 
+setCurrentBlob(x => x = dd)
+  }
   }
 
 
@@ -647,12 +660,12 @@ setCurrentBlob(x => x = dd)
   function InfoViewInvoice() {
     return (
       <div className="absolute inset-0 bottom-0 right-0 z-50 flex items-center justify-center w-full pb-0 bg-black/50 ">
-      {/*  <p
+     {/*   <p
           onClick={()=>{
            
             updateInvoiceViewer()
           }}
-          className="absolute z-[100] p-4 text-xs text-white bg-red-700 rounded cursor-pointer left-80 ">Update</p> */}
+          className="absolute z-[100] p-4 text-xs text-white bg-red-700 rounded cursor-pointer left-80 ">Update</p>   */}
        
         <div
           onClick={() => {
@@ -808,7 +821,7 @@ setCurrentBlob(x => x = dd)
   <img className="rounded-md" src={`${process.env.BASE_API_URL}/images/invoices/${item.invoiceFileName}.jpg`} alt="" />
         <div className="absolute z-20 flex flex-row self-end justify-between w-full h-full px-4 py-2 text-sm bg-gradient-to-t from-black/70 via-black/0 to-black/0 rounded-bl-xs rounded-br-xs">
 
-        {user.invoice.invoiceFileName == item.invoiceFileName
+        {user.invoice?.invoiceFileName == item.invoiceFileName
             && <div className="absolute bottom-6 right-5">
 
              <div className="p-[5px] bg-teal-500 rounded-full">
