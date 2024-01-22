@@ -122,8 +122,8 @@ const projetFake =   {
   
 
 
-  const updateInvoiceViewer = async () => {
-    let dd =  await  fetchPdf(currentInvoice.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor)
+  const updateInvoiceViewer = async (type?) => {
+    let dd =  await  fetchPdf(currentInvoice.invoiceFileName,enterpriseFake,projetFake, type ?? 1,false,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor)
  
     setCurrentInvoice(x=>  x = {...currentInvoice,["primaryColor"]: primaryColor,["secondaryColor"]: secondaryColor})
 setCurrentBlob(x => x = dd)
@@ -660,12 +660,29 @@ setCurrentBlob(x => x = dd)
   function InfoViewInvoice() {
     return (
       <div className="absolute inset-0 bottom-0 right-0 z-50 flex items-center justify-center w-full pb-0 bg-black/50 ">
-     {/*   <p
+       <div
+         
+          className="absolute z-[100] flex flex-col gap-10 p-4 text-xs text-white  rounded cursor-pointer left-80 ">
+             <p
           onClick={()=>{
            
-            updateInvoiceViewer()
+            updateInvoiceViewer(0)
           }}
-          className="absolute z-[100] p-4 text-xs text-white bg-red-700 rounded cursor-pointer left-80 ">Update</p>   */}
+          className="p-4 text-xs text-white rounded cursor-pointer bg-zinc-700 ">Proforma</p>  
+             <p
+          onClick={()=>{
+           
+            updateInvoiceViewer(1)
+          }}
+          className="p-4 text-xs text-white rounded cursor-pointer bg-zinc-700 ">Facture</p>  
+             <p
+          onClick={()=>{
+           
+            updateInvoiceViewer(2)
+          }}
+          className="p-4 text-xs text-white rounded cursor-pointer bg-zinc-700 ">Bordereau</p>  
+            
+            </div>  
        
         <div
           onClick={() => {
