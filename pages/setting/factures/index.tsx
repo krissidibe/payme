@@ -671,7 +671,7 @@ setCurrentBlob(x => x = dd)
   function InfoViewInvoice() {
     return (
       <div className="absolute inset-0 bottom-0 right-0 z-50 flex items-center justify-center w-full pb-0 bg-black/50 ">
-       <div
+      {/*  <div
          
           className="absolute z-[100] flex flex-col gap-10 p-4 text-xs text-white  rounded cursor-pointer left-80 ">
              <p
@@ -693,7 +693,7 @@ setCurrentBlob(x => x = dd)
           }}
           className="p-4 text-xs text-white rounded cursor-pointer bg-zinc-700 ">Bordereau</p>  
             
-            </div>   
+            </div>    */}
        
         <div
           onClick={() => {
