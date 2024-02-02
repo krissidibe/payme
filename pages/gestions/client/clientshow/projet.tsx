@@ -580,7 +580,7 @@ invoiceDate
  
 const dataUser = await fetchUser()
  
-        
+ 
               if(project?.amountTotal == "0" ){
 
                 return;

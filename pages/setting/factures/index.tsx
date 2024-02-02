@@ -25,6 +25,7 @@ function Factures(props) {
   const [searchValue, setSearchValue] = useState("");
   const [user, setUser] = useState(null);
   const [modalViewInvoice, setModalViewInvoice] = useState(false);
+  const [firstView, setFirstView] = useState(false);
   const [modalView, setModalView] = useState(false);
   const [modalViewContent, setModalViewContent] = useState("");
   useEffect(() => {
@@ -127,7 +128,8 @@ const projetFake =   {
  
     setCurrentInvoice(x=>  x = {...currentInvoice,["primaryColor"]: primaryColor,["secondaryColor"]: secondaryColor})
 setCurrentBlob(x => x = dd)
-  }
+  } 
+
 
 
   const router = useRouter()
@@ -187,34 +189,42 @@ setCurrentBlob(x => x = dd)
   const fetchTypeFactures = async () => {
   const data = await fetchAllCategories();
   const dataInvoice = await fetchAllInvoices();
-  const dataUser = await fetchUser()
   setTypeFactures(data)
-
+  
   setInvoicesAll(shuffle(dataInvoice))
   
   setInvoices(shuffle(dataInvoice).slice(0, sliceValue))
+  const dataUser = await fetchUser()
   setUser(dataUser)
 
   if(dataUser){
    
   setCurrentInvoice(x=> x =  dataUser.invoice)
-
-console.log(dataUser.invoice);
-
-
-
-let dd =  await  fetchPdf( dataUser.invoice.invoiceFileName,enterpriseFake,projetFake,1,false,dataUser.invoice.primaryColor,dataUser.invoice.secondaryColor,primaryTextColor,secondaryTextColor)
+  
  
-setCurrentBlob(x => x = dd)
+  let dd =  await   fetchPdf(dataUser.invoice.invoiceFileName,dataUser.enterprise,projetFake,1,false,dataUser.invoice.primaryColor,dataUser.invoice.secondaryColor,dataUser.invoice.primaryTextColor,dataUser.invoice.secondaryTextColor)
+  setCurrentBlob(x => x = dd)
+  console.log(dd);
+  
+ 
+   
   }
   }
-
+ 
 
   useEffect(() => {
-    fetchTypeFactures()
+    (async () => {
+      fetchTypeFactures()
+
+    })();
   
+
+ 
     
   }, [])
+
+
+ 
   
   const [saturationColor, setSaturationColor] = useState("100");
   const [saturationValue, setSaturationValue] = useState("");
@@ -307,15 +317,15 @@ onClick={()=>{
 
           <ItemFacture
           handleClick={ async ()=>{
-setPrimaryColor("") 
+/* setPrimaryColor("") 
 setSecondaryColor("") 
 setPrimaryTextColor("") 
-setSecondaryTextColor("") 
+setSecondaryTextColor("")  */
 setCurrentInvoice(x=> x = item)
 
 
 
-let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,"","",primaryTextColor,secondaryTextColor)
+let dd =  await  fetchPdf(item.invoiceFileName,enterpriseFake,projetFake,1,false,primaryColor,secondaryColor,primaryTextColor,secondaryTextColor)
  
 setCurrentBlob(x => x = dd)
  
@@ -366,6 +376,7 @@ setCurrentBlob(x => x = dd)
           Aperçu Fichier</p>
         </div>
 
+ 
       
         <div className="flex justify-center w-full mt-10 no-scrollbar ">
 
@@ -660,7 +671,7 @@ setCurrentBlob(x => x = dd)
   function InfoViewInvoice() {
     return (
       <div className="absolute inset-0 bottom-0 right-0 z-50 flex items-center justify-center w-full pb-0 bg-black/50 ">
-      {/*  <div
+       <div
          
           className="absolute z-[100] flex flex-col gap-10 p-4 text-xs text-white  rounded cursor-pointer left-80 ">
              <p
@@ -682,7 +693,7 @@ setCurrentBlob(x => x = dd)
           }}
           className="p-4 text-xs text-white rounded cursor-pointer bg-zinc-700 ">Bordereau</p>  
             
-            </div>   */}
+            </div>   
        
         <div
           onClick={() => {
@@ -838,7 +849,7 @@ setCurrentBlob(x => x = dd)
   <img className="rounded-md" src={`${process.env.BASE_API_URL}/images/invoices/${item.invoiceFileName}.jpg`} alt="" />
         <div className="absolute z-20 flex flex-row self-end justify-between w-full h-full px-4 py-2 text-sm bg-gradient-to-t from-black/70 via-black/0 to-black/0 rounded-bl-xs rounded-br-xs">
 
-        {user.invoice?.invoiceFileName == item.invoiceFileName
+        {user?.invoice?.invoiceFileName == item.invoiceFileName
             && <div className="absolute bottom-6 right-5">
 
              <div className="p-[5px] bg-teal-500 rounded-full">
