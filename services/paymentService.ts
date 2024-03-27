@@ -102,8 +102,35 @@
     data:Payment
   ) => {
     
+ 
+
+const request = await fetch(
+  `${
+    process.env.BASE_API_URL
+  }/api/protected/payment?userId=${window.localStorage.getItem(
+    "userId"
+  )}&data=${JSON.stringify(data)}`,
+  {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: window.localStorage.getItem("accessToken"),
+    },
+    method: "GET", 
+  }
+);
+
+const datas: any = await request.json();
+ 
+
+if (!request.ok) {
+  return null;
+}
+
+return datas;
+
+    return
   
-    const request = await fetch(
+   /*  const request = await fetch(
       `${
         process.env.BASE_API_URL
       }/api/protected/payment?userId=${window.localStorage.getItem(
@@ -126,7 +153,70 @@
       return null;
     }
   
-    return datas;
+    return datas; */
+  };
+  
+  export const addNewPaymentIntouch = async (
+    data:Payment
+  ) => {
+    
+
+
+const request = await fetch(
+  `${
+    process.env.BASE_API_URL
+  }/api/intouch/malitest?userId=${window.localStorage.getItem(
+    "userId"
+  )}`,
+  
+  {
+    headers: {
+      "Content-type": "application/json",
+      
+    },
+    method: "POST", 
+    body: JSON.stringify(data),
+  }
+);
+
+ 
+
+ 
+const datas: any = await request.json();
+ 
+
+if (!request.ok) {
+  return null;
+}
+
+return datas;
+
+    return
+  
+   /*  const request = await fetch(
+      `${
+        process.env.BASE_API_URL
+      }/api/protected/payment?userId=${window.localStorage.getItem(
+        "userId"
+      )}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: window.localStorage.getItem("accessToken"),
+        },
+        method: "POST",
+        body: JSON.stringify(data),
+      }
+    );
+  
+    const datas: any = await request.json();
+ 
+ 
+    if (!request.ok) {
+      return null;
+    }
+  
+    return datas; */
   };
   
 

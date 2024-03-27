@@ -202,7 +202,7 @@ setCurrentBlob(x => x = dd)
   setCurrentInvoice(x=> x =  dataUser.invoice)
   
  
-  let dd =  await   fetchPdf(dataUser.invoice.invoiceFileName,dataUser.enterprise,projetFake,1,false,dataUser.invoice.primaryColor,dataUser.invoice.secondaryColor,dataUser.invoice.primaryTextColor,dataUser.invoice.secondaryTextColor)
+  let dd =  await   fetchPdf(dataUser?.invoice?.invoiceFileName,dataUser.enterprise,projetFake,1,false,dataUser?.invoice?.primaryColor,dataUser?.invoice?.secondaryColor,dataUser?.invoice?.primaryTextColor,dataUser?.invoice?.secondaryTextColor)
   setCurrentBlob(x => x = dd)
   console.log(dd);
   
@@ -313,7 +313,7 @@ onClick={()=>{
         className="flex flex-wrap w-full px-8 ml-6 overflow-scroll gap-y-2 no-scrollbar md:items-start">
  
 
-          {invoicesFilter.length == 0 ? invoices.map((item) => (
+          {(invoicesFilter.length == 0 && currentCategory == 0 ) ? invoices.map((item) => (
 
           <ItemFacture
           handleClick={ async ()=>{
@@ -440,7 +440,7 @@ setCurrentBlob(x => x = dd)
           </div>}
           <div className="flex flex-col leading-[1.2rem] text-xs px-0 py-3 pt-1 space-y-1 border-t-0 border-white border-opacity-30">
       
-      <div className="relative flex flex-col">
+     {currentInvoice?.primaryColor == true && <div className="relative flex flex-col">
       <p className={`text-[$primaryColor] `}>Couleur primaire</p>
       
       
@@ -477,35 +477,37 @@ setCurrentBlob(x => x = dd)
          
       </div>
 
-      </div>
+      </div>}
      
-      <p>Couleur secondaire</p>
+{currentInvoice?.secondaryColor == true && <>
+ <p>Couleur secondaire</p>
 
       
        
 
-      <div
-      onClick={()=>{
-        setModalViewInvoice(true);
-        setTimeout(() => {
-          secondaryColorRef.current.click()
-          
-        }, 1000);
-      }}
-      className={` cursor-pointer p-4 rounded-lg bg-gradient-to-l from-white  to-${secondaryColor} h-[50px] `}
-      style={{backgroundColor: secondaryColor}}
-      ></div>
-       <input  
-       
-       
-       
-       type="color" className={`${secondaryColor ? "" : ""} cursor-pointer absolute bottom-0 opacity-0 max-h-4`} onChange={(e)=>{
-            setSecondaryColor(e.target.value)
-            updateInvoiceViewer();
-          /*   setTimeout(() => {
-          
-            }, 2000); */
-          }} />   
+<div
+onClick={()=>{
+  setModalViewInvoice(true);
+  setTimeout(() => {
+    secondaryColorRef.current.click()
+    
+  }, 1000);
+}}
+className={` cursor-pointer p-4 rounded-lg bg-gradient-to-l from-white  to-${secondaryColor} h-[50px] `}
+style={{backgroundColor: secondaryColor}}
+></div>
+ <input  
+ 
+ 
+ 
+ type="color" className={`${secondaryColor ? "" : ""} cursor-pointer absolute bottom-0 opacity-0 max-h-4`} onChange={(e)=>{
+      setSecondaryColor(e.target.value)
+      updateInvoiceViewer();
+    /*   setTimeout(() => {
+    
+      }, 2000); */
+    }} />   
+ </>}
 
     
         
@@ -671,7 +673,7 @@ setCurrentBlob(x => x = dd)
   function InfoViewInvoice() {
     return (
       <div className="absolute inset-0 bottom-0 right-0 z-50 flex items-center justify-center w-full pb-0 bg-black/50 ">
-      {/*  <div
+       <div
          
           className="absolute z-[100] flex flex-col gap-10 p-4 text-xs text-white  rounded cursor-pointer left-80 ">
              <p
@@ -693,7 +695,7 @@ setCurrentBlob(x => x = dd)
           }}
           className="p-4 text-xs text-white rounded cursor-pointer bg-zinc-700 ">Bordereau</p>  
             
-            </div>    */}
+            </div>   
        
         <div
           onClick={() => {
@@ -702,7 +704,7 @@ setCurrentBlob(x => x = dd)
           }}
           className="absolute inset-0 z-50 flex items-center justify-center transition "
         ></div>
-          {/*  {currentBlob != null && <embed    className="overflow-hidden rounded-none no-scrollbar" type="application/pdf"  width={"100%"} height={"100%"} src={`${currentBlob}#toolbar=0`}  ></embed>} */}
+          {/*  {currentBlob != null && <iframe    className="overflow-hidden rounded-none no-scrollbar" type="application/pdf"  width={"100%"} height={"100%"} src={`${currentBlob}#toolbar=0`}  ></iframe>} */}
           {currentBlob != null && <img    className="overflow-hidden w-[590px]   object-contain top-[110px] rounded-none no-scrollbar"    src={`${currentBlob}#toolbar=0`}  />}
      
         <div className="z-50 flex w-[260px] flex-col  p-4 rounded-md gap-2 top-[80px] right-[250px] absolute  bg-black/70 ">

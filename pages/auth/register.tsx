@@ -19,6 +19,8 @@ import { ModalProvider } from "../../components/Items/modal-provider";
 import InputDropdownActivityComponent from "../../components/UI/InputDropdownActivityComponent";
 import InputDropdownCountryComponent from "../../components/UI/InputDropdownCountryComponent";
 import { motion } from "framer-motion";
+
+
 import {
   Box,
   Button,
@@ -40,6 +42,8 @@ import { LiaFileAltSolid } from "react-icons/lia";
 import useMenuStore from "../../utils/MenuStore";
 import FacturesFirst from "../setting/facturesfirst";
 import { BsFillFileEarmarkTextFill } from "react-icons/bs";
+import { updateInvoice } from "../../services/invoiceService";
+import { uploadImageLogo } from "../../services/enterpriseService";
 function Register(props) {
   const [showIndicatifInput, setShowIndicatifInput] = useState(false);
   const [showIndicatifInput2, setShowIndicatifInput2] = useState(false);
@@ -53,7 +57,7 @@ function Register(props) {
   const [factureChoose, setFactureChoose] = useState(false);
   const [factureChooseOk, setFactureChooseOK] = useState(false);
   const [dropValueActivity, setDropValueActivity] = useState("");
-
+  const [currentInvoice, setCurrentInvoice] = useState<any>({});
   const [openDropCountry, setOpenDropCountry] = useState(false);
   const [dropValueCountry, setDropValueCountry] = useState("");
   const [openDropCountry2, setOpenDropCountry2] = useState(false);
@@ -235,15 +239,22 @@ function Register(props) {
     if(request.status ==200){
 
     
- 
+      
 
+setTimeout(async () => {
 
-setTimeout(() => {
+   
   menuIndex.setMenuIndex(0)
             
              
   window.localStorage.setItem("accessToken",result.accessToken)
-  window.localStorage.setItem("userId",result.id)
+ window.localStorage.setItem("userId",result.id)
+
+ if(window.localStorage.getItem("userId")){
+  await updateInvoice(currentInvoice);
+ }
+
+
 
   menuIndex.setMenuIndex(0)
   router.replace("/user")
@@ -470,12 +481,35 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
             {true  && <ButtonComponent
             key={143}
               label={"Importer"}
-              handleClick={  () => {
+              handleClick={ async  () => {
                 if(!image){
                   return;
-                }
+                } 
                 if (logoChoose) {
                   setImageLogo(image);
+
+                  
+
+                  fetch(image)
+                  .then((res) => res.blob())
+                  .then(async (blob) => {
+                    const file = new File([blob], "logo.png", {
+                      type: "image/png",
+                    });
+                    console.log(file);
+                    const formData = new FormData();
+                    formData.append("image", file);
+                    formData.append("name", "logo-"+routerData.email.toString());
+                    const res = await fetch(
+                      `${process.env.BASE_API_URL}/api/storagetest`,
+                      {
+                        body: formData,
+                
+                        method: "POST",
+                      }
+                    );
+                    const data = await res.json();
+                  });
                  // setImageLogo(croppedImage);
                 } else {
                   setImageSignature(image);
@@ -985,7 +1019,7 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
         </h2>
         <p className="text-sm opacity-50">
           Assurez-vous que les fichiers sont dans un format compatible et de
-          bonne gualité
+          bonne qualité
         </p>
         <input
           ref={imageRef}
@@ -1211,7 +1245,7 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
            <div className="flex flex-col items-start justify-center ">
  
 
-<p className="text-[16px] leading-1"> {factureChooseOk == false ? " Choisissez un modèle de facture" : "Modèle choisi : Facture 001"}</p>
+<p className="text-[16px] leading-1"> {factureChooseOk == false ? " Choisissez un modèle de facture" : "Modèle choisi : "} {currentInvoice?.name?.toString().split(" ")[0]} {currentInvoice?.name?.split(" ")[1]?.toString().padStart(3, '0')}    </p>
 {factureChooseOk == false && 
 <p className="text-[14px] leading-[20px] text-[#7C7C7C]">Explorez notre gamme diversifiée de modèles de factures professionnels pour trouver celui qui correspond à vos besoins.</p>
 }
@@ -1253,9 +1287,12 @@ const [apercuIncrement, setApercuIncrement] = useState(0)
 
 {factureChoose &&   <div className="absolute z-50">
 <FacturesFirst
-  onConfirm={()=>{
+userData={routerData}
+  onConfirm={(item)=>{
     setFactureChooseOK(x=> x = true)
     setFactureChoose(x=> x = false)
+
+    setCurrentInvoice(item)
   }}
   onExit={()=>{
     setFactureChoose(x=> x = false)
@@ -1511,7 +1548,7 @@ function LefSection({ indexStep }) {
         </svg>
         }
         label="Facture"
-        subLabel="Choisissez un model"
+        subLabel="Choisissez un modèle"
       />
     </div>
   );

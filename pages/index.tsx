@@ -514,6 +514,7 @@ url='/videos/Animation.webm' playing muted />
           
           { !isLogin && <div className="h-[22px] min-h-[22px]"></div> }
        { isLogin &&  <p 
+ 
           onClick={()=>{
             setPasswordForgetPop(x=> x = true)
           }}

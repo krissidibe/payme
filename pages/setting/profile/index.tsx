@@ -1532,7 +1532,7 @@ return;
                   if(canEditFileUpload){
              if(imageLogo != "value" && imageLogo != null)    {    
                     await uploadImageLogo(imageLogo,data!.id)
-      
+       
                    }
              if(imageSignature != "value" && imageSignature != null)    {    
                     await uploadImageSignature(imageSignature,data!.id)
@@ -1670,7 +1670,7 @@ return;
                     )){
                        
                       setModalView(true);
-    setModalViewContent("La confirmation du mot de passe ne correspond pas. Veuillez réessayer")
+                      setModalViewContent("La confirmation du mot de passe ne correspond pas. Veuillez réessayer")
                      
                     return
                   }

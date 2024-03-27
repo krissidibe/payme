@@ -653,7 +653,7 @@ if(customerInfo.type == "PERSONAL"){
                   }
                   //     await  postCustomer()
                 }}
-                label={data.id ? "Modifier" : "Enregistré"}
+                label={data.id ? "Modifier" : "Enregistrer"}
                 className="bg-[#9a9768]  border-none    "
               />
             </div>

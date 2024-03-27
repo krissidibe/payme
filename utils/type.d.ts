@@ -28,6 +28,9 @@ type User = {
 
   type Payment = {
      id?: string,
+     number?  :number
+     method?  :string
+    country?  :string
     reference?  :string
     type  :string
     month  :number

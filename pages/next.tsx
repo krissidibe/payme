@@ -3,11 +3,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 import PdfBuilder from '../components/PdfDemo';
 
-function Next() {
+function Next(props) {
   return (
     <React.Fragment>
       <Head>
         <title>Next - Nextron (with-typescript-tailwindcss)</title>
+        
       </Head>
   
       <div className='flex flex-wrap justify-center w-full mt-1'>

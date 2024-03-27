@@ -100,8 +100,19 @@ function FactureCalculator() {
     return parseInt(value);
   }
   function totalsHT() {
+
+     let sum = 0;
+
+for (let i = 0; i < datas.length; i++) {
+
+ 
+  sum += datas[i].amount == "" ? 0 : parseInt(datas[i].amount);
+}
+
+return parseInt(sum);;  
+    
     const value = datas.reduce(function (previousVal, currentVal) {
-      return previousVal + currentVal.amount;
+      return previousVal + currentVal.amount ;
     }, 0);
 
     return parseInt(value);
@@ -475,8 +486,8 @@ const totalAmount = totalTTC()
                 <span className="text-[15px] font-bold">TVA</span>
                 <InputComponent
                   type="text"
-                  value={tvaValue}
                   maxLength={2}
+                  value={tvaValue}
                   onChange={(e) => {
                     if (!/[0-9]/.test(e.target.value) && e.target.value != "") {
                       return;

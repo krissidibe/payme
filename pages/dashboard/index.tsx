@@ -48,7 +48,7 @@ import { BsCheck2Circle } from "react-icons/bs";
 import { addNewTransation } from "../../services/transactionService";
 import FolderComponentNew from "../../components/UI/FolderComponentNew";
 import GlobalPayment from "../../components/Modals/global-modal-payment";
-import { fetchUser } from "../../services/userService";
+import { fetchUser } from "../../services/userService"; 
 import { useGlobalPayment } from "../../utils/use-global-payment";
 import { useGlobalUpdate } from "../../utils/use-global-update";
 
@@ -1269,6 +1269,7 @@ onClick={async ()=>{
 
  
   }
+  
 }}
               className="cursor-pointer"
               width="22"

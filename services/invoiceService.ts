@@ -1,3 +1,32 @@
+ export const fetchAllCategoriesFree = async () => {
+   
+
+ 
+  const request = await fetch(
+    `${
+      process.env.BASE_API_URL
+    }/api/category?userId=${window.localStorage.getItem("userId")}}`,
+    {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: window.localStorage.getItem("accessToken"),
+      },
+      method: "GET",
+    }
+  );
+
+  const datas: any[] = await request.json();
+
+ 
+  if (!request.ok) {
+    return null;
+  }
+
+  return datas;
+};
+
+
+
  export const fetchAllCategories = async () => {
    
 
@@ -6,6 +35,32 @@
     `${
       process.env.BASE_API_URL
     }/api/protected/category?userId=${window.localStorage.getItem("userId")}}`,
+    {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: window.localStorage.getItem("accessToken"),
+      },
+      method: "GET",
+    }
+  );
+
+  const datas: any[] = await request.json();
+
+ 
+  if (!request.ok) {
+    return null;
+  }
+
+  return datas;
+};
+ export const fetchAllInvoicesFree = async () => {
+   
+
+ 
+  const request = await fetch(
+    `${
+      process.env.BASE_API_URL
+    }/api/invoice?userId=${window.localStorage.getItem("userId")}}`,
     {
       headers: {
         "Content-type": "application/json",
